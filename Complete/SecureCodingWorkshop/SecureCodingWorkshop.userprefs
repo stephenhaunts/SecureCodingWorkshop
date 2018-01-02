@@ -1,10 +1,13 @@
-﻿<Properties StartupConfiguration="{B36B052B-3B3B-430A-B905-B569895EE194}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="RandomNumber/Program.cs">
+﻿<Properties StartupConfiguration="{43707132-9F94-40B4-A246-A1B73164907C}|Default">
+  <MonoDevelop.Ide.ItemProperties.HMAC PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="HMAC/HMAC.cs">
     <Files>
-      <File FileName="RandomNumber/Program.cs" Line="3" Column="31" />
-      <File FileName="RandomNumber/Random.cs" Line="3" Column="44" />
-      <File FileName="Hashing/Program.cs" Line="1" Column="1" />
-      <File FileName="Hashing/Hashng.cs" Line="1" Column="1" />
+      <File FileName="RandomNumber/Program.cs" Line="2" Column="1" />
+      <File FileName="RandomNumber/Random.cs" Line="3" Column="32" />
+      <File FileName="Hashing/Program.cs" Line="2" Column="19" />
+      <File FileName="Hashing/Hashng.cs" Line="38" Column="6" />
+      <File FileName="HMAC/Program.cs" Line="3" Column="36" />
+      <File FileName="HMAC/HMAC.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />

@@ -5,6 +5,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RandomNumber", "RandomNumbe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hashing", "Hashing\Hashing.csproj", "{B36B052B-3B3B-430A-B905-B569895EE194}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HMAC", "HMAC\HMAC.csproj", "{43707132-9F94-40B4-A246-A1B73164907C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,5 +21,9 @@ Global
 		{B36B052B-3B3B-430A-B905-B569895EE194}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B36B052B-3B3B-430A-B905-B569895EE194}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B36B052B-3B3B-430A-B905-B569895EE194}.Release|Any CPU.Build.0 = Release|Any CPU
+		{43707132-9F94-40B4-A246-A1B73164907C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{43707132-9F94-40B4-A246-A1B73164907C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43707132-9F94-40B4-A246-A1B73164907C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{43707132-9F94-40B4-A246-A1B73164907C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
