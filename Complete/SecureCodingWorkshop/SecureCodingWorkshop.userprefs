@@ -1,8 +1,10 @@
-﻿<Properties StartupConfiguration="{9CC5FFEF-0E29-444C-9708-49AC9A5DECE0}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="RandomNumber/Random.cs">
+﻿<Properties StartupConfiguration="{B36B052B-3B3B-430A-B905-B569895EE194}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="RandomNumber/Program.cs">
     <Files>
-      <File FileName="RandomNumber/Program.cs" Line="13" Column="1" />
-      <File FileName="RandomNumber/Random.cs" Line="3" Column="31" />
+      <File FileName="RandomNumber/Program.cs" Line="3" Column="31" />
+      <File FileName="RandomNumber/Random.cs" Line="3" Column="44" />
+      <File FileName="Hashing/Program.cs" Line="1" Column="1" />
+      <File FileName="Hashing/Hashng.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
@@ -12,4 +14,5 @@
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.ItemProperties.RandomNumber PreferredExecutionTarget="MonoDevelop.Default" />
   <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.ItemProperties.Hashing PreferredExecutionTarget="MonoDevelop.Default" />
 </Properties>
