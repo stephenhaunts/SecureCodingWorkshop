@@ -1,13 +1,18 @@
-﻿<Properties StartupConfiguration="{43707132-9F94-40B4-A246-A1B73164907C}|Default">
+﻿<Properties StartupConfiguration="{F0501287-D2C6-46BF-969D-507A7B8022D4}|Default">
   <MonoDevelop.Ide.ItemProperties.HMAC PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="HMAC/HMAC.cs">
+  <MonoDevelop.Ide.ItemProperties.PBKDF2 PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="PBKDF2/Program.cs">
     <Files>
       <File FileName="RandomNumber/Program.cs" Line="2" Column="1" />
-      <File FileName="RandomNumber/Random.cs" Line="3" Column="32" />
+      <File FileName="RandomNumber/Random.cs" Line="3" Column="44" />
       <File FileName="Hashing/Program.cs" Line="2" Column="19" />
       <File FileName="Hashing/Hashng.cs" Line="38" Column="6" />
-      <File FileName="HMAC/Program.cs" Line="3" Column="36" />
-      <File FileName="HMAC/HMAC.cs" Line="1" Column="1" />
+      <File FileName="HMAC/Program.cs" Line="55" Column="13" />
+      <File FileName="HMAC/HMAC.cs" Line="3" Column="32" />
+      <File FileName="HashPassword/Program.cs" Line="4" Column="32" />
+      <File FileName="HashPassword/Hash.cs" Line="4" Column="44" />
+      <File FileName="PBKDF2/Program.cs" Line="3" Column="38" />
+      <File FileName="PBKDF2/PBKDF2.cs" Line="5" Column="24" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
@@ -17,5 +22,6 @@
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.ItemProperties.RandomNumber PreferredExecutionTarget="MonoDevelop.Default" />
   <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.ItemProperties.HashPassword PreferredExecutionTarget="MonoDevelop.Default" />
   <MonoDevelop.Ide.ItemProperties.Hashing PreferredExecutionTarget="MonoDevelop.Default" />
 </Properties>
