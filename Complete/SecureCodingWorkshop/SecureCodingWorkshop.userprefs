@@ -1,7 +1,8 @@
 ﻿<Properties StartupConfiguration="{9CC5FFEF-0E29-444C-9708-49AC9A5DECE0}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="RandomNumber/Program.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="RandomNumber/Random.cs">
     <Files>
       <File FileName="RandomNumber/Program.cs" Line="13" Column="1" />
+      <File FileName="RandomNumber/Random.cs" Line="3" Column="31" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
