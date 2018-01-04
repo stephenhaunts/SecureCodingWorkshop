@@ -1,12 +1,12 @@
-﻿<Properties StartupConfiguration="{E66ACF6F-11E0-4628-A126-F4440C54B291}|Default">
+﻿<Properties StartupConfiguration="{9040999A-3831-48E2-91E3-0311F024A4C6}|Default">
   <MonoDevelop.Ide.ItemProperties.2_220-_220Hashing.HashPassword PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="DigitalSignature/Program.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="DigitalSignature/DigitalSignature.cs">
     <Files>
       <File FileName="RandomNumber/Program.cs" Line="2" Column="1" />
       <File FileName="RandomNumber/Random.cs" Line="3" Column="32" />
       <File FileName="Hashing/Program.cs" Line="4" Column="32" />
       <File FileName="Hashing/Hashng.cs" Line="38" Column="6" />
-      <File FileName="HMAC/Program.cs" Line="55" Column="13" />
+      <File FileName="HMAC/Program.cs" Line="4" Column="31" />
       <File FileName="HMAC/HMAC.cs" Line="3" Column="32" />
       <File FileName="HashPassword/Program.cs" Line="4" Column="32" />
       <File FileName="HashPassword/Hash.cs" Line="4" Column="44" />
@@ -21,7 +21,8 @@
       <File FileName="RSA/RSAWithCSPKey.cs" Line="15" Column="23" />
       <File FileName="RSA/RSAWithRSAParameterKey.cs" Line="10" Column="26" />
       <File FileName="RSA/RSAWithXMLKey.cs" Line="36" Column="18" />
-      <File FileName="DigitalSignature/Program.cs" Line="1" Column="1" />
+      <File FileName="DigitalSignature/Program.cs" Line="3" Column="32" />
+      <File FileName="DigitalSignature/DigitalSignature.cs" Line="9" Column="9" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.ItemProperties.3_220-_220Encryption.DES PreferredExecutionTarget="MonoDevelop.Default" />
@@ -37,5 +38,6 @@
   <MonoDevelop.Ide.ItemProperties.1_220-_220Random_220Numbers.RandomNumber PreferredExecutionTarget="MonoDevelop.Default" />
   <MonoDevelop.Ide.ItemProperties.2_220-_220Hashing.HMAC PreferredExecutionTarget="MonoDevelop.Default" />
   <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.ItemProperties.4_220-_220Digital_220Signatures.DigitalSignature PreferredExecutionTarget="MonoDevelop.Default" />
   <MonoDevelop.Ide.ItemProperties.3_220-_220Encryption.TripleDES PreferredExecutionTarget="MonoDevelop.Default" />
 </Properties>
