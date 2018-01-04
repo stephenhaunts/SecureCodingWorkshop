@@ -1,6 +1,6 @@
 ﻿<Properties StartupConfiguration="{E66ACF6F-11E0-4628-A126-F4440C54B291}|Default">
   <MonoDevelop.Ide.ItemProperties.2_220-_220Hashing.HashPassword PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="RSA/RSAWithXMLKey.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="DigitalSignature/Program.cs">
     <Files>
       <File FileName="RandomNumber/Program.cs" Line="2" Column="1" />
       <File FileName="RandomNumber/Random.cs" Line="3" Column="32" />
@@ -17,10 +17,11 @@
       <File FileName="AES/obj/Debug/netcoreapp2.0/AES.AssemblyInfo.cs" Line="19" Column="4" />
       <File FileName="TripleDES/Program.cs" Line="29" Column="13" />
       <File FileName="TripleDES/TripleDesEncryption.cs" Line="10" Column="59" />
-      <File FileName="RSA/Program.cs" Line="3" Column="32" />
-      <File FileName="RSA/RSAWithCSPKey.cs" Line="17" Column="13" />
+      <File FileName="RSA/Program.cs" Line="49" Column="46" />
+      <File FileName="RSA/RSAWithCSPKey.cs" Line="15" Column="23" />
       <File FileName="RSA/RSAWithRSAParameterKey.cs" Line="10" Column="26" />
-      <File FileName="RSA/RSAWithXMLKey.cs" Line="4" Column="5" />
+      <File FileName="RSA/RSAWithXMLKey.cs" Line="36" Column="18" />
+      <File FileName="DigitalSignature/Program.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.ItemProperties.3_220-_220Encryption.DES PreferredExecutionTarget="MonoDevelop.Default" />
