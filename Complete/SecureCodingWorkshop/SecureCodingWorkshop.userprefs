@@ -1,33 +1,13 @@
-﻿<Properties StartupConfiguration="{C26569B5-024E-4325-B02D-9F1E228D2AC9}|Default">
+﻿<Properties StartupConfiguration="{17E2CC11-01AC-4588-B87C-AF03B0F267CF}|Default">
   <MonoDevelop.Ide.ItemProperties.2_220-_220Hashing.HashPassword PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Hybrid/HybridEncryption.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="HybridWithIntegrity/HybridEncryption.cs">
     <Files>
-      <File FileName="RandomNumber/Program.cs" Line="2" Column="1" />
-      <File FileName="RandomNumber/Random.cs" Line="3" Column="32" />
-      <File FileName="Hashing/Program.cs" Line="4" Column="32" />
-      <File FileName="Hashing/Hashng.cs" Line="30" Column="9" />
-      <File FileName="HMAC/Program.cs" Line="4" Column="31" />
-      <File FileName="HMAC/HMAC.cs" Line="3" Column="32" />
-      <File FileName="HashPassword/Program.cs" Line="4" Column="32" />
-      <File FileName="HashPassword/Hash.cs" Line="4" Column="44" />
-      <File FileName="PBKDF2/Program.cs" Line="3" Column="19" />
-      <File FileName="PBKDF2/PBKDF2.cs" Line="16" Column="10" />
-      <File FileName="AES/Program.cs" Line="4" Column="31" />
-      <File FileName="AES/AesEncryption.cs" Line="66" Column="6" />
-      <File FileName="AES/obj/Debug/netcoreapp2.0/AES.AssemblyInfo.cs" Line="19" Column="4" />
-      <File FileName="TripleDES/Program.cs" Line="29" Column="13" />
-      <File FileName="TripleDES/TripleDesEncryption.cs" Line="10" Column="59" />
-      <File FileName="RSA/Program.cs" Line="49" Column="46" />
-      <File FileName="RSA/RSAWithCSPKey.cs" Line="15" Column="23" />
-      <File FileName="RSA/RSAWithRSAParameterKey.cs" Line="10" Column="26" />
-      <File FileName="RSA/RSAWithXMLKey.cs" Line="36" Column="18" />
-      <File FileName="DigitalSignature/Program.cs" Line="23" Column="13" />
-      <File FileName="DigitalSignature/DigitalSignature.cs" Line="49" Column="1" />
-      <File FileName="Hybrid/Program.cs" Line="11" Column="40" />
-      <File FileName="Hybrid/AesEncryption.cs" Line="30" Column="52" />
-      <File FileName="Hybrid/RSAWithRSAParameterKey.cs" Line="3" Column="38" />
-      <File FileName="Hybrid/EncryptedPacket.cs" Line="2" Column="1" />
-      <File FileName="Hybrid/HybridEncryption.cs" Line="8" Column="69" />
+      <File FileName="Hybrid/RSAWithRSAParameterKey.cs" Line="51" Column="1" />
+      <File FileName="HybridWithIntegrity/Program.cs" Line="3" Column="11" />
+      <File FileName="HybridWithIntegrity/AesEncryption.cs" Line="5" Column="51" />
+      <File FileName="HybridWithIntegrity/RSAWithRSAParameterKey.cs" Line="51" Column="1" />
+      <File FileName="HybridWithIntegrity/EncryptedPacket.cs" Line="8" Column="13" />
+      <File FileName="HybridWithIntegrity/HybridEncryption.cs" Line="75" Column="10" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.ItemProperties.3_220-_220Encryption.DES PreferredExecutionTarget="MonoDevelop.Default" />
@@ -41,6 +21,7 @@
   <MonoDevelop.Ide.ItemProperties.3_220-_220Encryption.RSA PreferredExecutionTarget="MonoDevelop.Default" />
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.ItemProperties.5_220-_220Hybrid_220Encryption.Hybrid PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.ItemProperties.5_220-_220Hybrid_220Encryption.HybridWithIntegrity PreferredExecutionTarget="MonoDevelop.Default" />
   <MonoDevelop.Ide.ItemProperties.1_220-_220Random_220Numbers.RandomNumber PreferredExecutionTarget="MonoDevelop.Default" />
   <MonoDevelop.Ide.ItemProperties.2_220-_220Hashing.HMAC PreferredExecutionTarget="MonoDevelop.Default" />
   <MultiItemStartupConfigurations />
