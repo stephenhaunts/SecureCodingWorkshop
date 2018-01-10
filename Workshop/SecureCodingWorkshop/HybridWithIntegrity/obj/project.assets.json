@@ -2279,11 +2279,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/stephenhaunts/Documents/Git/SecureCodingWorkshop/Complete/SecureCodingWorkshop/HybridWithIntegrity/HybridWithIntegrity.csproj",
+      "projectUniqueName": "/Users/stephenhaunts/Documents/Git/SecureCodingWorkshop/Workshop/SecureCodingWorkshop/HybridWithIntegrity/HybridWithIntegrity.csproj",
       "projectName": "HybridWithIntegrity",
-      "projectPath": "/Users/stephenhaunts/Documents/Git/SecureCodingWorkshop/Complete/SecureCodingWorkshop/HybridWithIntegrity/HybridWithIntegrity.csproj",
+      "projectPath": "/Users/stephenhaunts/Documents/Git/SecureCodingWorkshop/Workshop/SecureCodingWorkshop/HybridWithIntegrity/HybridWithIntegrity.csproj",
       "packagesPath": "/Users/stephenhaunts/.nuget/packages/",
-      "outputPath": "/Users/stephenhaunts/Documents/Git/SecureCodingWorkshop/Complete/SecureCodingWorkshop/HybridWithIntegrity/obj",
+      "outputPath": "/Users/stephenhaunts/Documents/Git/SecureCodingWorkshop/Workshop/SecureCodingWorkshop/HybridWithIntegrity/obj",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "/usr/local/share/dotnet/sdk/NuGetFallbackFolder"

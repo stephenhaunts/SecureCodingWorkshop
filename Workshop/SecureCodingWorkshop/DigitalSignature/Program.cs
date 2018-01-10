@@ -10,38 +10,12 @@ namespace SecureCodingWorkshop.DigitalSignature
     {
         static void Main(string[] args)
         {
-            var document = Encoding.UTF8.GetBytes("Document to Sign");
-            byte[] hashedDocument;
 
-            using (var sha256 = SHA256.Create())
-            {
-                hashedDocument = sha256.ComputeHash(document);
-            }
-
-            var digitalSignature = new DigitalSignature();
-            digitalSignature.AssignNewKey();
-
-            var signature = digitalSignature.SignData(hashedDocument);
-            var verified = digitalSignature.VerifySignature(hashedDocument, signature);
-
-            Console.WriteLine("Digital Signature Demonstration in .NET");
-            Console.WriteLine("---------------------------------------");
-            Console.WriteLine();
-            Console.WriteLine();
-            Console.WriteLine("   Original Text = " +
-                Encoding.Default.GetString(document));
-
-            Console.WriteLine();
-            Console.WriteLine("   Digital Signature = " +
-                Convert.ToBase64String(signature));
-
-            Console.WriteLine();
-
-            Console.WriteLine(verified
-                ? "The digital signature has been correctly verified."
-                : "The digital signature has NOT been correctly verified.");
-
-            Console.ReadLine();
+            // Todo : Create a SHA256 hash of a message.
+            // Todo : Instance the DigitalSignature class and generate the keys.
+            // Todo : Sign the hash of the data.
+            // Todo : Verify the hash of the data.
+            // Todo : Modify the original message and try to reverify the signature. What happens?
         }
     }
 }

@@ -21,7 +21,7 @@
       <File FileName="KeyVault/KeyVault.cs" Line="20" Column="10" />
       <File FileName="KeyVault/KeyVaultBase.cs" Line="17" Column="9" />
       <File FileName="BlockWithMultipleTransactions/Program.cs" Line="24" Column="24" />
-      <File FileName="BlockWithProofOfWork/Block.cs" Line="5" Column="24" />
+      <File FileName="BlockWithProofOfWork/Block.cs" Line="9" Column="2" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.ItemProperties.3_220-_220Encryption.DES PreferredExecutionTarget="MonoDevelop.Default" />
