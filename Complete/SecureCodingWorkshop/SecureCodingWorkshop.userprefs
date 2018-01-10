@@ -1,6 +1,6 @@
-﻿<Properties StartupConfiguration="{CB9CB75B-FA77-4127-A6EF-7A3A4FB9222C}|Default">
+﻿<Properties StartupConfiguration="{DA671797-6846-4712-9282-3F61D20A49AC}|Default">
   <MonoDevelop.Ide.ItemProperties.2_220-_220Hashing.HashPassword PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="KeyVault/KeyVault.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="BlockWithProofOfWork/Block.cs">
     <Files>
       <File FileName="Hybrid/RSAWithRSAParameterKey.cs" Line="51" Column="1" />
       <File FileName="HybridWithIntegrity/Program.cs" Line="5" Column="51" />
@@ -16,10 +16,12 @@
       <File FileName="HybridWithIntegrityAndSignature/DigitalSignature.cs" Line="8" Column="17" />
       <File FileName="SecureString/Program.cs" Line="30" Column="22" />
       <File FileName="HashPassword/Hash.cs" Line="39" Column="2" />
-      <File FileName="KeyVault/Program.cs" Line="3" Column="40" />
-      <File FileName="KeyVault/IKeyVault.cs" Line="3" Column="40" />
+      <File FileName="KeyVault/Program.cs" Line="41" Column="65" />
+      <File FileName="KeyVault/IKeyVault.cs" Line="14" Column="28" />
       <File FileName="KeyVault/KeyVault.cs" Line="20" Column="10" />
       <File FileName="KeyVault/KeyVaultBase.cs" Line="17" Column="9" />
+      <File FileName="BlockWithMultipleTransactions/Program.cs" Line="24" Column="24" />
+      <File FileName="BlockWithProofOfWork/Block.cs" Line="5" Column="24" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.ItemProperties.3_220-_220Encryption.DES PreferredExecutionTarget="MonoDevelop.Default" />
@@ -39,6 +41,7 @@
   <MonoDevelop.Ide.ItemProperties.2_220-_220Hashing.HMAC PreferredExecutionTarget="MonoDevelop.Default" />
   <MultiItemStartupConfigurations />
   <MonoDevelop.Ide.ItemProperties.4_220-_220Digital_220Signatures.DigitalSignature PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.ItemProperties.7_220-_220Blockchain.BlockWithProofOfWork PreferredExecutionTarget="MonoDevelop.Default" />
   <MonoDevelop.Ide.ItemProperties.6_220-_220Secure_220String.SecureString PreferredExecutionTarget="MonoDevelop.Default" />
   <MonoDevelop.Ide.ItemProperties.3_220-_220Encryption.TripleDES PreferredExecutionTarget="MonoDevelop.Default" />
 </Properties>
