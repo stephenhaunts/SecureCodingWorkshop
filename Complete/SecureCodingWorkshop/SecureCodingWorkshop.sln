@@ -43,6 +43,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SecureString", "SecureStrin
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KeyVault", "KeyVault\KeyVault.csproj", "{EED64F67-297D-4BB7-869C-E86A0622FB42}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "7 - Blockchain", "7 - Blockchain", "{C6B0E6E9-BEE5-4E74-8EE4-1EF6231126C1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
