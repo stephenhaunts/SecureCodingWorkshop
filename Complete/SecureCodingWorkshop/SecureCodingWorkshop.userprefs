@@ -1,6 +1,6 @@
 ﻿<Properties StartupConfiguration="{DA671797-6846-4712-9282-3F61D20A49AC}|Default">
   <MonoDevelop.Ide.ItemProperties.2_220-_220Hashing.HashPassword PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="BlockWithProofOfWork/Block.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Hashing/Program.cs">
     <Files>
       <File FileName="Hybrid/RSAWithRSAParameterKey.cs" Line="51" Column="1" />
       <File FileName="HybridWithIntegrity/Program.cs" Line="5" Column="51" />
@@ -22,6 +22,7 @@
       <File FileName="KeyVault/KeyVaultBase.cs" Line="17" Column="9" />
       <File FileName="BlockWithMultipleTransactions/Program.cs" Line="24" Column="24" />
       <File FileName="BlockWithProofOfWork/Block.cs" Line="9" Column="2" />
+      <File FileName="Hashing/Program.cs" Line="38" Column="13" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.ItemProperties.3_220-_220Encryption.DES PreferredExecutionTarget="MonoDevelop.Default" />

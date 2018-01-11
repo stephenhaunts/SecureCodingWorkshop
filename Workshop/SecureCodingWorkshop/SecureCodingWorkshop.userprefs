@@ -1,6 +1,6 @@
 ﻿<Properties StartupConfiguration="{9040999A-3831-48E2-91E3-0311F024A4C6}|Default">
   <MonoDevelop.Ide.ItemProperties.2_220-_220Hashing.HashPassword PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="BlockWithSingleTransaction/Program.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="DigitalSignature/DigitalSignature.cs">
     <Files>
       <File FileName="Hybrid/RSAWithRSAParameterKey.cs" Line="51" Column="1" />
       <File FileName="HybridWithIntegrity/Program.cs" Line="11" Column="1" />
@@ -15,7 +15,7 @@
       <File FileName="HybridWithIntegrityAndSignature/AesEncryption.cs" Line="5" Column="63" />
       <File FileName="HybridWithIntegrityAndSignature/DigitalSignature.cs" Line="8" Column="17" />
       <File FileName="SecureString/Program.cs" Line="35" Column="16" />
-      <File FileName="HashPassword/Hash.cs" Line="39" Column="2" />
+      <File FileName="HashPassword/Hash.cs" Line="30" Column="9" />
       <File FileName="KeyVault/Program.cs" Line="24" Column="10" />
       <File FileName="KeyVault/IKeyVault.cs" Line="14" Column="28" />
       <File FileName="KeyVault/KeyVault.cs" Line="20" Column="10" />
@@ -23,19 +23,21 @@
       <File FileName="BlockWithMultipleTransactions/Program.cs" Line="24" Column="24" />
       <File FileName="BlockWithProofOfWork/Block.cs" Line="5" Column="24" />
       <File FileName="RandomNumber/Program.cs" Line="10" Column="99" />
-      <File FileName="Hashing/Program.cs" Line="10" Column="66" />
-      <File FileName="HashPassword/Program.cs" Line="13" Column="94" />
-      <File FileName="HMAC/Program.cs" Line="11" Column="80" />
+      <File FileName="Hashing/Program.cs" Line="11" Column="89" />
+      <File FileName="HashPassword/Program.cs" Line="13" Column="93" />
+      <File FileName="HMAC/Program.cs" Line="12" Column="89" />
       <File FileName="Hashing/Hashng.cs" Line="1" Column="1" />
       <File FileName="HMAC/HMAC.cs" Line="1" Column="1" />
-      <File FileName="PBKDF2/Program.cs" Line="13" Column="10" />
-      <File FileName="PBKDF2/PBKDF2.cs" Line="1" Column="1" />
+      <File FileName="PBKDF2/Program.cs" Line="12" Column="56" />
+      <File FileName="PBKDF2/PBKDF2.cs" Line="23" Column="14" />
       <File FileName="AES/AesEncryption.cs" Line="1" Column="1" />
-      <File FileName="AES/Program.cs" Line="12" Column="82" />
-      <File FileName="RSA/Program.cs" Line="16" Column="10" />
+      <File FileName="AES/Program.cs" Line="13" Column="76" />
+      <File FileName="RSA/Program.cs" Line="13" Column="23" />
       <File FileName="DigitalSignature/Program.cs" Line="17" Column="51" />
       <File FileName="Hybrid/Program.cs" Line="10" Column="1" />
-      <File FileName="BlockWithSingleTransaction/Program.cs" Line="24" Column="39" />
+      <File FileName="BlockWithSingleTransaction/Program.cs" Line="46" Column="1" />
+      <File FileName="RandomNumber/Random.cs" Line="1" Column="1" />
+      <File FileName="DigitalSignature/DigitalSignature.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.ItemProperties.3_220-_220Encryption.DES PreferredExecutionTarget="MonoDevelop.Default" />
@@ -55,6 +57,9 @@
   <MonoDevelop.Ide.ItemProperties.2_220-_220Hashing.HMAC PreferredExecutionTarget="MonoDevelop.Default" />
   <MultiItemStartupConfigurations />
   <MonoDevelop.Ide.ItemProperties.4_220-_220Digital_220Signatures.DigitalSignature PreferredExecutionTarget="MonoDevelop.Default" />
+  <DisabledProjects>
+    <String>BlockChainCourse/Cryptography.csproj</String>
+  </DisabledProjects>
   <MonoDevelop.Ide.ItemProperties.7_220-_220Blockchain.BlockWithProofOfWork PreferredExecutionTarget="MonoDevelop.Default" />
   <MonoDevelop.Ide.ItemProperties.6_220-_220Secure_220String.SecureString PreferredExecutionTarget="MonoDevelop.Default" />
   <MonoDevelop.Ide.ItemProperties.3_220-_220Encryption.TripleDES PreferredExecutionTarget="MonoDevelop.Default" />
