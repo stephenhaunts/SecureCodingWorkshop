@@ -1,6 +1,6 @@
 ﻿<Properties StartupConfiguration="{9040999A-3831-48E2-91E3-0311F024A4C6}|Default">
   <MonoDevelop.Ide.ItemProperties.2_220-_220Hashing.HashPassword PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="DigitalSignature/DigitalSignature.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="KeyVault/Program.cs">
     <Files>
       <File FileName="Hybrid/RSAWithRSAParameterKey.cs" Line="51" Column="1" />
       <File FileName="HybridWithIntegrity/Program.cs" Line="11" Column="1" />
@@ -33,7 +33,7 @@
       <File FileName="AES/AesEncryption.cs" Line="1" Column="1" />
       <File FileName="AES/Program.cs" Line="13" Column="76" />
       <File FileName="RSA/Program.cs" Line="13" Column="23" />
-      <File FileName="DigitalSignature/Program.cs" Line="17" Column="51" />
+      <File FileName="DigitalSignature/Program.cs" Line="3" Column="16" />
       <File FileName="Hybrid/Program.cs" Line="10" Column="1" />
       <File FileName="BlockWithSingleTransaction/Program.cs" Line="46" Column="1" />
       <File FileName="RandomNumber/Random.cs" Line="1" Column="1" />
@@ -57,9 +57,6 @@
   <MonoDevelop.Ide.ItemProperties.2_220-_220Hashing.HMAC PreferredExecutionTarget="MonoDevelop.Default" />
   <MultiItemStartupConfigurations />
   <MonoDevelop.Ide.ItemProperties.4_220-_220Digital_220Signatures.DigitalSignature PreferredExecutionTarget="MonoDevelop.Default" />
-  <DisabledProjects>
-    <String>BlockChainCourse/Cryptography.csproj</String>
-  </DisabledProjects>
   <MonoDevelop.Ide.ItemProperties.7_220-_220Blockchain.BlockWithProofOfWork PreferredExecutionTarget="MonoDevelop.Default" />
   <MonoDevelop.Ide.ItemProperties.6_220-_220Secure_220String.SecureString PreferredExecutionTarget="MonoDevelop.Default" />
   <MonoDevelop.Ide.ItemProperties.3_220-_220Encryption.TripleDES PreferredExecutionTarget="MonoDevelop.Default" />
