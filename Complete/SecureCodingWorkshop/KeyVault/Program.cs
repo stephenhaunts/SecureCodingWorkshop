@@ -15,8 +15,6 @@ namespace SecureCodingWorkshop.KeyVault
         {
             IKeyVault vault = new KeyVault();
 
-
-
             const string MY_SECRET = "StephenHauntsSecret";
             const string MY_KEY_NAME = "StephenHauntsKey";
 

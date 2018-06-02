@@ -19,7 +19,7 @@ namespace SecureCodingWorkshop.PBKDF2
         {
             using (var rfc2898 = new Rfc2898DeriveBytes(toBeHashed, salt, numberOfRounds))
             {
-                return rfc2898.GetBytes(32);
+                return rfc2898.GetBytes(20);
             }
         }
     }
