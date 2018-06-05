@@ -20,7 +20,7 @@ namespace SecureCodingWorkshop.DigitalSignature
 
         public byte[] SignData(byte[] hashOfDataToSign)
         {
-            using (var rsa = new RSACryptoServiceProvider(2048))
+            using (var rsa = new RSACryptoServiceProvider())
             {
                 rsa.PersistKeyInCsp = false;
                 rsa.ImportParameters(_privateKey);
@@ -34,7 +34,7 @@ namespace SecureCodingWorkshop.DigitalSignature
 
         public bool VerifySignature(byte[] hashOfDataToSign, byte[] signature)
         {
-            using (var rsa = new RSACryptoServiceProvider(2048))
+            using (var rsa = new RSACryptoServiceProvider())
             {
                 rsa.ImportParameters(_publicKey);
 

@@ -21,7 +21,7 @@ namespace SecureCodingWorkshop.HybridWithIntegrity
         {
             byte[] cipherbytes;
 
-            using (var rsa = new RSACryptoServiceProvider(2048))
+            using (var rsa = new RSACryptoServiceProvider())
             {
                 rsa.PersistKeyInCsp = false;
                 rsa.ImportParameters(_publicKey);
@@ -36,7 +36,7 @@ namespace SecureCodingWorkshop.HybridWithIntegrity
         {
             byte[] plain;
 
-            using (var rsa = new RSACryptoServiceProvider(2048))
+            using (var rsa = new RSACryptoServiceProvider())
             {
                 rsa.PersistKeyInCsp = false;
 

@@ -21,7 +21,8 @@ namespace SecureCodingWorkshop.RSA
         {
             byte[] cipherbytes;
 
-            using (var rsa = new RSACryptoServiceProvider(2048))
+            // No need to specify key size in constructor when importing a key.
+            using (var rsa = new RSACryptoServiceProvider())
             {
                 rsa.PersistKeyInCsp = false;
                 rsa.ImportParameters(_publicKey);
@@ -36,7 +37,8 @@ namespace SecureCodingWorkshop.RSA
         {
             byte[] plain;
 
-            using (var rsa = new RSACryptoServiceProvider(2048))
+            // No need to specify key size in constructor when importing a key.
+            using (var rsa = new RSACryptoServiceProvider())
             {
                 rsa.PersistKeyInCsp = false;
 
