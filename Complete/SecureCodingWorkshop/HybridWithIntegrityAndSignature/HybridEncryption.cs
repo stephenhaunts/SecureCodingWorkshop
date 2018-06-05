@@ -20,7 +20,7 @@ namespace SecureCodingWorkshop.HybridWithIntegrityAndSignature
 
             using (var hmac = new HMACSHA256(sessionKey))
             {
-                encryptedPacket.Hmac = hmac.ComputeHash(encryptedPacket.EncryptedData);
+                encryptedPacket.Hmac = hmac.ComputeHash(Combine(encryptedPacket.EncryptedData, encryptedPacket.Iv));
             }
 
             encryptedPacket.Signature = digitalSignature.SignData(encryptedPacket.Hmac);
@@ -35,7 +35,7 @@ namespace SecureCodingWorkshop.HybridWithIntegrityAndSignature
 
             using (var hmac = new HMACSHA256(decryptedSessionKey))
             {
-                var hmacToCheck = hmac.ComputeHash(encryptedPacket.EncryptedData);
+                var hmacToCheck = hmac.ComputeHash(Combine(encryptedPacket.EncryptedData, encryptedPacket.Iv));
 
                 if (!Compare(encryptedPacket.Hmac, hmacToCheck))
                 {
@@ -55,6 +55,16 @@ namespace SecureCodingWorkshop.HybridWithIntegrityAndSignature
                                              encryptedPacket.Iv);
 
             return decryptedData;
+        }
+
+        private static byte[] Combine(byte[] first, byte[] second)
+        {
+            var ret = new byte[first.Length + second.Length];
+
+            Buffer.BlockCopy(first, 0, ret, 0, first.Length);
+            Buffer.BlockCopy(second, 0, ret, first.Length, second.Length);
+
+            return ret;
         }
 
         private static bool Compare(byte[] array1, byte[] array2)

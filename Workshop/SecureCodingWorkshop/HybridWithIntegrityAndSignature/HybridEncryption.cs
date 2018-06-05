@@ -69,6 +69,16 @@ namespace SecureCodingWorkshop.HybridWithIntegrityAndSignature
             return result;
         }
 
+        private static byte[] Combine(byte[] first, byte[] second)
+        {
+            var ret = new byte[first.Length + second.Length];
+
+            Buffer.BlockCopy(first, 0, ret, 0, first.Length);
+            Buffer.BlockCopy(second, 0, ret, first.Length, second.Length);
+
+            return ret;
+        }
+
         private static bool CompareUnSecure(byte[] array1, byte[] array2)
         {
             if (array1.Length != array2.Length)
