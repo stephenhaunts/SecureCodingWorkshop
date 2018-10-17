@@ -15,7 +15,7 @@ namespace AzureKeyVault.SimpleEncryptDecrypt
         {
             IKeyVault vault = new KeyVault();
 
-            const string MY_KEY_NAME = "StephenHauntsKey";
+            const string MY_KEY_NAME = "MyKeyVaultKey";
 
             string keyId = await vault.CreateKeyAsync(MY_KEY_NAME);
             Console.WriteLine("Key Written : " + keyId);
@@ -28,6 +28,9 @@ namespace AzureKeyVault.SimpleEncryptDecrypt
 
             var encryptedText = Convert.ToBase64String(encrypted);
             var decryptedData = Encoding.UTF8.GetString(decrypted);
+
+            Console.WriteLine("Encrypted Data : " + encryptedText);
+            Console.WriteLine("Decrypted Data : " + decryptedData);
 
             // Remove HSM backed key
             await vault.DeleteKeyAsync(MY_KEY_NAME);

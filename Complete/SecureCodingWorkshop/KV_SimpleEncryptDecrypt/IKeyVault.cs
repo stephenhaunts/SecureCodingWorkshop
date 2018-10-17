@@ -12,5 +12,8 @@ namespace AzureKeyVault.SimpleEncryptDecrypt
 
         Task<string> SetSecretAsync(string secretName, string secretValue);
         Task<string> GetSecretAsync(string secretName);
+
+        Task<byte[]> Sign(string keyId, byte[] hash);
+        Task<bool> Verify(string keyId, byte[] hash, byte[] signature);
     }
 }

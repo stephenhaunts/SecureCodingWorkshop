@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.Azure.KeyVault;
 using Microsoft.Azure.KeyVault.Models;
@@ -11,12 +12,12 @@ namespace AzureKeyVault.DigitalSignatures
     {
         public KeyVault()
         {
-            var clientId = "922e5bfc-98b3-4f23-bcbb-8a12439ebbfb";
-            var clientSecret = "PsAJTPBeG1WwFq+hH+ZQAh9xadcNI60cep8FYPpt3Ew=";
+            var clientId = "fc25ed2c-43e4-479d-a550-7baf3a172bbb";
+            var clientSecret = "ItQBEzyIR+baZPn5VVSBmXf6pa5bZlPuyYrXIcc3lGU=";
             VaultAddress = "https://RIKeyVault.vault.azure.net/";
 
             ClientCredential = new ClientCredential(clientId, clientSecret);
-            KeyVaultClient = new KeyVaultClient(GetAccessTokenAsync, GetHttpClient());
+            KeyVaultClient = new KeyVaultClient(GetAccessTokenAsync, new HttpClient());
         }
 
 
@@ -25,7 +26,7 @@ namespace AzureKeyVault.DigitalSignatures
 			VaultAddress = vaultAddress;
 
 			ClientCredential = new ClientCredential(clientId, clientSecret);
-			KeyVaultClient = new KeyVaultClient(GetAccessTokenAsync, GetHttpClient());
+			KeyVaultClient = new KeyVaultClient(GetAccessTokenAsync, new HttpClient());
 		}
 
         public async Task<string> CreateKeyAsync(string keyName)

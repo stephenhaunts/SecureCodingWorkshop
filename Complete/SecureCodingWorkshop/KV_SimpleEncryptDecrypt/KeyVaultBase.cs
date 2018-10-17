@@ -56,10 +56,5 @@ namespace AzureKeyVault.SimpleEncryptDecrypt
             Console.WriteLine(scope);
             return result.AccessToken;
         }
-
-        protected HttpClient GetHttpClient()
-        {
-            return new HttpClient();
-        }
     }
 }
