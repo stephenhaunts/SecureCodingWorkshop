@@ -81,5 +81,36 @@ namespace AzureKeyVault.SimpleEncryptDecrypt
 
             return secretName;
         }
+
+        public async Task<byte[]> Sign(string keyId, byte[] hash)
+        {
+            using (var rsa = new RSACryptoServiceProvider(2048))
+            {
+                rsa.PersistKeyInCsp = false;
+                rsa.ImportParameters(privateKey[keyId]);
+
+                var rsaFormatter = new RSAPKCS1SignatureFormatter(rsa);
+                rsaFormatter.SetHashAlgorithm("SHA256");
+
+                await Task.CompletedTask;
+
+                return rsaFormatter.CreateSignature(hash);
+            }
+        }
+
+        public async Task<bool> Verify(string keyId, byte[] hash, byte[] signature)
+        {
+            using (var rsa = new RSACryptoServiceProvider(2048))
+            {
+                rsa.ImportParameters(publicKey[keyId]);
+
+                var rsaDeformatter = new RSAPKCS1SignatureDeformatter(rsa);
+                rsaDeformatter.SetHashAlgorithm("SHA256");
+
+                await Task.CompletedTask;
+
+                return rsaDeformatter.VerifySignature(hash, signature);
+            }
+        }
     }
 }
