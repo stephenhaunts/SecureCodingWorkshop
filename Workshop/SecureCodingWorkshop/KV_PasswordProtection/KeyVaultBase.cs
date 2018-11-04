@@ -53,7 +53,6 @@ namespace AzureKeyVault.PasswordProtection
         {
             var context = new AuthenticationContext(authority, TokenCache.DefaultShared);
             var result = await context.AcquireTokenAsync(resource, ClientCredential);
-            Console.WriteLine(scope);
             return result.AccessToken;
         }
     }

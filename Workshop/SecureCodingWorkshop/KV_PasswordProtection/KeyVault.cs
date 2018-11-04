@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Azure.KeyVault;
 using Microsoft.Azure.KeyVault.Models;
@@ -19,15 +20,6 @@ namespace AzureKeyVault.PasswordProtection
             ClientCredential = new ClientCredential(clientId, clientSecret);
             KeyVaultClient = new KeyVaultClient(GetAccessTokenAsync, new HttpClient());
         }
-
-
-		public KeyVault(string clientId, string clientSecret, string vaultAddress )
-		{
-			VaultAddress = vaultAddress;
-
-			ClientCredential = new ClientCredential(clientId, clientSecret);
-			KeyVaultClient = new KeyVaultClient(GetAccessTokenAsync, new HttpClient());
-		}
 
         public async Task<string> CreateKeyAsync(string keyName)
         {
