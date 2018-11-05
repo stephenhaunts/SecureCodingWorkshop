@@ -5,10 +5,15 @@ namespace AzureKeyVault.HybridWithIntegrityAndSignature
 {
     public class HybridEncryption
     {
-        private readonly AesEncryption _aes = new AesEncryption();
+        readonly IKeyVault _keyVault;
+        readonly AesEncryption _aes = new AesEncryption();
 
-        public EncryptedPacket EncryptData(byte[] original, RSAWithRSAParameterKey rsaParams,
-                                           DigitalSignature digitalSignature)
+        public HybridEncryption(IKeyVault keyVault)
+        {
+            _keyVault = keyVault;
+        }
+
+        public EncryptedPacket EncryptData(byte[] original, string keyId)
         {
             var sessionKey = _aes.GenerateRandomNumber(32);
 
@@ -16,22 +21,21 @@ namespace AzureKeyVault.HybridWithIntegrityAndSignature
 
             encryptedPacket.EncryptedData = _aes.Encrypt(original, sessionKey, encryptedPacket.Iv);
 
-            encryptedPacket.EncryptedSessionKey = rsaParams.EncryptData(sessionKey);
+            encryptedPacket.EncryptedSessionKey = _keyVault.EncryptAsync(keyId, sessionKey).Result;
 
             using (var hmac = new HMACSHA256(sessionKey))
             {
                 encryptedPacket.Hmac = hmac.ComputeHash(encryptedPacket.EncryptedData);
             }
 
-            encryptedPacket.Signature = digitalSignature.SignData(encryptedPacket.Hmac);
+            encryptedPacket.Signature = _keyVault.Sign(keyId, encryptedPacket.Hmac).Result;
 
             return encryptedPacket;
         }
 
-        public byte[] DecryptData(EncryptedPacket encryptedPacket, RSAWithRSAParameterKey rsaParams,
-                                  DigitalSignature digitalSignature)
+        public byte[] DecryptData(EncryptedPacket encryptedPacket, string keyId)
         {
-            var decryptedSessionKey = rsaParams.DecryptData(encryptedPacket.EncryptedSessionKey);
+            var decryptedSessionKey = _keyVault.DecryptAsync(keyId, encryptedPacket.EncryptedSessionKey).Result;
 
             using (var hmac = new HMACSHA256(decryptedSessionKey))
             {
@@ -43,8 +47,7 @@ namespace AzureKeyVault.HybridWithIntegrityAndSignature
                         "HMAC for decryption does not match encrypted packet.");
                 }
 
-                if (!digitalSignature.VerifySignature(encryptedPacket.Hmac,
-                                                      encryptedPacket.Signature))
+                if (!_keyVault.Verify(keyId, encryptedPacket.Hmac, encryptedPacket.Signature).Result)
                 {
                     throw new CryptographicException(
                         "Digital Signature can not be verified.");

@@ -11,7 +11,7 @@ namespace AzureKeyVault.HybridWithIntegrityAndSignature
         {
             KeyVault().GetAwaiter().GetResult();
         }
-
+         
         public static async Task KeyVault()
         {
             const string original = "Very secret and important information that can not fall into the wrong hands.";
@@ -21,13 +21,7 @@ namespace AzureKeyVault.HybridWithIntegrityAndSignature
             const string MY_KEY_NAME = "StephenHauntsKey";
             string keyId = await vault.CreateKeyAsync(MY_KEY_NAME);
 
-            var hybrid = new HybridEncryption();
-
-            var rsaParams = new RSAWithRSAParameterKey();
-            rsaParams.AssignNewKey();
-
-            var digitalSignature = new DigitalSignature();
-            digitalSignature.AssignNewKey();
+            var hybrid = new HybridEncryption(vault);
 
             Console.WriteLine("Hybrid Encryption with Integrity Check and Digital Signature Demonstration in .NET");
             Console.WriteLine("----------------------------------------------------------------------------------");
@@ -35,10 +29,9 @@ namespace AzureKeyVault.HybridWithIntegrityAndSignature
 
             try
             {
-                var encryptedBlock = hybrid.EncryptData(Encoding.UTF8.GetBytes(original), rsaParams,
-                                                        digitalSignature);
+                var encryptedBlock = hybrid.EncryptData(Encoding.UTF8.GetBytes(original), keyId);
 
-                var decrpyted = hybrid.DecryptData(encryptedBlock, rsaParams, digitalSignature);
+                var decrpyted = hybrid.DecryptData(encryptedBlock, keyId);
 
                 Console.WriteLine("Original Message = " + original);
                 Console.WriteLine();
