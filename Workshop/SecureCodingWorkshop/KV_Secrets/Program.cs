@@ -17,8 +17,8 @@ namespace AzureKeyVault.Secrets
 
             const string MY_SECRET = "StephenHauntsSecret";
 
-            var secretId = await vault.SetSecretAsync(MY_SECRET, "Mary had a little lamb.");
-            Console.WriteLine("Secret Written");
+            await vault.SetSecretAsync(MY_SECRET, "Mary had a little lamb.");
+            Console.WriteLine("Secret Written :" + "Mary had a little lamb.");
 
             string secret = await vault.GetSecretAsync(MY_SECRET);
             Console.WriteLine("Secret Retrieved : " + secret);

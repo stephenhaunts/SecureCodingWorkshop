@@ -306,3 +306,11 @@ Workshop/SecureCodingWorkshop/\.vs/SecureCodingWorkshop/xs/
 Complete/\.DS_Store
 
 \.DS_Store
+
+Complete/SecureCodingWorkshop/KV_HybridWithIntegrityAndSignature/bin/Debug/netcoreapp2\.0/
+
+Complete/SecureCodingWorkshop/KV_HybridWithIntegrityAndSignature/bin/Debug/netcoreapp2\.1/
+
+Complete/SecureCodingWorkshop/KV_HybridWithIntegrityAndSignature/obj/Debug/netcoreapp2\.0/
+
+Complete/SecureCodingWorkshop/KV_HybridWithIntegrityAndSignature/obj/Debug/netcoreapp2\.1/
