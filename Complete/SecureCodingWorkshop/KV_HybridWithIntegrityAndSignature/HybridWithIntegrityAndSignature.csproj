@@ -10,4 +10,7 @@
     <PackageReference Include="Microsoft.Azure.KeyVault" Version="3.0.0" />
     <PackageReference Include="Microsoft.IdentityModel.Clients.ActiveDirectory" Version="4.3.0" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="DigitalSignature.cs" />
+  </ItemGroup>
 </Project>
