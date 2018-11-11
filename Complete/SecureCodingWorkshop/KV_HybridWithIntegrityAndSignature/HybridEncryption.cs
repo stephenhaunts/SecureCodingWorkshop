@@ -12,6 +12,7 @@ namespace AzureKeyVault.HybridWithIntegrityAndSignature
         {
             _keyVault = keyVault;
         }
+   
 
         public EncryptedPacket EncryptData(byte[] original, string keyId)
         {
@@ -25,7 +26,7 @@ namespace AzureKeyVault.HybridWithIntegrityAndSignature
 
             using (var hmac = new HMACSHA256(sessionKey))
             {
-                encryptedPacket.Hmac = hmac.ComputeHash(encryptedPacket.EncryptedData);
+                encryptedPacket.Hmac = hmac.ComputeHash(Combine(encryptedPacket.EncryptedData, encryptedPacket.Iv));
             }
 
             encryptedPacket.Signature = _keyVault.Sign(keyId, encryptedPacket.Hmac).Result;
@@ -39,7 +40,7 @@ namespace AzureKeyVault.HybridWithIntegrityAndSignature
 
             using (var hmac = new HMACSHA256(decryptedSessionKey))
             {
-                var hmacToCheck = hmac.ComputeHash(encryptedPacket.EncryptedData);
+                var hmacToCheck = hmac.ComputeHash(Combine(encryptedPacket.EncryptedData, encryptedPacket.Iv));
 
                 if (!Compare(encryptedPacket.Hmac, hmacToCheck))
                 {
@@ -80,24 +81,7 @@ namespace AzureKeyVault.HybridWithIntegrityAndSignature
             Buffer.BlockCopy(second, 0, ret, first.Length, second.Length);
 
             return ret;
-        }
 
-        private static bool CompareUnSecure(byte[] array1, byte[] array2)
-        {
-            if (array1.Length != array2.Length)
-            {
-                return false;
-            }
-
-            for (int i = 0; i < array1.Length; ++i)
-            {
-                if (array1[i] != array2[i])
-                {
-                    return false;
-                }
-            }
-
-            return true;
-        }
+        } 
     }
 }

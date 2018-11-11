@@ -21,7 +21,7 @@ namespace AzureKeyVault.DigitalSignatures
 
             string importantDocument = "This is a really important document that I need to digitally sign.";
 
-            byte[] documentDigest = Hash.Sha256(Encoding.ASCII.GetBytes(importantDocument));
+            byte[] documentDigest = Hash.Sha256(Encoding.UTF8.GetBytes(importantDocument));
 
             byte[] signature = await vault.Sign(keyId, documentDigest);
 

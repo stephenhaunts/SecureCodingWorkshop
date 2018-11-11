@@ -14,17 +14,17 @@ namespace AzureKeyVault.HybridWithIntegrityAndSignature
          
         public static async Task KeyVault()
         {
-            const string original = "Very secret and important information that can not fall into the wrong hands.";
+            const string original = "Very secret information.";
 
             IKeyVault vault = new KeyVault();
 
-            const string MY_KEY_NAME = "StephenHauntsKey";
+            const string MY_KEY_NAME = "MyKey";
             string keyId = await vault.CreateKeyAsync(MY_KEY_NAME);
 
             var hybrid = new HybridEncryption(vault);
 
-            Console.WriteLine("Hybrid Encryption with Integrity Check and Digital Signature Demonstration in .NET");
-            Console.WriteLine("----------------------------------------------------------------------------------");
+            Console.WriteLine("Hybrid Encryption with Key Vault");
+            Console.WriteLine("--------------------------------");
             Console.WriteLine();
 
             try
