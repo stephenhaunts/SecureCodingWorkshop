@@ -18,7 +18,7 @@ namespace AzureKeyVault.KeyWrapping
             const string MY_KEY_NAME = "StephenHauntsKey";
             string keyId = await vault.CreateKeyAsync(MY_KEY_NAME);
 
-            byte[] localKey = Random.GenerateRandomNumber(32);
+            byte[] localKey = SecureRandom.GenerateRandomNumber(32);
 
             // Encrypt our local key with Key Vault and Store it in the database
             byte[] encryptedKey = await vault.EncryptAsync(keyId, localKey);
@@ -28,7 +28,7 @@ namespace AzureKeyVault.KeyWrapping
             byte[] decryptedKey = await vault.DecryptAsync(keyId, encryptedKey);
 
             // Now we have recovered the key with the Key Vault we can encrypt with AES locally.
-            byte[] iv = Random.GenerateRandomNumber(16);
+            byte[] iv = SecureRandom.GenerateRandomNumber(16);
             byte[] encryptedData = AesEncryption.Encrypt(Encoding.ASCII.GetBytes("MEGA TOP SECRET STUFF"), decryptedKey, iv);
             byte[] decryptedMessage = AesEncryption.Decrypt(encryptedData, decryptedKey, iv);
 

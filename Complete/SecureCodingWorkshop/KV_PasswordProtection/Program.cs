@@ -21,7 +21,7 @@ namespace AzureKeyVault.PasswordProtection
             string keyId = await vault.CreateKeyAsync(MY_KEY_NAME);
 
             // Encrypt our salt with Key Vault and Store it in the database
-            byte[] salt = Random.GenerateRandomNumber(32);
+            byte[] salt = SecureRandom.GenerateRandomNumber(32);
             byte[] encryptedSalt = await vault.EncryptAsync(keyId, salt);
             var iterationsId = await vault.SetSecretAsync(ITERATIONS_VALUE, "20000");
 

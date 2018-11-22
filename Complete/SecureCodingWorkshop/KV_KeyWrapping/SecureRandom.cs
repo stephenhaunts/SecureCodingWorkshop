@@ -1,8 +1,8 @@
 ﻿using System.Security.Cryptography;
 
-namespace AzureKeyVault.PasswordProtection
+namespace AzureKeyVault.KeyWrapping
 {
-    public class Random
+    public class SecureRandom
     {
         public static byte[] GenerateRandomNumber(int length)
         {
