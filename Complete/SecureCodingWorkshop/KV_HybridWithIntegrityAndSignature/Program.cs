@@ -7,11 +7,11 @@ namespace AzureKeyVault.HybridWithIntegrityAndSignature
 {
     class Program
     {
-        static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
-            KeyVault().GetAwaiter().GetResult();
+            await KeyVault();
         }
-         
+
         public static async Task KeyVault()
         {
             const string original = "Very secret information.";

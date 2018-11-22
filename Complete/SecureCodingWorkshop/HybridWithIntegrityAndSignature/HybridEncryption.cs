@@ -42,13 +42,13 @@ namespace SecureCodingWorkshop.HybridWithIntegrityAndSignature
                     throw new CryptographicException(
                         "HMAC for decryption does not match encrypted packet.");
                 }
+            }
 
-                if (!digitalSignature.VerifySignature(encryptedPacket.Hmac,
-                                                      encryptedPacket.Signature))
-                {
-                    throw new CryptographicException(
-                        "Digital Signature can not be verified.");
-                }
+            if (!digitalSignature.VerifySignature(encryptedPacket.Hmac,
+                                      encryptedPacket.Signature))
+            {
+                throw new CryptographicException(
+                    "Digital Signature can not be verified.");
             }
 
             var decryptedData = _aes.Decrypt(encryptedPacket.EncryptedData, decryptedSessionKey,

@@ -6,9 +6,9 @@ namespace AzureKeyVault.PasswordProtection
 {
     class Program
     {
-        static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
-            KeyVault().GetAwaiter().GetResult();
+            await KeyVault();
         }
 
         public static async Task KeyVault()
