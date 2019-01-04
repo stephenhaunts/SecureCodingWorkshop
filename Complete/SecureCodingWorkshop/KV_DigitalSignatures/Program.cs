@@ -4,29 +4,28 @@ using System.Threading.Tasks;
 
 namespace AzureKeyVault.DigitalSignatures
 {
-    class Program
+    internal static class Program
     {
         public static async Task Main(string[] args)
         {
             await KeyVault();
         }
 
-        public static async Task KeyVault()
+        private static async Task KeyVault()
         {
-            IKeyVault vault = new KeyVault();
+            var vault = new KeyVault();
 
             const string MY_KEY_NAME = "StephenHauntsKey";
-            string keyId = await vault.CreateKeyAsync(MY_KEY_NAME);
+            var keyId = await vault.CreateKeyAsync(MY_KEY_NAME);
 
 
-            string importantDocument = "This is a really important document that I need to digitally sign.";
+            const string importantDocument = "This is a really important document that I need to digitally sign.";
 
-            byte[] documentDigest = Hash.Sha256(Encoding.UTF8.GetBytes(importantDocument));
+            var documentDigest = Hash.Sha256(Encoding.UTF8.GetBytes(importantDocument));
 
-            byte[] signature = await vault.Sign(keyId, documentDigest);
+            var signature = await vault.Sign(keyId, documentDigest);
 
-            bool verified = await vault.Verify(keyId, documentDigest, signature);
-
+            var verified = await vault.Verify(keyId, documentDigest, signature);
 
             // Remove HSM backed key
             await vault.DeleteKeyAsync(MY_KEY_NAME);
