@@ -4,14 +4,14 @@ using System.Threading.Tasks;
 
 namespace AzureKeyVault.Secrets
 {
-    class Program
+    static class Program
     {
-        public static async Task Main(string[] args)
+        public static async Task Main()
         {
             await KeyVault();
         }
 
-        public static async Task KeyVault()
+        private static async Task KeyVault()
         {
             IKeyVault vault = new KeyVault();
 

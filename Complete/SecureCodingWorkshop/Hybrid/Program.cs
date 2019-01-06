@@ -3,9 +3,9 @@ using System.Text;
 
 namespace SecureCodingWorkshop.Hybrid
 {
-    class Program
+    static class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             const string original = "Very secret and important information that can not fall into the wrong hands.";
 

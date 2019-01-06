@@ -3,9 +3,9 @@ using System.Text;
 
 namespace SecureCodingWorkshop.TripleDES
 {
-    class Program
+    static class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             var tripleDes = new TripleDesEncryption();
 

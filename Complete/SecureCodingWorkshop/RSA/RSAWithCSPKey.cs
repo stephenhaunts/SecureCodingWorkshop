@@ -8,7 +8,7 @@ namespace SecureCodingWorkshop.RSA
 
         public void AssignNewKey()
         {
-            CspParameters cspParams = new CspParameters(1)
+            var cspParams = new CspParameters(1)
             {
                 KeyContainerName = ContainerName,
                 Flags = CspProviderFlags.UseMachineKeyStore,

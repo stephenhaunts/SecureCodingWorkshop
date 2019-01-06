@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SecureCodingWorkshop.PBKDF2
 {
-    class Program
+    static class Program
     {
         static void Main()
         {

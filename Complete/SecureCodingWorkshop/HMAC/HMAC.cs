@@ -2,7 +2,7 @@
 
 namespace SecureCodingWorkshop.HMAC
 {
-    public class Hmac
+    public static class Hmac
     {
         private const int KeySize = 32;
 

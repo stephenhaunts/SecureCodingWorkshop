@@ -2,7 +2,7 @@
 
 namespace SecureCodingWorkshop.Hashing
 {
-    public class HashData
+    public static class HashData
     {
         public static byte[] ComputeHashSha1(byte[] toBeHashed)
         {

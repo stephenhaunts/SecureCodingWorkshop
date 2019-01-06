@@ -2,7 +2,7 @@
 
 namespace AzureKeyVault.PasswordProtection
 {
-    public class SecureRandom
+    public static class SecureRandom
     {
         public static byte[] GenerateRandomNumber(int length)
         {

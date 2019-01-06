@@ -3,7 +3,7 @@ using System.Text;
 
 namespace SecureCodingWorkshop.HMAC
 {
-    class Program
+    static class Program
     {
         static void Main()
         {

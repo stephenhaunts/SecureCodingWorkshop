@@ -2,7 +2,7 @@
 
 namespace SecureCodingWorkshop.PBKDF2
 {
-    public class PBKDF2
+    public static class PBKDF2
     {
         public static byte[] GenerateSalt()
         {

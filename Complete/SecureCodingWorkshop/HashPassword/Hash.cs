@@ -3,7 +3,7 @@ using System.Security.Cryptography;
 
 namespace SecureCodingWorkshop.HashPassword
 {
-    public class Hash
+    public static class Hash
     {
         public static byte[] GenerateSalt()
         {

@@ -4,9 +4,9 @@ using System.Threading.Tasks;
 
 namespace AzureKeyVault.PasswordProtection
 {
-    class Program
+    static class Program
     {
-        public static async Task Main(string[] args)
+        public static async Task Main()
         {
             await KeyVault();
         }

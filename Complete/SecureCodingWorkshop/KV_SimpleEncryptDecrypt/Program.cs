@@ -4,9 +4,9 @@ using System.Threading.Tasks;
 
 namespace AzureKeyVault.SimpleEncryptDecrypt
 {
-    class Program
+    static class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             KeyVault().GetAwaiter().GetResult();
         }

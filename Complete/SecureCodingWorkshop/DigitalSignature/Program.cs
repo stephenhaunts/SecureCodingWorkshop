@@ -6,9 +6,9 @@ using System.Text;
 
 namespace SecureCodingWorkshop.DigitalSignature
 {
-    class Program
+    static class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             var document = Encoding.UTF8.GetBytes("Document to Sign");
             byte[] hashedDocument;
@@ -28,12 +28,10 @@ namespace SecureCodingWorkshop.DigitalSignature
             Console.WriteLine("---------------------------------------");
             Console.WriteLine();
             Console.WriteLine();
-            Console.WriteLine("   Original Text = " +
-                Encoding.Default.GetString(document));
+            Console.WriteLine("   Original Text = " + Encoding.Default.GetString(document));
 
             Console.WriteLine();
-            Console.WriteLine("   Digital Signature = " +
-                Convert.ToBase64String(signature));
+            Console.WriteLine("   Digital Signature = " + Convert.ToBase64String(signature));
 
             Console.WriteLine();
 

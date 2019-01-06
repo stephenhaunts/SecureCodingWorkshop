@@ -2,7 +2,7 @@
 
 namespace SecureCodingWorkshop.RandomNumber
 {
-    public class Random
+    public static class Random
     {
         public static byte[] GenerateRandomNumber(int length)
         {

@@ -3,7 +3,7 @@ using System.Security.Cryptography;
 
 namespace AzureKeyVault.DigitalSignatures
 {
-    public class Hash
+    public static class Hash
     {
         public static byte[] Sha256(byte[] toBeHashed)
         {

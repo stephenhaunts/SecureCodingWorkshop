@@ -3,7 +3,7 @@ using System.Text;
 
 namespace SecureCodingWorkshop.AES
 {
-    class Program
+    static class Program
     {
         static void Main(string[] args)
         {

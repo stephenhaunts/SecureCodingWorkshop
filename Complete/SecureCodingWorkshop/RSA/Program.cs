@@ -3,7 +3,7 @@ using System.Text;
 
 namespace SecureCodingWorkshop.RSA
 {
-    class Program
+    static class Program
     {
         static void Main()
         {
