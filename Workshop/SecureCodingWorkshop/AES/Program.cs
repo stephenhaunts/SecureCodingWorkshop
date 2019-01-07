@@ -7,24 +7,10 @@ namespace SecureCodingWorkshop.AES
     {
         static void Main(string[] args)
         {
-            var aes = new AesEncryption();
-            var key = aes.GenerateRandomNumber(32);
-            var iv = aes.GenerateRandomNumber(16);
-            const string original = "Text to encrypt";
-
-            var encrypted = aes.Encrypt(Encoding.UTF8.GetBytes(original), key, iv);
-            var decrypted = aes.Decrypt(encrypted, key, iv);
-
-            var decryptedMessage = Encoding.UTF8.GetString(decrypted);
-
-            Console.WriteLine("AES Encryption Demonstration in .NET");
-            Console.WriteLine("------------------------------------");
-            Console.WriteLine();
-            Console.WriteLine("Original Text = " + original);
-            Console.WriteLine("Encrypted Text = " + Convert.ToBase64String(encrypted));
-            Console.WriteLine("Decrypted Text = " + decryptedMessage);
-
-            Console.ReadLine();
+            // TODO : Generate a 32 byte key
+            // TODO : Generate a 16 byte initialization vector
+            // TODO : Encrypt some text, base64 the result and display to the console.
+            // TODO : Decrypt the encrypted text, base64 the result and display to the console.
         }
     }
 }
