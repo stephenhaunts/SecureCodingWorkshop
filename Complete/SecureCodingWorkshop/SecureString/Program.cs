@@ -4,7 +4,7 @@ using System.Security;
 
 namespace SecureCodingWorkshop.String
 {
-    class Program
+    static class Program
     {
         static void Main()
         {

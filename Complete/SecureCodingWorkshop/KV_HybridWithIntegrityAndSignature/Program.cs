@@ -19,7 +19,7 @@ namespace AzureKeyVault.HybridWithIntegrityAndSignature
             IKeyVault vault = new KeyVault();
 
             const string MY_KEY_NAME = "MyKey";
-            string keyId = await vault.CreateKeyAsync(MY_KEY_NAME);
+            var keyId = await vault.CreateKeyAsync(MY_KEY_NAME);
 
             var hybrid = new HybridEncryption(vault);
 

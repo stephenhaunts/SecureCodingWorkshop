@@ -11,20 +11,20 @@ namespace AzureKeyVault.SimpleEncryptDecrypt
             KeyVault().GetAwaiter().GetResult();
         }
 
-        public static async Task KeyVault()
+        private static async Task KeyVault()
         {
             IKeyVault vault = new KeyVault();
 
             const string MY_KEY_NAME = "MyKeyVaultKey";
 
-            string keyId = await vault.CreateKeyAsync(MY_KEY_NAME);
+            var keyId = await vault.CreateKeyAsync(MY_KEY_NAME);
             Console.WriteLine("Key Written : " + keyId);
 
             // Test encryption and decryption.
-            string dataToEncrypt = "Hello World!!";
+            var dataToEncrypt = "Hello World!!";
 
-            byte[] encrypted = await vault.EncryptAsync(keyId, Encoding.ASCII.GetBytes(dataToEncrypt));
-            byte[] decrypted = await vault.DecryptAsync(keyId, encrypted);
+            var encrypted = await vault.EncryptAsync(keyId, Encoding.ASCII.GetBytes(dataToEncrypt));
+            var decrypted = await vault.DecryptAsync(keyId, encrypted);
 
             var encryptedText = Convert.ToBase64String(encrypted);
             var decryptedData = Encoding.UTF8.GetString(decrypted);

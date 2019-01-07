@@ -20,7 +20,7 @@ namespace AzureKeyVault.Secrets
             var secretId = await vault.SetSecretAsync(MY_SECRET, "Mary had a little lamb.");
             Console.WriteLine("Secret Written");
 
-            string secret = await vault.GetSecretAsync(MY_SECRET);
+            var secret = await vault.GetSecretAsync(MY_SECRET);
             Console.WriteLine("Secret Retrieved : " + secret);
         }
     }
