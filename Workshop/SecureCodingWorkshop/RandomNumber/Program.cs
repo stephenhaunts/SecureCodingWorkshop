@@ -1,22 +1,11 @@
-﻿using System;
-
-namespace SecureCodingWorkshop.RandomNumber
+﻿namespace SecureCodingWorkshop.RandomNumber
 {
     static class Program
     {
         static void Main()
         {
-            Console.WriteLine("Random Number Demonstration in .NET");
-            Console.WriteLine("---------------------------------");
-            Console.WriteLine();
-
-            for (var i = 0; i < 10; i++)
-            {
-                Console.WriteLine("Random Number " + i + " : "
-                    + Convert.ToBase64String(Random.GenerateRandomNumber(32)));
-            }
-
-            Console.ReadLine();
+            // TODO : Generate 10 random numbers using RNGCryptoServiceProvider.            
+            // TODO : Convert the resulting byte arrays into base64 strings and print to the console.
         }
     }
 }
