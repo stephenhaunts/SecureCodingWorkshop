@@ -16,49 +16,12 @@ namespace AzureKeyVault.HybridWithIntegrityAndSignature
 
         public EncryptedPacket EncryptData(byte[] original, string keyId)
         {
-            var sessionKey = _aes.GenerateRandomNumber(32);
-
-            var encryptedPacket = new EncryptedPacket { Iv = _aes.GenerateRandomNumber(16) };
-
-            encryptedPacket.EncryptedData = _aes.Encrypt(original, sessionKey, encryptedPacket.Iv);
-
-            encryptedPacket.EncryptedSessionKey = _keyVault.EncryptAsync(keyId, sessionKey).Result;
-
-            using (var hmac = new HMACSHA256(sessionKey))
-            {
-                encryptedPacket.Hmac = hmac.ComputeHash(Combine(encryptedPacket.EncryptedData, encryptedPacket.Iv));
-            }
-
-            encryptedPacket.Signature = _keyVault.Sign(keyId, encryptedPacket.Hmac).Result;
-
-            return encryptedPacket;
+            throw new NotImplementedException();
         }
 
         public byte[] DecryptData(EncryptedPacket encryptedPacket, string keyId)
         {
-            var decryptedSessionKey = _keyVault.DecryptAsync(keyId, encryptedPacket.EncryptedSessionKey).Result;
-
-            using (var hmac = new HMACSHA256(decryptedSessionKey))
-            {
-                var hmacToCheck = hmac.ComputeHash(Combine(encryptedPacket.EncryptedData, encryptedPacket.Iv));
-
-                if (!Compare(encryptedPacket.Hmac, hmacToCheck))
-                {
-                    throw new CryptographicException(
-                        "HMAC for decryption does not match encrypted packet.");
-                }
-
-                if (!_keyVault.Verify(keyId, encryptedPacket.Hmac, encryptedPacket.Signature).Result)
-                {
-                    throw new CryptographicException(
-                        "Digital Signature can not be verified.");
-                }
-            }
-
-            var decryptedData = _aes.Decrypt(encryptedPacket.EncryptedData, decryptedSessionKey,
-                                             encryptedPacket.Iv);
-
-            return decryptedData;
+            throw new NotImplementedException();
         }
 
         private static bool Compare(byte[] array1, byte[] array2)
