@@ -13,7 +13,7 @@ namespace AzureKeyVault.PasswordProtection
 
         private static async Task KeyVault()
         {
-            IKeyVault vault = new KeyVault();
+            IKeyVault vault = new KeyVault();  
 
             const string MY_KEY_NAME = "StephenHauntsKey";
             const string ITERATIONS_VALUE = "PBKDF2Iterations";
