@@ -568,3 +568,9 @@ Workshop/SecureCodingWorkshop/RSA/bin/Debug/netcoreapp3.0/
 Workshop/SecureCodingWorkshop/SecureString/bin/Debug/netcoreapp3.0/
 
 Workshop/SecureCodingWorkshop/TripleDES/bin/Debug/netcoreapp3.0/
+
+Workshop/SecureCodingWorkshop/Hashing/bin/Debug/netcoreapp3.0/
+
+Workshop/SecureCodingWorkshop/HashPassword/bin/Debug/netcoreapp3.0/
+
+Workshop/SecureCodingWorkshop/RandomNumber/bin/Debug/netcoreapp3.0/
