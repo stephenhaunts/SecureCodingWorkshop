@@ -7,6 +7,10 @@ namespace SecureCodingWorkshop.AES
     {
         static void Main(string[] args)
         {
+
+            var aesGCM = new AesGCMEncryption();
+            aesGCM.Run();
+
             var aes = new AesEncryption();
             var key = aes.GenerateRandomNumber(32);
             var iv = aes.GenerateRandomNumber(16);
