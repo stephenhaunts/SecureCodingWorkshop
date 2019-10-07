@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Security.Cryptography;
+using System.Text;
 
 namespace SecureCodingWorkshop.AES
 {
@@ -17,20 +18,42 @@ namespace SecureCodingWorkshop.AES
             }
         }
 
+        public (byte[], byte[]) Encrypt(byte[] dataToEncrypt, byte[] key, byte[] nonce, byte[] associatedData)
+        {
+            // these will be filled during the encryption
+            byte[] tag = new byte[16];
+            byte[] ciphertext = new byte[dataToEncrypt.Length];
+
+            using (AesGcm aesGcm = new AesGcm(key))
+            {
+                aesGcm.Encrypt(nonce, dataToEncrypt, ciphertext, tag, associatedData);
+            }
+
+            return (ciphertext, tag);
+        }
+
+        public byte[] Decrypt(byte[] cipherText, byte[] key, byte[] nonce, byte[] tag, byte[] associatedData)
+        {
+            byte[] decryptedData = new byte[cipherText.Length];
+
+            using (AesGcm aesGcm = new AesGcm(key))
+            {
+                aesGcm.Decrypt(nonce, cipherText, tag, decryptedData, associatedData);
+            }
+
+            return decryptedData;
+        }
+
         public void Run()
         {
             // key should be: pre-known, derived, or transported via another channel, such as RSA encryption
-            byte[] key = new byte[32];
-            RandomNumberGenerator.Fill(key);
+            byte[] key = GenerateRandomNumber(32);
+            byte[] nonce = GenerateRandomNumber(12);
 
-            byte[] nonce = new byte[12];
-            RandomNumberGenerator.Fill(nonce);
 
             // normally this would be your data
-            byte[] dataToEncrypt = new byte[1234];
-            byte[] associatedData = new byte[333];
-            RandomNumberGenerator.Fill(dataToEncrypt);
-            RandomNumberGenerator.Fill(associatedData);
+            byte[] dataToEncrypt = Encoding.UTF8.GetBytes("My message to Encrypt!");
+            byte[] associatedData = Encoding.UTF8.GetBytes("Associated Data");
 
             // these will be filled during the encryption
             byte[] tag = new byte[16];
