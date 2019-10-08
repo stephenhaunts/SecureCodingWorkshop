@@ -46,7 +46,7 @@ namespace SecureCodingWorkshop.AES
 
             var aesGCM = new AesGCMEncryption();
 
-            var gcmKey = aesGCM.GenerateRandomNumber(32);
+            var gcmKey = aesGCM.GenerateRandomNumber(64);
             var nonce = aesGCM.GenerateRandomNumber(12);
 
             try
@@ -62,6 +62,10 @@ namespace SecureCodingWorkshop.AES
                 Console.WriteLine("Decrypted Text = " + Encoding.UTF8.GetString(decryptedText));
             }
             catch (CryptographicException ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            catch (ArgumentException ex)
             {
                 Console.WriteLine(ex.Message);
             }
