@@ -46,7 +46,7 @@ namespace SecureCodingWorkshop.AES
 
             var aesGCM = new AesGCMEncryption();
 
-            var gcmKey = aesGCM.GenerateRandomNumber(64);
+            var gcmKey = aesGCM.GenerateRandomNumber(32);
             var nonce = aesGCM.GenerateRandomNumber(12);
 
             try
