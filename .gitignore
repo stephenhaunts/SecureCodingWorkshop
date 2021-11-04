@@ -640,3 +640,7 @@ Workshop/SecureCodingWorkshop/HybridWithIntegrityGCM/obj/Debug/netcoreapp2.2/
 Workshop/SecureCodingWorkshop/HybridWithIntegrityGCM/obj/Debug/netcoreapp3.0/
 
 Workshop/SecureCodingWorkshop/HybridWithIntegrityGCM/obj/
+
+*.pdb
+
+*.json
