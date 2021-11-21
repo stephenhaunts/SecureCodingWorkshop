@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Security.Cryptography;
+using HybridEncryption;
 
 namespace SecureCodingWorkshop.HybridWithIntegrityAndSignature
 {
@@ -7,45 +8,73 @@ namespace SecureCodingWorkshop.HybridWithIntegrityAndSignature
     {
         private readonly AesGCMEncryption _aes = new AesGCMEncryption();
 
-        public EncryptedPacket EncryptData(byte[] original, RSAWithRSAParameterKey rsaParams,
-                                           DigitalSignature digitalSignature)
+        public static byte[] ComputeHMACSha256(byte[] toBeHashed, byte[] hmacKey)
         {
+            using (var hmacSha256 = new HMACSHA256(hmacKey))
+            {
+                return hmacSha256.ComputeHash(toBeHashed);
+            }
+        }
+
+        public EncryptedPacket EncryptData(byte[] original, NewRSA rsaParams,
+                                           NewDigitalSignature digitalSignature)
+        {
+            // Create AES session key.
             var sessionKey = _aes.GenerateRandomNumber(32);
 
-            var encryptedPacket = new EncryptedPacket { Iv = _aes.GenerateRandomNumber(12) };
+            var encryptedPacket = new EncryptedPacket { 
+                Iv = _aes.GenerateRandomNumber(12) };
 
-            (byte[] ciphereText, byte[] tag) encrypted = _aes.Encrypt(original, sessionKey, encryptedPacket.Iv, null);
+            // Encrypt data with AES-GCM
+            (byte[] ciphereText, byte[] tag) encrypted = 
+                _aes.Encrypt(original, sessionKey, encryptedPacket.Iv, null);
 
             encryptedPacket.EncryptedData = encrypted.ciphereText;
+
             encryptedPacket.Tag = encrypted.tag;
-            encryptedPacket.EncryptedSessionKey = rsaParams.EncryptData(sessionKey);
 
-            using (var hmac = new HMACSHA256(sessionKey))
-            {
-                var temp = hmac.ComputeHash(Combine(encryptedPacket.EncryptedData, encryptedPacket.Iv));
-                encryptedPacket.Hmac = hmac.ComputeHash(Combine(temp, encryptedPacket.Tag));
-            }
+            encryptedPacket.EncryptedSessionKey = rsaParams.Encrypt(sessionKey);
 
-            encryptedPacket.Signature = digitalSignature.SignData(encryptedPacket.Hmac);
+            encryptedPacket.SignatureHMAC = 
+                ComputeHMACSha256(
+                    Combine(encryptedPacket.EncryptedData, encryptedPacket.Iv), 
+                    sessionKey);
+
+            encryptedPacket.Signature = 
+                digitalSignature.SignData(encryptedPacket.SignatureHMAC);
 
             return encryptedPacket;
         }
 
-        public byte[] DecryptData(EncryptedPacket encryptedPacket, RSAWithRSAParameterKey rsaParams,
-                                  DigitalSignature digitalSignature)
+        public byte[] DecryptData(EncryptedPacket encryptedPacket, NewRSA rsaParams,
+                                  NewDigitalSignature digitalSignature)
         {
-            var decryptedSessionKey = rsaParams.DecryptData(encryptedPacket.EncryptedSessionKey);
+            var decryptedSessionKey = 
+                rsaParams.Decrypt(encryptedPacket.EncryptedSessionKey);
 
+            byte[] newHMAC = ComputeHMACSha256(
+                Combine(encryptedPacket.EncryptedData, encryptedPacket.Iv), 
+                decryptedSessionKey);
 
-            if (!digitalSignature.VerifySignature(encryptedPacket.Hmac,
-                                      encryptedPacket.Signature))
+            if (!Compare(encryptedPacket.SignatureHMAC, newHMAC))
+            {
+                throw new CryptographicException(
+                    "HMAC for decryption does not match encrypted packet.");
+            }
+
+            if (!digitalSignature.VerifySignature(
+                                                encryptedPacket.Signature, 
+                                                encryptedPacket.SignatureHMAC))
             {
                 throw new CryptographicException(
                     "Digital Signature can not be verified.");
             }
 
-            var decryptedData = _aes.Decrypt(encryptedPacket.EncryptedData, decryptedSessionKey,
-                                             encryptedPacket.Iv, encryptedPacket.Tag, null);
+            var decryptedData = _aes.Decrypt(encryptedPacket.EncryptedData, 
+                                             decryptedSessionKey,
+                                             encryptedPacket.Iv, 
+                                             encryptedPacket.Tag, 
+                                             null);
 
             return decryptedData;
         }
@@ -58,6 +87,18 @@ namespace SecureCodingWorkshop.HybridWithIntegrityAndSignature
             Buffer.BlockCopy(second, 0, ret, first.Length, second.Length);
 
             return ret;
+        }
+
+        private static bool Compare(byte[] array1, byte[] array2)
+        {
+            var result = array1.Length == array2.Length;
+
+            for (var i = 0; i < array1.Length && i < array2.Length; ++i)
+            {
+                result &= array1[i] == array2[i];
+            }
+
+            return result;
         }
     }
 }

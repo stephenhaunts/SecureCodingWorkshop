@@ -9,12 +9,10 @@ namespace SecureCodingWorkshop.RSA
 
         public void AssignNewKey()
         {
-            using (var rsa = new RSACryptoServiceProvider(2048))
-            {
-                rsa.PersistKeyInCsp = false;
-                _publicKey = rsa.ExportParameters(false);
-                _privateKey = rsa.ExportParameters(true);
-            }
+            using var rsa = new RSACryptoServiceProvider(2048);
+            rsa.PersistKeyInCsp = false;
+            _publicKey = rsa.ExportParameters(false);
+            _privateKey = rsa.ExportParameters(true);
         }
 
         public byte[] EncryptData(byte[] dataToEncrypt)

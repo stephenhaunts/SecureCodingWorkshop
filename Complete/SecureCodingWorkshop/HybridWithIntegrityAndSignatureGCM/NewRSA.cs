@@ -2,7 +2,7 @@
 using System.Security.Cryptography;
 using System.Text;
 
-namespace Pluralsight.HybridWithIntegrityAndSignatureGCM
+namespace HybridEncryption
 {
 	public class NewRSA
     {

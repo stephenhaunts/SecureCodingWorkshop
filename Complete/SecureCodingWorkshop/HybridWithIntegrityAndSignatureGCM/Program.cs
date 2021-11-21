@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Security.Cryptography;
 using System.Text;
+using HybridEncryption;
 
 namespace SecureCodingWorkshop.HybridWithIntegrityAndSignature
 {
@@ -12,12 +13,10 @@ namespace SecureCodingWorkshop.HybridWithIntegrityAndSignature
 
             var hybrid = new HybridEncryption();
 
-            var rsaParams = new RSAWithRSAParameterKey();
-            rsaParams.AssignNewKey();
-
-            var digitalSignature = new DigitalSignature();
-            digitalSignature.AssignNewKey();
-
+            var rsaParams = new NewRSA();
+            
+            var digitalSignature = new NewDigitalSignature();
+            
             Console.WriteLine("Hybrid Encryption with Integrity Check and Digital Signature Demonstration in .NET");
             Console.WriteLine("----------------------------------------------------------------------------------");
             Console.WriteLine();
@@ -25,7 +24,7 @@ namespace SecureCodingWorkshop.HybridWithIntegrityAndSignature
             try
             {
                 var encryptedBlock = hybrid.EncryptData(Encoding.UTF8.GetBytes(original), rsaParams,
-                                                        digitalSignature);
+                    digitalSignature);
 
                 var decrpyted = hybrid.DecryptData(encryptedBlock, rsaParams, digitalSignature);
 
