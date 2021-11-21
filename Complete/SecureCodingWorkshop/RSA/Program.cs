@@ -18,6 +18,10 @@ namespace SecureCodingWorkshop.RSA
             // Not Supported on MacOS
             //
             //RsaWithCsp();
+            
+            NewRSAEncryptDecrypt();
+
+            NewRSAEncryptDecryptWithKeyExport();
 
             Console.ReadLine();
         }
@@ -87,6 +91,55 @@ namespace SecureCodingWorkshop.RSA
             Console.WriteLine("   Encrypted Text = " + Convert.ToBase64String(encryptedRsaParams));
             Console.WriteLine();
             Console.WriteLine("   Decrypted Text = " + Encoding.Default.GetString(decryptedRsaParams));
+            Console.WriteLine();
+            Console.WriteLine();
+        }
+        
+         private static void NewRSAEncryptDecrypt()
+        {
+            var rsa = new NewRSA.NewRSA();
+            const string original = "Text to encrypt";
+
+            var encrypted = rsa.Encrypt(original);
+            var decrypted = rsa.Decrypt(encrypted);
+
+
+            Console.WriteLine("New RSA Encryption Demonstration in .NET");
+            Console.WriteLine("----------------------------------------");
+            Console.WriteLine();
+            Console.WriteLine("   Original Text = " + original);
+            Console.WriteLine();
+            Console.WriteLine("   Encrypted Text = " + Convert.ToBase64String(encrypted));
+            Console.WriteLine();
+            Console.WriteLine("   Decrypted Text = " + Encoding.Default.GetString(decrypted));
+            Console.WriteLine();
+            Console.WriteLine();
+        }
+
+        private static void NewRSAEncryptDecryptWithKeyExport()
+        {
+            var rsa = new NewRSA.NewRSA();
+            byte[] encryptedPrivateKey = rsa.ExportPrivateKey(100000, "iwf57yn783425y");
+            byte[] publicKey = rsa.ExportPublicKey();
+
+            const string original = "Text to encrypt";
+            var encrypted = rsa.Encrypt(original);
+
+            var rsa2 = new NewRSA.NewRSA();
+            rsa2.ImportPublicKey(publicKey);
+            rsa2.ImportEncryptedPrivateKey(encryptedPrivateKey, "iwf57yn783425y");
+
+             var decrypted = rsa2.Decrypt(encrypted);
+
+
+            Console.WriteLine("New RSA Encryption With Imported Key Demonstration in .NET");
+            Console.WriteLine("----------------------------------------------------------");
+            Console.WriteLine();
+            Console.WriteLine("   Original Text = " + original);
+            Console.WriteLine();
+            Console.WriteLine("   Encrypted Text = " + Convert.ToBase64String(encrypted));
+            Console.WriteLine();
+            Console.WriteLine("   Decrypted Text = " + Encoding.Default.GetString(decrypted));
             Console.WriteLine();
             Console.WriteLine();
         }

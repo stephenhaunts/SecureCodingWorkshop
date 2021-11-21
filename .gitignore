@@ -644,3 +644,9 @@ Workshop/SecureCodingWorkshop/HybridWithIntegrityGCM/obj/
 *.pdb
 
 *.json
+
+Complete/SecureCodingWorkshop/ProtectedDataExample/obj/Debug/net5.0/
+
+Complete/SecureCodingWorkshop/ProtectedDataExample/obj/Debug/netcoreapp3.1/
+
+Complete/SecureCodingWorkshop/ProtectedDataExample/obj/
