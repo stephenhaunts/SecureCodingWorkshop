@@ -3,12 +3,12 @@ using System.Text;
 
 namespace SecureCodingWorkshop.HMAC
 {
-    static class Program
+    internal static class Program
     {
-        static void Main()
+        private static void Main()
         {
             const string originalMessage = "Original Message to hash";
-            const string originalMessage2 = "Original xessage to hash";
+            const string originalMessage2 = "Original Message to hash 2";
 
             Console.WriteLine("HMAC Demonstration in .NET");
             Console.WriteLine("--------------------------");

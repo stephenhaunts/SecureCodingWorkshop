@@ -2,9 +2,9 @@
 
 namespace SecureCodingWorkshop.RandomNumber
 {
-    static class Program
+    internal static class Program
     {
-        static void Main()
+        private static void Main()
         {
             Console.WriteLine("Random Number Demonstration in .NET");
             Console.WriteLine("---------------------------------");

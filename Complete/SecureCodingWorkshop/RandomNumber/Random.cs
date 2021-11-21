@@ -6,13 +6,11 @@ namespace SecureCodingWorkshop.RandomNumber
     {
         public static byte[] GenerateRandomNumber(int length)
         {
-            using (var randomNumberGenerator = new RNGCryptoServiceProvider())
-            {
-                var randomNumber = new byte[length];
-                randomNumberGenerator.GetBytes(randomNumber);
+            using var randomNumberGenerator = new RNGCryptoServiceProvider();
+            var randomNumber = new byte[length];
+            randomNumberGenerator.GetBytes(randomNumber);
 
-                return randomNumber;
-            }
+            return randomNumber;
         }
     }
 }

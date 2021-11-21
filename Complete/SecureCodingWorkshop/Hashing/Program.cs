@@ -3,9 +3,9 @@ using System.Text;
 
 namespace SecureCodingWorkshop.Hashing
 {
-    static class Program
+    internal static class Program
     {
-        static void Main()
+        private static void Main()
         {
             const string originalMessage = "Original Message to hash";
             const string originalMessage2 = "Or1ginal Message to hash";

@@ -3,9 +3,9 @@ using System.Text;
 
 namespace SecureCodingWorkshop.DES
 {
-    static class Program
+    internal static class Program
     {
-        static void Main(string[] args)
+        private static void Main()
         {
             var des = new DesEncryption();
             var key = des.GenerateRandomNumber(8);

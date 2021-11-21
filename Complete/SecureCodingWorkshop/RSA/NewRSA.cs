@@ -1,56 +1,53 @@
-﻿using System;
-using System.Security.Cryptography;
+﻿using System.Security.Cryptography;
 using System.Text;
 
 namespace SecureCodingWorkshop.NewRSA
 {
-	class NewRSA
+    internal class NewRSA
     {
-        private System.Security.Cryptography.RSA rsa; 
+        private readonly System.Security.Cryptography.RSA _rsa; 
  
         public NewRSA()
         {
-            rsa = System.Security.Cryptography.RSA.Create(2048);
+            _rsa = System.Security.Cryptography.RSA.Create(2048);
         }
 
         public byte[] Encrypt(string dataToEncrypt)
         {
-            return rsa.Encrypt(Encoding.UTF8.GetBytes(dataToEncrypt), RSAEncryptionPadding.OaepSHA256);
+            return _rsa.Encrypt(Encoding.UTF8.GetBytes(dataToEncrypt), RSAEncryptionPadding.OaepSHA256);
         }
 
         public byte[] Encrypt(byte[] dataToEncrypt)
         {
-            return rsa.Encrypt(dataToEncrypt, RSAEncryptionPadding.OaepSHA256);
+            return _rsa.Encrypt(dataToEncrypt, RSAEncryptionPadding.OaepSHA256);
         }
 
         public byte[] Decrypt(byte[] dataToDecrypt)
         {
-            return rsa.Decrypt(dataToDecrypt, RSAEncryptionPadding.OaepSHA256);
+            return _rsa.Decrypt(dataToDecrypt, RSAEncryptionPadding.OaepSHA256);
         }
 
         public byte[] ExportPrivateKey(int numberOfIterations, string password)
         {
-            byte[] encryptedPrivateKey;
-           
-            PbeParameters keyParams = new PbeParameters(PbeEncryptionAlgorithm.Aes256Cbc, HashAlgorithmName.SHA256, numberOfIterations);  
-            encryptedPrivateKey = rsa.ExportEncryptedPkcs8PrivateKey(Encoding.UTF8.GetBytes(password), keyParams);
+            var keyParams = new PbeParameters(PbeEncryptionAlgorithm.Aes256Cbc, HashAlgorithmName.SHA256, numberOfIterations);  
+            var encryptedPrivateKey = _rsa.ExportEncryptedPkcs8PrivateKey(Encoding.UTF8.GetBytes(password), keyParams);
 
             return encryptedPrivateKey;
         }
 
         public void ImportEncryptedPrivateKey(byte[] encryptedKey, string password)
         {
-            rsa.ImportEncryptedPkcs8PrivateKey(Encoding.UTF8.GetBytes(password), encryptedKey, out _);
+            _rsa.ImportEncryptedPkcs8PrivateKey(Encoding.UTF8.GetBytes(password), encryptedKey, out _);
         }
 
         public byte[] ExportPublicKey()
         {
-            return rsa.ExportRSAPublicKey();
+            return _rsa.ExportRSAPublicKey();
         }
 
         public void ImportPublicKey(byte[] publicKey)
         {
-            rsa.ImportRSAPublicKey(publicKey, out _);
+            _rsa.ImportRSAPublicKey(publicKey, out _);
         }
     }
 }

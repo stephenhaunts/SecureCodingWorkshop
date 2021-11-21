@@ -15,15 +15,13 @@ namespace SecureCodingWorkshop.DigitalSignature
 
         public static byte[] ComputeHashSha256(byte[] toBeHashed)
         {
-            using (var sha256 = SHA256.Create())
-            {
-                return sha256.ComputeHash(toBeHashed);
-            }
+            using var sha256 = SHA256.Create();
+            return sha256.ComputeHash(toBeHashed);
         }
 
         public (byte[], byte[]) SignData(byte[] dataToSign)
         {
-            byte[] hashOfDataToSign = ComputeHashSha256(dataToSign);
+            var hashOfDataToSign = ComputeHashSha256(dataToSign);
 
             return (rsa.SignHash(hashOfDataToSign, HashAlgorithmName.SHA256, RSASignaturePadding.Pkcs1), hashOfDataToSign);
         }
@@ -35,9 +33,9 @@ namespace SecureCodingWorkshop.DigitalSignature
 
         public byte[] ExportPrivateKey(int numberOfIterations, string password)
         {
-            byte[] encryptedPrivateKey = new byte[2000];
+            byte[] encryptedPrivateKey;
            
-            PbeParameters keyParams = new PbeParameters(PbeEncryptionAlgorithm.Aes256Cbc, HashAlgorithmName.SHA256, numberOfIterations);  
+            var keyParams = new PbeParameters(PbeEncryptionAlgorithm.Aes256Cbc, HashAlgorithmName.SHA256, numberOfIterations);  
             encryptedPrivateKey = rsa.ExportEncryptedPkcs8PrivateKey(Encoding.UTF8.GetBytes(password), keyParams);
 
             return encryptedPrivateKey;

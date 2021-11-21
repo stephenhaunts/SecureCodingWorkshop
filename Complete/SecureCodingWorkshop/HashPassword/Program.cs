@@ -3,7 +3,7 @@ using System.Text;
 
 namespace SecureCodingWorkshop.HashPassword
 {
-    static class Program
+    internal static class Program
     {
         static void Main()
         {

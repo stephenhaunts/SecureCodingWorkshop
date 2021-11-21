@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SecureCodingWorkshop.AES
 {
-    static class Program
+    internal static class Program
     {
         static void Main(string[] args)
         {
@@ -44,15 +44,15 @@ namespace SecureCodingWorkshop.AES
         {
             const string original = "Text to encrypt";
 
-            var aesGCM = new AesGCMEncryption();
+            var aesGCM = new AesGcmEncryption();
 
             var gcmKey = aesGCM.GenerateRandomNumber(32);
             var nonce = aesGCM.GenerateRandomNumber(12);
 
             try
             {
-                (byte[] ciphereText, byte[] tag) result = aesGCM.Encrypt(Encoding.UTF8.GetBytes(original), gcmKey, nonce, Encoding.UTF8.GetBytes("some metadata"));
-                byte[] decryptedText = aesGCM.Decrypt(result.ciphereText, gcmKey, nonce, result.tag, Encoding.UTF8.GetBytes("some metadata"));
+                (byte[] ciphereText, byte[] tag) result = AesGcmEncryption.Encrypt(Encoding.UTF8.GetBytes(original), gcmKey, nonce, Encoding.UTF8.GetBytes("some metadata"));
+                byte[] decryptedText = AesGcmEncryption.Decrypt(result.ciphereText, gcmKey, nonce, result.tag, Encoding.UTF8.GetBytes("some metadata"));
 
                 Console.WriteLine("AES GCM Encryption Demonstration in .NET");
                 Console.WriteLine("----------------------------------------");

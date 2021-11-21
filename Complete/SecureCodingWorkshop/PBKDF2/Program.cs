@@ -4,7 +4,7 @@ using System.Text;
 
 namespace SecureCodingWorkshop.PBKDF2
 {
-    static class Program
+    internal static class Program
     {
         static void Main()
         {
@@ -33,8 +33,8 @@ namespace SecureCodingWorkshop.PBKDF2
 
             sw.Start();
 
-            var hashedPassword = PBKDF2.HashPassword(Encoding.UTF8.GetBytes(passwordToHash),
-                                                     PBKDF2.GenerateSalt(),
+            var hashedPassword = Pbkdf2.HashPassword(Encoding.UTF8.GetBytes(passwordToHash),
+                                                     Pbkdf2.GenerateSalt(),
                                                      numberOfRounds);
             sw.Stop();
 
