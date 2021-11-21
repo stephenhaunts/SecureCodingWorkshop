@@ -6,7 +6,7 @@ namespace SecureCodingWorkshop.HybridWithIntegrity
 {
     static class Program
     {
-        static void Main()
+        private static void Main()
         {
             const string original = "Very secret and important information that can not fall into the wrong hands.";
 
@@ -22,11 +22,11 @@ namespace SecureCodingWorkshop.HybridWithIntegrity
             try
             {
                 var encryptedBlock = hybrid.EncryptData(Encoding.UTF8.GetBytes(original), rsaParams);
-                var decrpyted = hybrid.DecryptData(encryptedBlock, rsaParams);
+                var decrypted = hybrid.DecryptData(encryptedBlock, rsaParams);
 
                 Console.WriteLine("Original Message = " + original);
                 Console.WriteLine();
-                Console.WriteLine("Message After Decryption = " + Encoding.UTF8.GetString(decrpyted));
+                Console.WriteLine("Message After Decryption = " + Encoding.UTF8.GetString(decrypted));
             }
             catch (CryptographicException ex)
             {

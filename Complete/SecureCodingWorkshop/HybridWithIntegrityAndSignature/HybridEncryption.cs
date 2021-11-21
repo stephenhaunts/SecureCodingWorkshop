@@ -47,8 +47,7 @@ namespace SecureCodingWorkshop.HybridWithIntegrityAndSignature
             if (!digitalSignature.VerifySignature(encryptedPacket.Hmac,
                                       encryptedPacket.Signature))
             {
-                throw new CryptographicException(
-                    "Digital Signature can not be verified.");
+                throw new CryptographicException("Digital Signature can not be verified.");
             }
 
             var decryptedData = _aes.Decrypt(encryptedPacket.EncryptedData, decryptedSessionKey,

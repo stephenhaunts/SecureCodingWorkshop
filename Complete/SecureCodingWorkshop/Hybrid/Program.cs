@@ -5,7 +5,7 @@ namespace SecureCodingWorkshop.Hybrid
 {
     static class Program
     {
-        static void Main()
+        private static void Main()
         {
             const string original = "Very secret and important information that can not fall into the wrong hands.";
 

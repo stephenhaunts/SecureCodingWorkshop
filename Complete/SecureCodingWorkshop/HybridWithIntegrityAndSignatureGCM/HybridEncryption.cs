@@ -8,12 +8,10 @@ namespace SecureCodingWorkshop.HybridWithIntegrityAndSignature
     {
         private readonly AesGCMEncryption _aes = new AesGCMEncryption();
 
-        public static byte[] ComputeHMACSha256(byte[] toBeHashed, byte[] hmacKey)
+        private static byte[] ComputeHMACSha256(byte[] toBeHashed, byte[] hmacKey)
         {
-            using (var hmacSha256 = new HMACSHA256(hmacKey))
-            {
-                return hmacSha256.ComputeHash(toBeHashed);
-            }
+            using var hmacSha256 = new HMACSHA256(hmacKey);
+            return hmacSha256.ComputeHash(toBeHashed);
         }
 
         public EncryptedPacket EncryptData(byte[] original, NewRSA rsaParams,
@@ -52,7 +50,7 @@ namespace SecureCodingWorkshop.HybridWithIntegrityAndSignature
             var decryptedSessionKey = 
                 rsaParams.Decrypt(encryptedPacket.EncryptedSessionKey);
 
-            byte[] newHMAC = ComputeHMACSha256(
+            var newHMAC = ComputeHMACSha256(
                 Combine(encryptedPacket.EncryptedData, encryptedPacket.Iv), 
                 decryptedSessionKey);
 

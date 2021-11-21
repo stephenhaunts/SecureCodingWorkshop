@@ -26,10 +26,8 @@ namespace HybridEncryption
 
         public byte[] ExportPrivateKey(int numberOfIterations, string password)
         {
-            byte[] encryptedPrivateKey = new byte[2000];
-           
-            PbeParameters keyParams = new PbeParameters(PbeEncryptionAlgorithm.Aes256Cbc, HashAlgorithmName.SHA256, numberOfIterations);  
-            encryptedPrivateKey = rsa.ExportEncryptedPkcs8PrivateKey(Encoding.UTF8.GetBytes(password), keyParams);
+            var keyParams = new PbeParameters(PbeEncryptionAlgorithm.Aes256Cbc, HashAlgorithmName.SHA256, numberOfIterations);  
+            var encryptedPrivateKey = rsa.ExportEncryptedPkcs8PrivateKey(Encoding.UTF8.GetBytes(password), keyParams);
 
             return encryptedPrivateKey;
         }

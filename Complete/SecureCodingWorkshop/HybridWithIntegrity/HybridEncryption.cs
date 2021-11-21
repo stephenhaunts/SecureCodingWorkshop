@@ -16,10 +16,8 @@ namespace SecureCodingWorkshop.HybridWithIntegrity
             encryptedPacket.EncryptedData = _aes.Encrypt(original, sessionKey, encryptedPacket.Iv);
             encryptedPacket.EncryptedSessionKey = rsaParams.EncryptData(sessionKey);
 
-            using (var hmac = new HMACSHA256(sessionKey))
-            {
-                encryptedPacket.Hmac = hmac.ComputeHash(Combine(encryptedPacket.EncryptedData, encryptedPacket.Iv));
-            }
+            using var hmac = new HMACSHA256(sessionKey);
+            encryptedPacket.Hmac = hmac.ComputeHash(Combine(encryptedPacket.EncryptedData, encryptedPacket.Iv));
 
             return encryptedPacket;
         }

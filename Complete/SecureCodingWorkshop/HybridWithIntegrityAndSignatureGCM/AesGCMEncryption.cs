@@ -8,20 +8,18 @@ namespace SecureCodingWorkshop.HybridWithIntegrityAndSignature
     {
         public byte[] GenerateRandomNumber(int length)
         {
-            using (var randomNumberGenerator = new RNGCryptoServiceProvider())
-            {
-                var randomNumber = new byte[length];
-                randomNumberGenerator.GetBytes(randomNumber);
+            using var randomNumberGenerator = new RNGCryptoServiceProvider();
+            var randomNumber = new byte[length];
+            randomNumberGenerator.GetBytes(randomNumber);
 
-                return randomNumber;
-            }
+            return randomNumber;
         }
 
         public (byte[], byte[]) Encrypt(byte[] dataToEncrypt, byte[] key, byte[] nonce, byte[] associatedData)
         {
             // these will be filled during the encryption
-            byte[] tag = new byte[16];
-            byte[] ciphertext = new byte[dataToEncrypt.Length];
+            var tag = new byte[16];
+            var ciphertext = new byte[dataToEncrypt.Length];
 
             using (AesGcm aesGcm = new AesGcm(key))
             {
@@ -33,12 +31,10 @@ namespace SecureCodingWorkshop.HybridWithIntegrityAndSignature
 
         public byte[] Decrypt(byte[] cipherText, byte[] key, byte[] nonce, byte[] tag, byte[] associatedData)
         {
-            byte[] decryptedData = new byte[cipherText.Length];
+            var decryptedData = new byte[cipherText.Length];
 
-            using (AesGcm aesGcm = new AesGcm(key))
-            {
-                aesGcm.Decrypt(nonce, cipherText, tag, decryptedData, associatedData);
-            }
+            using AesGcm aesGcm = new AesGcm(key);
+            aesGcm.Decrypt(nonce, cipherText, tag, decryptedData, associatedData);
 
             return decryptedData;
         }

@@ -61,22 +61,15 @@ namespace SecureCodingWorkshop.DigitalSignature
 
             var valid = digitalSignature.VerifySignature(signature.Item1, signature.Item2);
 
-            if (valid)
-            {
-                Console.WriteLine("The digital signature is VALID");
-            }
-            else
-            {
-                Console.WriteLine("The digital signature is INVALID");
-            }
+            Console.WriteLine(valid ? "The digital signature is VALID" : "The digital signature is INVALID");
         }
 
         private static void SignAndVerifyDataWithKeyExport()
         {
             // Create some RSA keys and export them.
             var digitalSignature = new NewDigitalSignature();
-            byte[] encryptedPrivateKey = digitalSignature.ExportPrivateKey(100000, "iwf57yn783425y");
-            byte[] publicKey = digitalSignature.ExportPublicKey();
+            var encryptedPrivateKey = digitalSignature.ExportPrivateKey(100000, "iwf57yn783425y");
+            var publicKey = digitalSignature.ExportPublicKey();
 
 
             var document = Encoding.UTF8.GetBytes("Document to Sign");
@@ -90,14 +83,7 @@ namespace SecureCodingWorkshop.DigitalSignature
 
             var valid = digitalSignature2.VerifySignature(signature.Item1, signature.Item2);
 
-            if (valid)
-            {
-                Console.WriteLine("The digital signature is VALID");
-            }
-            else
-            {
-                Console.WriteLine("The digital signature is INVALID");
-            }
+            Console.WriteLine(valid ? "The digital signature is VALID" : "The digital signature is INVALID");
         }
     }
 }
