@@ -23,16 +23,15 @@ SOFTWARE.
 */
 using System.Security.Cryptography;
 
-namespace AzureKeyVault.DigitalSignatures
+namespace AzureKeyVault.DigitalSignatures;
+
+public static class Hash
 {
-    public static class Hash
+    public static byte[] Sha256(byte[] toBeHashed)
     {
-        public static byte[] Sha256(byte[] toBeHashed)
+        using (var sha256 = SHA256.Create())
         {
-            using (var sha256 = SHA256.Create())
-            {
-                return sha256.ComputeHash(toBeHashed);
-            }
+            return sha256.ComputeHash(toBeHashed);
         }
     }
 }

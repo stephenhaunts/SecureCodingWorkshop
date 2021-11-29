@@ -23,20 +23,19 @@ SOFTWARE.
 */
 using System.Threading.Tasks;
 
-namespace AzureKeyVault.PasswordProtection
+namespace AzureKeyVault.PasswordProtection;
+
+public interface IKeyVault
 {
-    public interface IKeyVault
-    {
-        Task<string> CreateKeyAsync(string keyName);
-        Task DeleteKeyAsync(string keyName);
+    Task<string> CreateKeyAsync(string keyName);
+    Task DeleteKeyAsync(string keyName);
 
-        Task<byte[]> EncryptAsync(string keyId, byte[] dataToEncrypt);
-        Task<byte[]> DecryptAsync(string keyId, byte[] dataToDecrypt);
+    Task<byte[]> EncryptAsync(string keyId, byte[] dataToEncrypt);
+    Task<byte[]> DecryptAsync(string keyId, byte[] dataToDecrypt);
 
-        Task<string> SetSecretAsync(string secretName, string secretValue);
-        Task<string> GetSecretAsync(string secretName);
+    Task<string> SetSecretAsync(string secretName, string secretValue);
+    Task<string> GetSecretAsync(string secretName);
 
-        Task<byte[]> Sign(string keyId, byte[] hash);
-        Task<bool> Verify(string keyId, byte[] hash, byte[] signature);
-    }
+    Task<byte[]> Sign(string keyId, byte[] hash);
+    Task<bool> Verify(string keyId, byte[] hash, byte[] signature);
 }

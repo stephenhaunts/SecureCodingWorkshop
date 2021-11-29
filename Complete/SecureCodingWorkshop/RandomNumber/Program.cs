@@ -21,25 +21,16 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-using System;
 
-namespace SecureCodingWorkshop.RandomNumber
+Console.WriteLine("Random Number Demonstration in .NET");
+Console.WriteLine("---------------------------------");
+Console.WriteLine();
+
+for (var i = 0; i < 10; i++)
 {
-    internal static class Program
-    {
-        private static void Main()
-        {
-            Console.WriteLine("Random Number Demonstration in .NET");
-            Console.WriteLine("---------------------------------");
-            Console.WriteLine();
-
-            for (var i = 0; i < 10; i++)
-            {
-                Console.WriteLine("Random Number " + i + " : "
-                    + Convert.ToBase64String(Random.GenerateRandomNumber(32)));
-            }
-
-            Console.ReadLine();
-        }
-    }
+    var randomNumbers = RandomNumberGenerator.GetBytes(32);
+    Console.WriteLine("Random Number " + i + " : "
+                      + Convert.ToBase64String(randomNumbers));
 }
+
+Console.ReadLine();

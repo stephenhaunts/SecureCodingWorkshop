@@ -22,36 +22,35 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace SecureCodingWorkshop.HybridWithIntegrityAndSignature
+namespace SecureCodingWorkshop.HybridWithIntegrityAndSignature;
+
+public class HybridEncryption
 {
-    public class HybridEncryption
+    private readonly AesGCMEncryption _aes = new AesGCMEncryption();
+
+    public EncryptedPacket EncryptData(byte[] original, RSAWithRSAParameterKey rsaParams)
     {
-        private readonly AesGCMEncryption _aes = new AesGCMEncryption();
+        var sessionKey = _aes.GenerateRandomNumber(32);
 
-        public EncryptedPacket EncryptData(byte[] original, RSAWithRSAParameterKey rsaParams)
-        {
-            var sessionKey = _aes.GenerateRandomNumber(32);
+        var encryptedPacket = new EncryptedPacket { Iv = _aes.GenerateRandomNumber(12) };
 
-            var encryptedPacket = new EncryptedPacket { Iv = _aes.GenerateRandomNumber(12) };
+        (byte[] ciphereText, byte[] tag) encrypted = _aes.Encrypt(original, sessionKey, encryptedPacket.Iv, null);
 
-            (byte[] ciphereText, byte[] tag) encrypted = _aes.Encrypt(original, sessionKey, encryptedPacket.Iv, null);
-
-            encryptedPacket.EncryptedData = encrypted.ciphereText;
-            encryptedPacket.Tag = encrypted.tag;
-            encryptedPacket.EncryptedSessionKey = rsaParams.EncryptData(sessionKey);
+        encryptedPacket.EncryptedData = encrypted.ciphereText;
+        encryptedPacket.Tag = encrypted.tag;
+        encryptedPacket.EncryptedSessionKey = rsaParams.EncryptData(sessionKey);
          
-            return encryptedPacket;
-        }
+        return encryptedPacket;
+    }
 
-        public byte[] DecryptData(EncryptedPacket encryptedPacket, RSAWithRSAParameterKey rsaParams)
-        {
-            var decryptedSessionKey = rsaParams.DecryptData(encryptedPacket.EncryptedSessionKey);
+    public byte[] DecryptData(EncryptedPacket encryptedPacket, RSAWithRSAParameterKey rsaParams)
+    {
+        var decryptedSessionKey = rsaParams.DecryptData(encryptedPacket.EncryptedSessionKey);
 
             
-            var decryptedData = _aes.Decrypt(encryptedPacket.EncryptedData, decryptedSessionKey,
-                                             encryptedPacket.Iv, encryptedPacket.Tag, null);
+        var decryptedData = _aes.Decrypt(encryptedPacket.EncryptedData, decryptedSessionKey,
+            encryptedPacket.Iv, encryptedPacket.Tag, null);
 
-            return decryptedData;
-        }
+        return decryptedData;
     }
 }

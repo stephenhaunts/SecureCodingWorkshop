@@ -21,45 +21,32 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-using System.Security.Cryptography;
 
-namespace SecureCodingWorkshop.HMAC
+namespace HMAC;
+
+public static class Hmac
 {
-    public static class Hmac
+    public static byte[] ComputeHmacsha256(byte[] toBeHashed, byte[] key)
     {
-        private const int KeySize = 32;
+        using var hmac = new HMACSHA256(key);
+        return hmac.ComputeHash(toBeHashed);
+    }
 
-        public static byte[] GenerateKey()
-        {
-            using var randomNumberGenerator = new RNGCryptoServiceProvider();
-            var randomNumber = new byte[KeySize];
-            randomNumberGenerator.GetBytes(randomNumber);
+    public static byte[] ComputeHmacsha1(byte[] toBeHashed, byte[] key)
+    {
+        using var hmac = new HMACSHA1(key);
+        return hmac.ComputeHash(toBeHashed);
+    }
 
-            return randomNumber;
-        }
+    public static byte[] ComputeHmacsha512(byte[] toBeHashed, byte[] key)
+    {
+        using var hmac = new HMACSHA512(key);
+        return hmac.ComputeHash(toBeHashed);
+    }
 
-        public static byte[] ComputeHmacsha256(byte[] toBeHashed, byte[] key)
-        {
-            using var hmac = new HMACSHA256(key);
-            return hmac.ComputeHash(toBeHashed);
-        }
-
-        public static byte[] ComputeHmacsha1(byte[] toBeHashed, byte[] key)
-        {
-            using var hmac = new HMACSHA1(key);
-            return hmac.ComputeHash(toBeHashed);
-        }
-
-        public static byte[] ComputeHmacsha512(byte[] toBeHashed, byte[] key)
-        {
-            using var hmac = new HMACSHA512(key);
-            return hmac.ComputeHash(toBeHashed);
-        }
-
-        public static byte[] ComputeHmacmd5(byte[] toBeHashed, byte[] key)
-        {
-            using var hmac = new HMACMD5(key);
-            return hmac.ComputeHash(toBeHashed);
-        }
+    public static byte[] ComputeHmacmd5(byte[] toBeHashed, byte[] key)
+    {
+        using var hmac = new HMACMD5(key);
+        return hmac.ComputeHash(toBeHashed);
     }
 }

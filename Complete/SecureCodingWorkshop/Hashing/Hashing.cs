@@ -21,19 +21,31 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-using System.Security.Cryptography;
+namespace Hashing;
 
-namespace SecureCodingWorkshop.RandomNumber
+public static class HashData
 {
-    public static class Random
+    public static byte[] ComputeHashSha1(byte[] toBeHashed)
     {
-        public static byte[] GenerateRandomNumber(int length)
-        {
-            using var randomNumberGenerator = new RNGCryptoServiceProvider();
-            var randomNumber = new byte[length];
-            randomNumberGenerator.GetBytes(randomNumber);
+        using var sha1 = SHA1.Create();
+        return sha1.ComputeHash(toBeHashed);
+    }
 
-            return randomNumber;
-        }
+    public static byte[] ComputeHashSha256(byte[] toBeHashed)
+    {
+        using var sha256 = SHA256.Create();
+        return sha256.ComputeHash(toBeHashed);
+    }
+
+    public static byte[] ComputeHashSha512(byte[] toBeHashed)
+    {
+        using var sha512 = SHA512.Create();
+        return sha512.ComputeHash(toBeHashed);
+    }
+
+    public static byte[] ComputeHashMd5(byte[] toBeHashed)
+    {
+        using var md5 = MD5.Create();
+        return md5.ComputeHash(toBeHashed);
     }
 }

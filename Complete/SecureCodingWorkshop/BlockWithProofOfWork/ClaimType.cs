@@ -22,10 +22,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace BlockChainCourse.BlockWithProofOfWork
+namespace BlockChainCourse.BlockWithProofOfWork;
+
+public enum ClaimType
 {
-    public enum ClaimType
-    {
-        TotalLoss = 0
-    }
+    TotalLoss = 0
 }

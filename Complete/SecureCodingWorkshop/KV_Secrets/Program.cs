@@ -24,26 +24,25 @@ SOFTWARE.
 using System;
 using System.Threading.Tasks;
 
-namespace AzureKeyVault.Secrets
+namespace AzureKeyVault.Secrets;
+
+static class Program
 {
-    static class Program
+    public static async Task Main()
     {
-        public static async Task Main()
-        {
-            await KeyVault();
-        }
+        await KeyVault();
+    }
 
-        private static async Task KeyVault()
-        {
-            IKeyVault vault = new KeyVault();
+    private static async Task KeyVault()
+    {
+        IKeyVault vault = new KeyVault();
 
-            const string MY_SECRET = "StephenHauntsSecret";
+        const string MY_SECRET = "StephenHauntsSecret";
 
-            var secretId = await vault.SetSecretAsync(MY_SECRET, "Mary had a little lamb.");
-            Console.WriteLine("Secret Written");
+        var secretId = await vault.SetSecretAsync(MY_SECRET, "Mary had a little lamb.");
+        Console.WriteLine("Secret Written");
 
-            var secret = await vault.GetSecretAsync(MY_SECRET);
-            Console.WriteLine("Secret Retrieved : " + secret);
-        }
+        var secret = await vault.GetSecretAsync(MY_SECRET);
+        Console.WriteLine("Secret Retrieved : " + secret);
     }
 }

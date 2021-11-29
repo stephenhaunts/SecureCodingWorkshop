@@ -23,16 +23,15 @@ SOFTWARE.
 */
 using System.Security.Cryptography;
 
-namespace AzureKeyVault.PasswordProtection
+namespace AzureKeyVault.PasswordProtection;
+
+public static class PBKDF2
 {
-    public static class PBKDF2
+    public static byte[] HashPassword(byte[] toBeHashed, byte[] salt, int numberOfRounds)
     {
-        public static byte[] HashPassword(byte[] toBeHashed, byte[] salt, int numberOfRounds)
+        using (var rfc2898 = new Rfc2898DeriveBytes(toBeHashed, salt, numberOfRounds))
         {
-            using (var rfc2898 = new Rfc2898DeriveBytes(toBeHashed, salt, numberOfRounds))
-            {
-                return rfc2898.GetBytes(20);
-            }
+            return rfc2898.GetBytes(20);
         }
     }
 }

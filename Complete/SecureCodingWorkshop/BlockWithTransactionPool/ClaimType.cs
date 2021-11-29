@@ -21,10 +21,9 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-namespace BlockChainCourse.BlockWithTransactionPool
+namespace BlockChainCourse.BlockWithTransactionPool;
+
+public enum ClaimType
 {
-    public enum ClaimType
-    {
-        TotalLoss = 0
-    }
+    TotalLoss = 0
 }

@@ -21,92 +21,86 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-using System;
-using System.Runtime.InteropServices;
-using System.Security;
-using System.Security.Cryptography;
-using System.Text;
 
-namespace SecureCodingWorkshop.DigitalSignature
+namespace SecureCodingWorkshop.DigitalSignature;
+
+static class Program
 {
-     static class Program
+    static void Main()
     {
-        static void Main()
+        SignAndVerifyData();
+
+        SignAndVerifyData2();
+
+        SignAndVerifyDataWithKeyExport();
+
+        Console.ReadLine();
+    }
+
+    private static void SignAndVerifyData()
+    {
+        var document = Encoding.UTF8.GetBytes("Document to Sign");
+        byte[] hashedDocument;
+
+        using (var sha256 = SHA256.Create())
         {
-            SignAndVerifyData();
-
-            SignAndVerifyData2();
-
-            SignAndVerifyDataWithKeyExport();
-
-            Console.ReadLine();
+            hashedDocument = sha256.ComputeHash(document);
         }
 
-        private static void SignAndVerifyData()
-        {
-            var document = Encoding.UTF8.GetBytes("Document to Sign");
-            byte[] hashedDocument;
+        var digitalSignature = new DigitalSignature();
+        digitalSignature.AssignNewKey();
 
-            using (var sha256 = SHA256.Create())
-            {
-                hashedDocument = sha256.ComputeHash(document);
-            }
+        var signature = digitalSignature.SignData(hashedDocument);
+        var verified = digitalSignature.VerifySignature(hashedDocument, signature);
 
-            var digitalSignature = new DigitalSignature();
-            digitalSignature.AssignNewKey();
+        Console.WriteLine("Digital Signature Demonstration in .NET");
+        Console.WriteLine("---------------------------------------");
+        Console.WriteLine();
+        Console.WriteLine();
+        Console.WriteLine("   Original Text = " + Encoding.Default.GetString(document));
 
-            var signature = digitalSignature.SignData(hashedDocument);
-            var verified = digitalSignature.VerifySignature(hashedDocument, signature);
+        Console.WriteLine();
+        Console.WriteLine("   Digital Signature = " + Convert.ToBase64String(signature));
 
-            Console.WriteLine("Digital Signature Demonstration in .NET");
-            Console.WriteLine("---------------------------------------");
-            Console.WriteLine();
-            Console.WriteLine();
-            Console.WriteLine("   Original Text = " + Encoding.Default.GetString(document));
+        Console.WriteLine();
 
-            Console.WriteLine();
-            Console.WriteLine("   Digital Signature = " + Convert.ToBase64String(signature));
+        Console.WriteLine(verified
+            ? "The digital signature has been correctly verified."
+            : "The digital signature has NOT been correctly verified.");
+    }
 
-            Console.WriteLine();
+    private static void SignAndVerifyData2()
+    {
+        var document = Encoding.UTF8.GetBytes("Document to Sign");
 
-            Console.WriteLine(verified
-                ? "The digital signature has been correctly verified."
-                : "The digital signature has NOT been correctly verified.");
-        }
+        var digitalSignature = new NewDigitalSignature();
 
-        private static void SignAndVerifyData2()
-        {
-            var document = Encoding.UTF8.GetBytes("Document to Sign");
+        var signature = digitalSignature.SignData(document);
 
-            var digitalSignature = new NewDigitalSignature();
+        var valid = digitalSignature.VerifySignature(signature.Item1, signature.Item2);
 
-            var signature = digitalSignature.SignData(document);
+        Console.WriteLine(valid ? "The digital signature is VALID" : "The digital signature is INVALID");
+    }
 
-            var valid = digitalSignature.VerifySignature(signature.Item1, signature.Item2);
-
-            Console.WriteLine(valid ? "The digital signature is VALID" : "The digital signature is INVALID");
-        }
-
-        private static void SignAndVerifyDataWithKeyExport()
-        {
-            // Create some RSA keys and export them.
-            var digitalSignature = new NewDigitalSignature();
-            var encryptedPrivateKey = digitalSignature.ExportPrivateKey(100000, "iwf57yn783425y");
-            var publicKey = digitalSignature.ExportPublicKey();
+    private static void SignAndVerifyDataWithKeyExport()
+    {
+        // Create some RSA keys and export them.
+        var digitalSignature = new NewDigitalSignature();
+        var encryptedPrivateKey = digitalSignature.ExportPrivateKey(100000, "iwf57yn783425y");
+        var publicKey = digitalSignature.ExportPublicKey();
 
 
-            var document = Encoding.UTF8.GetBytes("Document to Sign");
+        var document = Encoding.UTF8.GetBytes("Document to Sign");
 
-            // Import our existing keys
-            var digitalSignature2 = new NewDigitalSignature();
-            digitalSignature2.ImportPublicKey(publicKey);
-            digitalSignature2.ImportEncryptedPrivateKey(encryptedPrivateKey, "iwf57yn783425y");
+        // Import our existing keys
+        var digitalSignature2 = new NewDigitalSignature();
+        digitalSignature2.ImportPublicKey(publicKey);
+        digitalSignature2.ImportEncryptedPrivateKey(encryptedPrivateKey, "iwf57yn783425y");
 
-            var signature = digitalSignature2.SignData(document);
+        var signature = digitalSignature2.SignData(document);
 
-            var valid = digitalSignature2.VerifySignature(signature.Item1, signature.Item2);
+        var valid = digitalSignature2.VerifySignature(signature.Item1, signature.Item2);
 
-            Console.WriteLine(valid ? "The digital signature is VALID" : "The digital signature is INVALID");
-        }
+        Console.WriteLine(valid ? "The digital signature is VALID" : "The digital signature is INVALID");
     }
 }

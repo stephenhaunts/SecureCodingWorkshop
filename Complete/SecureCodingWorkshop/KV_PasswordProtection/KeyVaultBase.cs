@@ -29,54 +29,53 @@ using Microsoft.Azure.KeyVault.Models;
 using Microsoft.Azure.KeyVault.WebKey;
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
 
-namespace AzureKeyVault.PasswordProtection
+namespace AzureKeyVault.PasswordProtection;
+
+public class KeyVaultBase
 {
-    public class KeyVaultBase
+    protected KeyVaultClient KeyVaultClient;
+    protected ClientCredential ClientCredential;
+    protected string VaultAddress;
+
+    protected string GetKeyUri(string keyName)
     {
-        protected KeyVaultClient KeyVaultClient;
-        protected ClientCredential ClientCredential;
-        protected string VaultAddress;
+        var retrievedKey = KeyVaultClient.GetKeyAsync(VaultAddress, keyName).GetAwaiter().GetResult();
+        return retrievedKey.Key.Kid;
+    }
 
-        protected string GetKeyUri(string keyName)
+    protected KeyBundle GetKeyBundle()
+    {
+        var defaultKeyBundle = new KeyBundle
         {
-            var retrievedKey = KeyVaultClient.GetKeyAsync(VaultAddress, keyName).GetAwaiter().GetResult();
-            return retrievedKey.Key.Kid;
-        }
-
-        protected KeyBundle GetKeyBundle()
-        {
-            var defaultKeyBundle = new KeyBundle
+            Key = new JsonWebKey
             {
-                Key = new JsonWebKey
-                {
-                    Kty = JsonWebKeyType.Rsa
-                },
-                Attributes = new KeyAttributes
-                {
-                    Enabled = true,
-                    Expires = DateTime.Now.AddYears(1)
-                }
-            };
+                Kty = JsonWebKeyType.Rsa
+            },
+            Attributes = new KeyAttributes
+            {
+                Enabled = true,
+                Expires = DateTime.Now.AddYears(1)
+            }
+        };
 
-            return defaultKeyBundle;
-        }
+        return defaultKeyBundle;
+    }
 
-        protected Dictionary<string, string> GetKeyTags()
-        {
-            return new Dictionary<string, string> { { "purpose", "Master Key" }, { "LadderPay Core", "LadderPay" } };
-        }
+    protected Dictionary<string, string> GetKeyTags()
+    {
+        return new Dictionary<string, string> { { "purpose", "Master Key" }, { "LadderPay Core", "LadderPay" } };
+    }
 
-        protected Dictionary<string, string> GetSecretTags()
-        {
-            return new Dictionary<string, string> { { "purpose", "Encrypted Secret" }, { "LadderPay Core", "LadderPay" } };
-        }
+    protected Dictionary<string, string> GetSecretTags()
+    {
+        return new Dictionary<string, string> { { "purpose", "Encrypted Secret" }, { "LadderPay Core", "LadderPay" } };
+    }
 
-        protected async Task<string> GetAccessTokenAsync(string authority, string resource, string scope)
-        {
-            var context = new AuthenticationContext(authority, TokenCache.DefaultShared);
-            var result = await context.AcquireTokenAsync(resource, ClientCredential);
-            Console.WriteLine(scope);
-            return result.AccessToken;
-        }
+    protected async Task<string> GetAccessTokenAsync(string authority, string resource, string scope)
+    {
+        var context = new AuthenticationContext(authority, TokenCache.DefaultShared);
+        var result = await context.AcquireTokenAsync(resource, ClientCredential);
+        Console.WriteLine(scope);
+        return result.AccessToken;
     }
 }

@@ -21,25 +21,14 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-using System.Security.Cryptography;
 
-namespace SecureCodingWorkshop.PBKDF2
+namespace PBKDF2;
+
+public static class Pbkdf2
 {
-    public static class Pbkdf2
+    public static byte[] HashPassword(byte[] toBeHashed, byte[] salt, int numberOfRounds)
     {
-        public static byte[] GenerateSalt()
-        {
-            using var randomNumberGenerator = new RNGCryptoServiceProvider();
-            var randomNumber = new byte[32];
-            randomNumberGenerator.GetBytes(randomNumber);
-
-            return randomNumber;
-        }
-
-        public static byte[] HashPassword(byte[] toBeHashed, byte[] salt, int numberOfRounds)
-        {
-            using var rfc2898 = new Rfc2898DeriveBytes(toBeHashed, salt, numberOfRounds);
-            return rfc2898.GetBytes(20);
-        }
+        using var rfc2898 = new Rfc2898DeriveBytes(toBeHashed, salt, numberOfRounds);
+        return rfc2898.GetBytes(20);
     }
 }

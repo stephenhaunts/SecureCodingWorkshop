@@ -23,25 +23,24 @@ SOFTWARE.
 */
 using System.Collections.Generic;
 
-namespace BlockChainCourse.BlockWithProofOfWork
+namespace BlockChainCourse.BlockWithProofOfWork;
+
+public class TransactionPool
 {
-    public class TransactionPool
+    private readonly Queue<ITransaction> _queue;
+
+    public TransactionPool()
     {
-        private readonly Queue<ITransaction> _queue;
+        _queue = new Queue<ITransaction>();
+    }
 
-        public TransactionPool()
-        {
-            _queue = new Queue<ITransaction>();
-        }
+    public void AddTransaction(ITransaction transaction)
+    {
+        _queue.Enqueue(transaction);
+    }
 
-        public void AddTransaction(ITransaction transaction)
-        {
-            _queue.Enqueue(transaction);
-        }
-
-        public ITransaction GetTransaction()
-        {
-            return _queue.Dequeue();
-        }
+    public ITransaction GetTransaction()
+    {
+        return _queue.Dequeue();
     }
 }

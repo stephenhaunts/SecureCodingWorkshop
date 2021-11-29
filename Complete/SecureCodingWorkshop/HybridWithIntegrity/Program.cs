@@ -25,38 +25,37 @@ using System;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace SecureCodingWorkshop.HybridWithIntegrity
+namespace SecureCodingWorkshop.HybridWithIntegrity;
+
+static class Program
 {
-    static class Program
+    private static void Main()
     {
-        private static void Main()
+        const string original = "Very secret and important information that can not fall into the wrong hands.";
+
+        var hybrid = new HybridEncryption();
+
+        var rsaParams = new RSAWithRSAParameterKey();
+        rsaParams.AssignNewKey();
+
+        Console.WriteLine("Hybrid Encryption with Integrity Check Demonstration in .NET");
+        Console.WriteLine("------------------------------------------------------------");
+        Console.WriteLine();
+
+        try
         {
-            const string original = "Very secret and important information that can not fall into the wrong hands.";
+            var encryptedBlock = hybrid.EncryptData(Encoding.UTF8.GetBytes(original), rsaParams);
+            var decrypted = hybrid.DecryptData(encryptedBlock, rsaParams);
 
-            var hybrid = new HybridEncryption();
-
-            var rsaParams = new RSAWithRSAParameterKey();
-            rsaParams.AssignNewKey();
-
-            Console.WriteLine("Hybrid Encryption with Integrity Check Demonstration in .NET");
-            Console.WriteLine("------------------------------------------------------------");
+            Console.WriteLine("Original Message = " + original);
             Console.WriteLine();
-
-            try
-            {
-                var encryptedBlock = hybrid.EncryptData(Encoding.UTF8.GetBytes(original), rsaParams);
-                var decrypted = hybrid.DecryptData(encryptedBlock, rsaParams);
-
-                Console.WriteLine("Original Message = " + original);
-                Console.WriteLine();
-                Console.WriteLine("Message After Decryption = " + Encoding.UTF8.GetString(decrypted));
-            }
-            catch (CryptographicException ex)
-            {
-                Console.WriteLine("Error : " + ex.Message);
-            }
-
-            Console.ReadLine();
+            Console.WriteLine("Message After Decryption = " + Encoding.UTF8.GetString(decrypted));
         }
+        catch (CryptographicException ex)
+        {
+            Console.WriteLine("Error : " + ex.Message);
+        }
+
+        Console.ReadLine();
     }
 }
