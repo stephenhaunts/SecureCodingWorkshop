@@ -47,7 +47,7 @@ public class ProofOfWork
 
         while(true)
         {
-            string hashedData = Convert.ToBase64String(HashData.ComputeHashSha256(Encoding.UTF8.GetBytes(Nonce + MyData)));
+            var hashedData = Convert.ToBase64String(HashData.ComputeHashSha256(Encoding.UTF8.GetBytes(Nonce + MyData)));
 
             if (hashedData.StartsWith(difficulty, StringComparison.Ordinal))
             {

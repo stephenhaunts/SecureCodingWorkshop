@@ -38,7 +38,7 @@ class Program
     static void Main(string[] args)
     {
         ITransaction txn5 = SetupTransactions();
-        IKeyStore keyStore = new KeyStore(Hmac.GenerateKey());
+        IKeyStore keyStore = new KeyStore(RandomNumberGenerator.GetBytes(32));
 
         IBlock block1 = new Block(0, keyStore);
         IBlock block2 = new Block(1, keyStore);

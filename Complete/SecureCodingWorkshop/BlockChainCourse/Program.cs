@@ -61,7 +61,7 @@ class Program
         Console.WriteLine("--------------------------");
         Console.WriteLine();
 
-        var key = Hmac.GenerateKey();
+        var key = RandomNumberGenerator.GetBytes(32);
 
         var hmacSha256Message = Hmac.ComputeHmacsha256(Encoding.UTF8.GetBytes(originalMessage), key);
         var hmacSha256Message2 = Hmac.ComputeHmacsha256(Encoding.UTF8.GetBytes(originalMessage2), key);
