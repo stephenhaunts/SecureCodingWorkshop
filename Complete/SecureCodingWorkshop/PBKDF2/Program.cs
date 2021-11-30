@@ -48,9 +48,8 @@ static void HashPassword(string passwordToHash, int numberOfRounds)
 {
     var sw = Stopwatch.StartNew();
 
-    var hashedPassword = Pbkdf2.HashPassword(Encoding.UTF8.GetBytes(passwordToHash),
-        RandomNumberGenerator.GetBytes(32),
-        numberOfRounds);
+    var hashedPassword = Rfc2898DeriveBytes.Pbkdf2(passwordToHash, RandomNumberGenerator.GetBytes(32),
+        numberOfRounds, HashAlgorithmName.SHA256, 20);
 
     sw.Stop();
 

@@ -22,33 +22,23 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace SecureCodingWorkshop.DigitalSignatures_;
+using SecureCodingWorkshop.DigitalSignatures_;
 
-internal static class Program
-{
-    public static async Task Main()
-    {
-        await KeyVault();
-    }
+var vault = new KeyVault();
 
-    private static async Task KeyVault()
-    {
-        var vault = new KeyVault();
+const string MY_KEY_NAME = "StephenHauntsKey";
+var keyId = await vault.CreateKeyAsync(MY_KEY_NAME);
 
-        const string MY_KEY_NAME = "StephenHauntsKey";
-        var keyId = await vault.CreateKeyAsync(MY_KEY_NAME);
+const string importantDocument = "This is a really important document that I need to digitally sign.";
 
+var documentDigest = Hash.Sha256(Encoding.UTF8.GetBytes(importantDocument));
 
-        const string importantDocument = "This is a really important document that I need to digitally sign.";
+var signature = await vault.Sign(keyId, documentDigest);
 
-        var documentDigest = Hash.Sha256(Encoding.UTF8.GetBytes(importantDocument));
+var verified = await vault.Verify(keyId, documentDigest, signature);
 
-        var signature = await vault.Sign(keyId, documentDigest);
+Console.WriteLine("Signature is " + (verified ? "VERIFIED" : "NOT VERIFIED"));
 
-        var verified = await vault.Verify(keyId, documentDigest, signature);
-
-        // Remove HSM backed key
-        await vault.DeleteKeyAsync(MY_KEY_NAME);
-        Console.WriteLine("Key Deleted : " + keyId);
-    }
-}
+// Remove HSM backed key
+await vault.DeleteKeyAsync(MY_KEY_NAME);
+Console.WriteLine("Key Deleted : " + keyId);

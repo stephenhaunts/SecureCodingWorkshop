@@ -27,7 +27,6 @@ namespace SecureCodingWorkshop.HybridWithIntegrityAndSignature_;
 public class HybridEncryption
 {
     readonly IKeyVault _keyVault;
-    readonly AesEncryption _aes = new AesEncryption();
 
     public HybridEncryption(IKeyVault keyVault)
     {
@@ -37,18 +36,16 @@ public class HybridEncryption
 
     public EncryptedPacket EncryptData(byte[] original, string keyId)
     {
-        var sessionKey = _aes.GenerateRandomNumber(32);
+        var sessionKey = RandomNumberGenerator.GetBytes(32);
 
-        var encryptedPacket = new EncryptedPacket { Iv = _aes.GenerateRandomNumber(16) };
+        var encryptedPacket = new EncryptedPacket { Iv = RandomNumberGenerator.GetBytes(16) };
 
-        encryptedPacket.EncryptedData = _aes.Encrypt(original, sessionKey, encryptedPacket.Iv);
+        encryptedPacket.EncryptedData = AesEncryption.Encrypt(original, sessionKey, encryptedPacket.Iv);
 
         encryptedPacket.EncryptedSessionKey = _keyVault.EncryptAsync(keyId, sessionKey).Result;
 
-        using (var hmac = new HMACSHA256(sessionKey))
-        {
-            encryptedPacket.Hmac = hmac.ComputeHash(Combine(encryptedPacket.EncryptedData, encryptedPacket.Iv));
-        }
+        using var hmac = new HMACSHA256(sessionKey);
+        encryptedPacket.Hmac = hmac.ComputeHash(Combine(encryptedPacket.EncryptedData, encryptedPacket.Iv));
 
         encryptedPacket.Signature = _keyVault.Sign(keyId, encryptedPacket.Hmac).Result;
 
@@ -59,25 +56,20 @@ public class HybridEncryption
     {
         var decryptedSessionKey = _keyVault.DecryptAsync(keyId, encryptedPacket.EncryptedSessionKey).Result;
 
-        using (var hmac = new HMACSHA256(decryptedSessionKey))
+        using var hmac = new HMACSHA256(decryptedSessionKey);
+        var hmacToCheck = hmac.ComputeHash(Combine(encryptedPacket.EncryptedData, encryptedPacket.Iv));
+
+        if (!Compare(encryptedPacket.Hmac, hmacToCheck))
         {
-            var hmacToCheck = hmac.ComputeHash(Combine(encryptedPacket.EncryptedData, encryptedPacket.Iv));
-
-            if (!Compare(encryptedPacket.Hmac, hmacToCheck))
-            {
-                throw new CryptographicException(
-                    "HMAC for decryption does not match encrypted packet.");
-            }
-
-            if (!_keyVault.Verify(keyId, encryptedPacket.Hmac, encryptedPacket.Signature).Result)
-            {
-                throw new CryptographicException(
-                    "Digital Signature can not be verified.");
-            }
+            throw new CryptographicException("HMAC for decryption does not match encrypted packet.");
         }
 
-        var decryptedData = _aes.Decrypt(encryptedPacket.EncryptedData, decryptedSessionKey,
-            encryptedPacket.Iv);
+        if (!_keyVault.Verify(keyId, encryptedPacket.Hmac, encryptedPacket.Signature).Result)
+        {
+            throw new CryptographicException("Digital Signature can not be verified.");
+        }
+
+        var decryptedData = AesEncryption.Decrypt(encryptedPacket.EncryptedData, decryptedSessionKey, encryptedPacket.Iv);
 
         return decryptedData;
     }
