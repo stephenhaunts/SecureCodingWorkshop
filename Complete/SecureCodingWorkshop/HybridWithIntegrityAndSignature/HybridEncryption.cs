@@ -21,59 +21,49 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-using System;
-using System.Security.Cryptography;
 
-namespace SecureCodingWorkshop.HybridWithIntegrityAndSignature;
+namespace SecureCodingWorkshop.HybridWithIntegrityAndSignature_;
 
-public class HybridEncryption
+public static class HybridEncryption
 {
-    private readonly AesEncryption _aes = new AesEncryption();
-
-    public EncryptedPacket EncryptData(byte[] original, RSAWithRSAParameterKey rsaParams,
+    public static EncryptedPacket EncryptData(byte[] original, RSAWithRSAParameterKey rsaParams,
         DigitalSignature digitalSignature)
     {
-        var sessionKey = _aes.GenerateRandomNumber(32);
+        var sessionKey = RandomNumberGenerator.GetBytes(32);
 
-        var encryptedPacket = new EncryptedPacket { Iv = _aes.GenerateRandomNumber(16) };
+        var encryptedPacket = new EncryptedPacket { Iv = RandomNumberGenerator.GetBytes(16) };
 
-        encryptedPacket.EncryptedData = _aes.Encrypt(original, sessionKey, encryptedPacket.Iv);
+        encryptedPacket.EncryptedData = AesEncryption.Encrypt(original, sessionKey, encryptedPacket.Iv);
 
         encryptedPacket.EncryptedSessionKey = rsaParams.EncryptData(sessionKey);
 
-        using (var hmac = new HMACSHA256(sessionKey))
-        {
-            encryptedPacket.Hmac = hmac.ComputeHash(Combine(encryptedPacket.EncryptedData, encryptedPacket.Iv));
-        }
+        using var hmac = new HMACSHA256(sessionKey);
+        encryptedPacket.Hmac = hmac.ComputeHash(Combine(encryptedPacket.EncryptedData, encryptedPacket.Iv));
 
         encryptedPacket.Signature = digitalSignature.SignData(encryptedPacket.Hmac);
 
         return encryptedPacket;
     }
 
-    public byte[] DecryptData(EncryptedPacket encryptedPacket, RSAWithRSAParameterKey rsaParams,
+    public static byte[] DecryptData(EncryptedPacket encryptedPacket, RSAWithRSAParameterKey rsaParams,
         DigitalSignature digitalSignature)
     {
         var decryptedSessionKey = rsaParams.DecryptData(encryptedPacket.EncryptedSessionKey);
 
-        using (var hmac = new HMACSHA256(decryptedSessionKey))
-        {
-            var hmacToCheck = hmac.ComputeHash(Combine(encryptedPacket.EncryptedData, encryptedPacket.Iv));
+        using var hmac = new HMACSHA256(decryptedSessionKey);
+        var hmacToCheck = hmac.ComputeHash(Combine(encryptedPacket.EncryptedData, encryptedPacket.Iv));
 
-            if (!Compare(encryptedPacket.Hmac, hmacToCheck))
-            {
-                throw new CryptographicException(
-                    "HMAC for decryption does not match encrypted packet.");
-            }
+        if (!Compare(encryptedPacket.Hmac, hmacToCheck))
+        {
+            throw new CryptographicException("HMAC for decryption does not match encrypted packet.");
         }
 
-        if (!digitalSignature.VerifySignature(encryptedPacket.Hmac,
-                encryptedPacket.Signature))
+        if (!digitalSignature.VerifySignature(encryptedPacket.Hmac, encryptedPacket.Signature))
         {
             throw new CryptographicException("Digital Signature can not be verified.");
         }
 
-        var decryptedData = _aes.Decrypt(encryptedPacket.EncryptedData, decryptedSessionKey,
+        var decryptedData = AesEncryption.Decrypt(encryptedPacket.EncryptedData, decryptedSessionKey,
             encryptedPacket.Iv);
 
         return decryptedData;

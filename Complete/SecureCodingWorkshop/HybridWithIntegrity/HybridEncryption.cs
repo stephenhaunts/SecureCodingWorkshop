@@ -21,22 +21,18 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-using System;
-using System.Security.Cryptography;
 
-namespace SecureCodingWorkshop.HybridWithIntegrity;
+namespace SecureCodingWorkshop.HybridWithIntegrity_;
 
-public class HybridEncryption
+public static class HybridEncryption
 {
-    private readonly AesEncryption _aes = new AesEncryption();
-
-    public EncryptedPacket EncryptData(byte[] original, RSAWithRSAParameterKey rsaParams)
+    public static EncryptedPacket EncryptData(byte[] original, RSAWithRSAParameterKey rsaParams)
     {
-        var sessionKey = _aes.GenerateRandomNumber(32);
-        var encryptedPacket = new EncryptedPacket { Iv = _aes.GenerateRandomNumber(16) };
+        var sessionKey = RandomNumberGenerator.GetBytes(32);
+        var encryptedPacket = new EncryptedPacket { Iv = RandomNumberGenerator.GetBytes(16) };
 
         // Encrypt data with AES and AES Key with RSA
-        encryptedPacket.EncryptedData = _aes.Encrypt(original, sessionKey, encryptedPacket.Iv);
+        encryptedPacket.EncryptedData = AesEncryption.Encrypt(original, sessionKey, encryptedPacket.Iv);
         encryptedPacket.EncryptedSessionKey = rsaParams.EncryptData(sessionKey);
 
         using var hmac = new HMACSHA256(sessionKey);
@@ -45,22 +41,20 @@ public class HybridEncryption
         return encryptedPacket;
     }
 
-    public byte[] DecryptData(EncryptedPacket encryptedPacket, RSAWithRSAParameterKey rsaParams)
+    public static byte[] DecryptData(EncryptedPacket encryptedPacket, RSAWithRSAParameterKey rsaParams)
     {
         // Decrypt AES Key with RSA and then decrypt data with AES.
         var decryptedSessionKey = rsaParams.DecryptData(encryptedPacket.EncryptedSessionKey);
 
-        using (var hmac = new HMACSHA256(decryptedSessionKey))
-        {
-            var hmacToCheck = hmac.ComputeHash(Combine(encryptedPacket.EncryptedData, encryptedPacket.Iv));
+        using var hmac = new HMACSHA256(decryptedSessionKey);
+        var hmacToCheck = hmac.ComputeHash(Combine(encryptedPacket.EncryptedData, encryptedPacket.Iv));
 
-            if (!Compare(encryptedPacket.Hmac, hmacToCheck))
-            {
-                throw new CryptographicException("HMAC for decryption does not match encrypted packet.");
-            }
+        if (!Compare(encryptedPacket.Hmac, hmacToCheck))
+        {
+            throw new CryptographicException("HMAC for decryption does not match encrypted packet.");
         }
 
-        var decryptedData = _aes.Decrypt(encryptedPacket.EncryptedData, decryptedSessionKey, encryptedPacket.Iv);
+        var decryptedData = AesEncryption.Decrypt(encryptedPacket.EncryptedData, decryptedSessionKey, encryptedPacket.Iv);
 
         return decryptedData;
     }

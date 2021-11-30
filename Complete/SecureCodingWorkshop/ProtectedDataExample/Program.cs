@@ -22,9 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using SecureCodingWorkshop.Protected;
-
-namespace ProtectedDataExample;
+namespace SecureCodingWorkshop.ProtectedDataExample_;
 
 static class Program
 {

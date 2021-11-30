@@ -23,7 +23,7 @@ SOFTWARE.
 */
 
 
-namespace AES;
+namespace SecureCodingWorkshop.AES_;
 
 public static class AesGcmEncryption
 {

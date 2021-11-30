@@ -4,9 +4,7 @@
 * http://www.codeproject.com/info/cpol10.aspx
 */
 
-using System;
-
-namespace Clifton.Blockchain;
+namespace SecureCodingWorkshop.BlockWithTransactionPool_.Merkle;
 
 public class MerkleException : ApplicationException
 {

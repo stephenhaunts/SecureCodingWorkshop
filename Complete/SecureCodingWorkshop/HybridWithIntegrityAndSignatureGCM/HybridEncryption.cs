@@ -21,34 +21,28 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-using System;
-using System.Security.Cryptography;
-using HybridEncryption;
 
-namespace SecureCodingWorkshop.HybridWithIntegrityAndSignature;
+namespace SecureCodingWorkshop.HybridWithIntegrityAndSignatureGCM_;
 
-public class HybridEncryption
+public static class HybridEncryption
 {
-    private readonly AesGCMEncryption _aes = new AesGCMEncryption();
-
     private static byte[] ComputeHMACSha256(byte[] toBeHashed, byte[] hmacKey)
     {
         using var hmacSha256 = new HMACSHA256(hmacKey);
         return hmacSha256.ComputeHash(toBeHashed);
     }
 
-    public EncryptedPacket EncryptData(byte[] original, NewRSA rsaParams,
+    public static EncryptedPacket EncryptData(byte[] original, NewRSA rsaParams,
         NewDigitalSignature digitalSignature)
     {
         // Create AES session key.
-        var sessionKey = _aes.GenerateRandomNumber(32);
+        var sessionKey = RandomNumberGenerator.GetBytes(32);
 
-        var encryptedPacket = new EncryptedPacket { 
-            Iv = _aes.GenerateRandomNumber(12) };
+        var encryptedPacket = new EncryptedPacket { Iv = RandomNumberGenerator.GetBytes(12) };
 
         // Encrypt data with AES-GCM
-        (byte[] ciphereText, byte[] tag) encrypted = 
-            _aes.Encrypt(original, sessionKey, encryptedPacket.Iv, null);
+        (byte[] ciphereText, byte[] tag) encrypted =
+            AesGCMEncryption.Encrypt(original, sessionKey, encryptedPacket.Iv, null);
 
         encryptedPacket.EncryptedData = encrypted.ciphereText;
 
@@ -56,22 +50,19 @@ public class HybridEncryption
 
         encryptedPacket.EncryptedSessionKey = rsaParams.Encrypt(sessionKey);
 
-        encryptedPacket.SignatureHMAC = 
-            ComputeHMACSha256(
+        encryptedPacket.SignatureHMAC = ComputeHMACSha256(
                 Combine(encryptedPacket.EncryptedData, encryptedPacket.Iv), 
                 sessionKey);
 
-        encryptedPacket.Signature = 
-            digitalSignature.SignData(encryptedPacket.SignatureHMAC);
+        encryptedPacket.Signature = digitalSignature.SignData(encryptedPacket.SignatureHMAC);
 
         return encryptedPacket;
     }
 
-    public byte[] DecryptData(EncryptedPacket encryptedPacket, NewRSA rsaParams,
+    public static byte[] DecryptData(EncryptedPacket encryptedPacket, NewRSA rsaParams,
         NewDigitalSignature digitalSignature)
     {
-        var decryptedSessionKey = 
-            rsaParams.Decrypt(encryptedPacket.EncryptedSessionKey);
+        var decryptedSessionKey = rsaParams.Decrypt(encryptedPacket.EncryptedSessionKey);
 
         var newHMAC = ComputeHMACSha256(
             Combine(encryptedPacket.EncryptedData, encryptedPacket.Iv), 
@@ -79,19 +70,15 @@ public class HybridEncryption
 
         if (!Compare(encryptedPacket.SignatureHMAC, newHMAC))
         {
-            throw new CryptographicException(
-                "HMAC for decryption does not match encrypted packet.");
+            throw new CryptographicException("HMAC for decryption does not match encrypted packet.");
         }
 
-        if (!digitalSignature.VerifySignature(
-                encryptedPacket.Signature, 
-                encryptedPacket.SignatureHMAC))
+        if (!digitalSignature.VerifySignature(encryptedPacket.Signature, encryptedPacket.SignatureHMAC))
         {
-            throw new CryptographicException(
-                "Digital Signature can not be verified.");
+            throw new CryptographicException("Digital Signature can not be verified.");
         }
 
-        var decryptedData = _aes.Decrypt(encryptedPacket.EncryptedData, 
+        var decryptedData = AesGCMEncryption.Decrypt(encryptedPacket.EncryptedData, 
             decryptedSessionKey,
             encryptedPacket.Iv, 
             encryptedPacket.Tag, 

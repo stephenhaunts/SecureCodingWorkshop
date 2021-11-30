@@ -22,9 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using System.Security.Cryptography;
-
-namespace BlockChainCourse.Cryptography;
+namespace SecureCodingWorkshop.Cryptography_;
 
 public class Hmac
 {

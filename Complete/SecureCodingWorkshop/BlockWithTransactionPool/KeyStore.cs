@@ -21,11 +21,11 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-using System;
-using System.Text;
-using BlockChainCourse.Cryptography;
 
-namespace BlockChainCourse.BlockWithTransactionPool;
+using SecureCodingWorkshop.BlockWithTransactionPool_.Interfaces;
+using SecureCodingWorkshop.Cryptography_;
+
+namespace SecureCodingWorkshop.BlockWithTransactionPool_;
 
 public class KeyStore : IKeyStore
 {

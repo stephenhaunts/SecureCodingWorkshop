@@ -22,22 +22,20 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace SecureCodingWorkshop.Hybrid;
+namespace SecureCodingWorkshop.Hybrid_;
 
 public class HybridEncryption
 {
-    private readonly AesEncryption _aes = new AesEncryption();
-
-    public EncryptedPacket EncryptData(byte[] original, RSAWithRSAParameterKey rsaParams)
+    public static EncryptedPacket EncryptData(byte[] original, RSAWithRSAParameterKey rsaParams)
     {
         // Generate our session key.
-        var sessionKey = _aes.GenerateRandomNumber(32);
+        var sessionKey = RandomNumberGenerator.GetBytes(32);
 
         // Create the encrypted packet and generate the IV.
-        var encryptedPacket = new EncryptedPacket { Iv = _aes.GenerateRandomNumber(16) };
+        var encryptedPacket = new EncryptedPacket { Iv = RandomNumberGenerator.GetBytes(16) };
 
         // Encrypt our data with AES.
-        encryptedPacket.EncryptedData = _aes.Encrypt(original, sessionKey, encryptedPacket.Iv);
+        encryptedPacket.EncryptedData = AesEncryption.Encrypt(original, sessionKey, encryptedPacket.Iv);
 
         // Encrypt the session key with RSA
         encryptedPacket.EncryptedSessionKey = rsaParams.EncryptData(sessionKey);
@@ -45,13 +43,13 @@ public class HybridEncryption
         return encryptedPacket;
     }
 
-    public byte[] DecryptData(EncryptedPacket encryptedPacket, RSAWithRSAParameterKey rsaParams)
+    public static byte[] DecryptData(EncryptedPacket encryptedPacket, RSAWithRSAParameterKey rsaParams)
     {
         // Decrypt AES Key with RSA.
         var decryptedSessionKey = rsaParams.DecryptData(encryptedPacket.EncryptedSessionKey);
 
         // Decrypt our data with  AES using the decrypted session key.
-        var decryptedData = _aes.Decrypt(encryptedPacket.EncryptedData,
+        var decryptedData = AesEncryption.Decrypt(encryptedPacket.EncryptedData,
             decryptedSessionKey, encryptedPacket.Iv);
 
         return decryptedData;

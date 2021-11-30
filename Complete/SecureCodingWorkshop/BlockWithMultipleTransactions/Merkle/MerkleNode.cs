@@ -5,12 +5,8 @@
 */
 
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 
-using Clifton.Core.ExtensionMethods;
-
-namespace Clifton.Blockchain;
+namespace SecureCodingWorkshop.BlockWithMultipleTransactions_.Merkle;
 
 public class MerkleNode : IEnumerable<MerkleNode>
 {

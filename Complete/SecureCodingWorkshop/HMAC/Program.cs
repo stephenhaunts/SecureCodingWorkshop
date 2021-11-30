@@ -22,7 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using HMAC;
+using SecureCodingWorkshop.HMAC_;
 
 const string originalMessage = "Original Message to hash";
 const string originalMessage2 = "Original Message to hash 2";

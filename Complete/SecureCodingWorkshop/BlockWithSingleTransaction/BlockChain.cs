@@ -21,11 +21,10 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-using System;
-using System.Collections.Generic;
-using BlockChainCourse.BlockWithSingleTransaction.Interfaces;
 
-namespace BlockChainCourse.BlockWithSingleTransaction;
+using SecureCodingWorkshop.BlockWithSingleTransaction_.Interfaces;
+
+namespace SecureCodingWorkshop.BlockWithSingleTransaction_;
 
 public class BlockChain : IBlockChain
 {

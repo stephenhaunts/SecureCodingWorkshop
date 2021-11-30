@@ -1,4 +1,4 @@
-﻿namespace BlockChainCourse.BlockWithTransactionPool;
+﻿namespace SecureCodingWorkshop.BlockWithTransactionPool_.Interfaces;
 
 public interface IBlockChain
 {

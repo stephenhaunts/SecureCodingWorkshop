@@ -22,19 +22,18 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace SecureCodingWorkshop.HybridWithIntegrityAndSignature;
+namespace SecureCodingWorkshop.HybridWithIntegrityGCM_;
 
 public class HybridEncryption
 {
-    private readonly AesGCMEncryption _aes = new AesGCMEncryption();
 
     public EncryptedPacket EncryptData(byte[] original, RSAWithRSAParameterKey rsaParams)
     {
-        var sessionKey = _aes.GenerateRandomNumber(32);
+        var sessionKey = RandomNumberGenerator.GetBytes(32);
 
-        var encryptedPacket = new EncryptedPacket { Iv = _aes.GenerateRandomNumber(12) };
+        var encryptedPacket = new EncryptedPacket { Nonce = RandomNumberGenerator.GetBytes(12) };
 
-        (byte[] ciphereText, byte[] tag) encrypted = _aes.Encrypt(original, sessionKey, encryptedPacket.Iv, null);
+        (byte[] ciphereText, byte[] tag) encrypted = AesGCMEncryption.Encrypt(original, sessionKey, encryptedPacket.Nonce, null);
 
         encryptedPacket.EncryptedData = encrypted.ciphereText;
         encryptedPacket.Tag = encrypted.tag;
@@ -47,9 +46,8 @@ public class HybridEncryption
     {
         var decryptedSessionKey = rsaParams.DecryptData(encryptedPacket.EncryptedSessionKey);
 
-            
-        var decryptedData = _aes.Decrypt(encryptedPacket.EncryptedData, decryptedSessionKey,
-            encryptedPacket.Iv, encryptedPacket.Tag, null);
+        var decryptedData = AesGCMEncryption.Decrypt(encryptedPacket.EncryptedData, decryptedSessionKey,
+            encryptedPacket.Nonce, encryptedPacket.Tag, null);
 
         return decryptedData;
     }

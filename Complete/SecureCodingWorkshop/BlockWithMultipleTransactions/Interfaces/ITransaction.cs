@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace BlockChainCourse.BlockWithMultipleTransactions.Interfaces;
+﻿namespace SecureCodingWorkshop.BlockWithMultipleTransactions_.Interfaces;
 
 public interface ITransaction
 {

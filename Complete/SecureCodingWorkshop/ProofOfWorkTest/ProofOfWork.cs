@@ -22,12 +22,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using System;
 using System.Diagnostics;
-using System.Text;
-using BlockChainCourse.Cryptography;
+using SecureCodingWorkshop.Cryptography_;
 
-namespace BlockChainCourse.ProofOfWorkTest;
+namespace SecureCodingWorkshop.ProofOfWorkTest_;
 
 public class ProofOfWork
 {

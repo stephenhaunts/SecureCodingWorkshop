@@ -21,9 +21,8 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-using System.Security.Cryptography;
 
-namespace SecureCodingWorkshop.HybridWithIntegrityAndSignature;
+namespace SecureCodingWorkshop.HybridWithIntegrityAndSignature_;
 
 public class RSAWithRSAParameterKey
 {
@@ -32,34 +31,27 @@ public class RSAWithRSAParameterKey
 
     public void AssignNewKey()
     {
-        using var rsa = new RSACryptoServiceProvider(2048);
-        rsa.PersistKeyInCsp = false;
+        using var rsa = RSA.Create(2048);
         _publicKey = rsa.ExportParameters(false);
         _privateKey = rsa.ExportParameters(true);
     }
 
     public byte[] EncryptData(byte[] dataToEncrypt)
     {
-        byte[] cipherbytes;
-
-        using var rsa = new RSACryptoServiceProvider();
-        rsa.PersistKeyInCsp = false;
+        using var rsa = RSA.Create(2048);
         rsa.ImportParameters(_publicKey);
 
-        cipherbytes = rsa.Encrypt(dataToEncrypt, true);
+        var cipherbytes = rsa.Encrypt(dataToEncrypt, RSAEncryptionPadding.OaepSHA256);
 
         return cipherbytes;
     }
 
     public byte[] DecryptData(byte[] dataToEncrypt)
     {
-        byte[] plain;
-
-        using var rsa = new RSACryptoServiceProvider();
-        rsa.PersistKeyInCsp = false;
+        using var rsa = RSA.Create(2048);
 
         rsa.ImportParameters(_privateKey);
-        plain = rsa.Decrypt(dataToEncrypt, true);
+        var plain = rsa.Decrypt(dataToEncrypt, RSAEncryptionPadding.OaepSHA256);
 
         return plain;
     }

@@ -22,7 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace AES;
+namespace SecureCodingWorkshop.AES_;
 
 public static class AesEncryption
 {

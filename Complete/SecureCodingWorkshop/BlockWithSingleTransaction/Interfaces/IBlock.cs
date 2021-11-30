@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace BlockChainCourse.BlockWithSingleTransaction.Interfaces;
+﻿namespace SecureCodingWorkshop.BlockWithSingleTransaction_.Interfaces;
 
 public interface IBlock
 {

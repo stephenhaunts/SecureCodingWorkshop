@@ -22,7 +22,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using HashPassword;
+using SecureCodingWorkshop.HashPassword_;
 
 const string password = "V3ryC0mpl3xP455w0rd";
 var salt = RandomNumberGenerator.GetBytes(32);

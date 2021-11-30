@@ -21,10 +21,8 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-using System.IO;
-using System.Security.Cryptography;
 
-namespace SecureCodingWorkshop.TripleDES;
+namespace SecureCodingWorkshop.TripleDES_;
 
 public static class TripleDesEncryption
 {

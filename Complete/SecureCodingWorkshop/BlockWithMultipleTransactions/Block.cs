@@ -21,14 +21,12 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-using System;
-using System.Collections.Generic;
-using System.Text;
-using BlockChainCourse.BlockWithMultipleTransactions.Interfaces;
-using BlockChainCourse.Cryptography;
-using Clifton.Blockchain;
 
-namespace BlockChainCourse.BlockWithMultipleTransactions;
+using SecureCodingWorkshop.BlockWithMultipleTransactions_.Interfaces;
+using SecureCodingWorkshop.BlockWithMultipleTransactions_.Merkle;
+using SecureCodingWorkshop.Cryptography_;
+
+namespace SecureCodingWorkshop.BlockWithMultipleTransactions_;
 
 public class Block : IBlock
 {

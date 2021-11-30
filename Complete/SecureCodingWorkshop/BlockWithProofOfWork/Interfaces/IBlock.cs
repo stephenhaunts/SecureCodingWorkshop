@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace BlockChainCourse.BlockWithProofOfWork;
+﻿namespace SecureCodingWorkshop.BlockWithProofOfWork_.Interfaces;
 
 public interface IBlock
 {

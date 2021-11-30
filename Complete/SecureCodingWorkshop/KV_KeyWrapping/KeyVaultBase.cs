@@ -21,15 +21,13 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+
 using Microsoft.Azure.KeyVault;
 using Microsoft.Azure.KeyVault.Models;
 using Microsoft.Azure.KeyVault.WebKey;
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
 
-namespace AzureKeyVault.KeyWrapping;
+namespace SecureCodingWorkshop.KeyWrapping_;
 
 public class KeyVaultBase
 {

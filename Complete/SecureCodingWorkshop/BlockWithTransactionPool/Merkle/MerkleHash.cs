@@ -4,12 +4,7 @@
 * http://www.codeproject.com/info/cpol10.aspx
 */
 
-using System;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-
-namespace Clifton.Blockchain;
+namespace SecureCodingWorkshop.BlockWithTransactionPool_.Merkle;
 
 public class MerkleHash
 {

@@ -4,7 +4,7 @@
 * http://www.codeproject.com/info/cpol10.aspx
 */
 
-namespace Clifton.Blockchain;
+namespace SecureCodingWorkshop.BlockWithMultipleTransactions_.Merkle;
 
 public class MerkleProofHash
 {

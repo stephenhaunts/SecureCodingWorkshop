@@ -21,10 +21,8 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-using System.Security.Cryptography;
-using System.Text;
 
-namespace HybridEncryption;
+namespace SecureCodingWorkshop.HybridWithIntegrityAndSignatureGCM_;
 
 public class NewRSA
 {
@@ -35,11 +33,6 @@ public class NewRSA
         rsa = RSA.Create(2048);
     }
 
-    public byte[] Encrypt(string dataToEncrypt)
-    {
-        return rsa.Encrypt(Encoding.UTF8.GetBytes(dataToEncrypt), RSAEncryptionPadding.OaepSHA256);
-    }
-
     public byte[] Encrypt(byte[] dataToEncrypt)
     {
         return rsa.Encrypt(dataToEncrypt, RSAEncryptionPadding.OaepSHA256);
@@ -48,30 +41,5 @@ public class NewRSA
     public byte[] Decrypt(byte[] dataToDecrypt)
     {
         return rsa.Decrypt(dataToDecrypt, RSAEncryptionPadding.OaepSHA256);
-    }
-
-    public byte[] ExportPrivateKey(int numberOfIterations, string password)
-    {
-        byte[] encryptedPrivateKey = new byte[2000];
-           
-        PbeParameters keyParams = new PbeParameters(PbeEncryptionAlgorithm.Aes256Cbc, HashAlgorithmName.SHA256, numberOfIterations);  
-        encryptedPrivateKey = rsa.ExportEncryptedPkcs8PrivateKey(Encoding.UTF8.GetBytes(password), keyParams);
-
-        return encryptedPrivateKey;
-    }
-
-    public void ImportEncryptedPrivateKey(byte[] encryptedKey, string password)
-    {
-        rsa.ImportEncryptedPkcs8PrivateKey(Encoding.UTF8.GetBytes(password), encryptedKey, out _);
-    }
-
-    public byte[] ExportPublicKey()
-    {
-        return rsa.ExportRSAPublicKey();
-    }
-
-    public void ImportPublicKey(byte[] publicKey)
-    {
-        rsa.ImportRSAPublicKey(publicKey, out _);
     }
 }

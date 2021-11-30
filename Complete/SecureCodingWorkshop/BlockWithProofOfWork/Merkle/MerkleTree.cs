@@ -4,13 +4,7 @@
 * http://www.codeproject.com/info/cpol10.aspx
 */
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-
-using Clifton.Core.ExtensionMethods;
-
-namespace Clifton.Blockchain;
+namespace SecureCodingWorkshop.BlockWithProofOfWork_.Merkle;
 
 public class MerkleTree
 {

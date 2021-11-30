@@ -1,6 +1,4 @@
-﻿using System.Security.Cryptography;
-
-namespace BlockChainCourse.BlockWithProofOfWork;
+﻿namespace SecureCodingWorkshop.BlockWithProofOfWork_.Interfaces;
 
 public interface IKeyStore
 {

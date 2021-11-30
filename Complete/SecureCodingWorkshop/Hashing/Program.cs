@@ -23,7 +23,7 @@ SOFTWARE.
 */
 
 
-using Hashing;
+using SecureCodingWorkshop.Hashing_;
 
 const string originalMessage = "Original Message to hash";
 const string originalMessage2 = "Or1ginal Message to hash";

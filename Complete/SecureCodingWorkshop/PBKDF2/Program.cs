@@ -23,7 +23,7 @@ SOFTWARE.
 */
 
 using System.Diagnostics;
-using PBKDF2;
+using SecureCodingWorkshop.PBKDF2_;
 
 const string passwordToHash = "VeryComplexPassword";
 

@@ -21,12 +21,8 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-using System;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace AzureKeyVault.HybridWithIntegrityAndSignature;
+namespace SecureCodingWorkshop.HybridWithIntegrityAndSignature_;
 
 static class Program
 {
@@ -54,11 +50,11 @@ static class Program
         {
             var encryptedBlock = hybrid.EncryptData(Encoding.UTF8.GetBytes(original), keyId);
 
-            var decrpyted = hybrid.DecryptData(encryptedBlock, keyId);
+            var decrypted = hybrid.DecryptData(encryptedBlock, keyId);
 
             Console.WriteLine("Original Message = " + original);
             Console.WriteLine();
-            Console.WriteLine("Message After Decryption = " + Encoding.UTF8.GetString(decrpyted));
+            Console.WriteLine("Message After Decryption = " + Encoding.UTF8.GetString(decrypted));
         }
         catch (CryptographicException ex)
         {

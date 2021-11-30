@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace BlockChainCourse.BlockWithProofOfWork;
+﻿namespace SecureCodingWorkshop.BlockWithProofOfWork_.Interfaces;
 
 public interface ITransaction
 {

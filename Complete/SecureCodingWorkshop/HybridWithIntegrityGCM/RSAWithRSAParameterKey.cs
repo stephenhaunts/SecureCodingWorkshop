@@ -1,6 +1,4 @@
-﻿using System.Security.Cryptography;
-
-namespace SecureCodingWorkshop.HybridWithIntegrityAndSignature;
+﻿namespace SecureCodingWorkshop.HybridWithIntegrityGCM_;
 
 public class RSAWithRSAParameterKey
 {
@@ -9,30 +7,27 @@ public class RSAWithRSAParameterKey
 
     public void AssignNewKey()
     {
-        using var rsa = new RSACryptoServiceProvider(2048);
-        rsa.PersistKeyInCsp = false;
+        using var rsa = RSA.Create(2048);
         _publicKey = rsa.ExportParameters(false);
         _privateKey = rsa.ExportParameters(true);
     }
 
     public byte[] EncryptData(byte[] dataToEncrypt)
     {
-        using var rsa = new RSACryptoServiceProvider();
-        rsa.PersistKeyInCsp = false;
+        using var rsa = RSA.Create(2048);
         rsa.ImportParameters(_publicKey);
 
-        var cipherbytes = rsa.Encrypt(dataToEncrypt, true);
+        var cipherbytes = rsa.Encrypt(dataToEncrypt, RSAEncryptionPadding.OaepSHA256);
 
         return cipherbytes;
     }
 
     public byte[] DecryptData(byte[] dataToEncrypt)
     {
-        using var rsa = new RSACryptoServiceProvider();
-        rsa.PersistKeyInCsp = false;
+        using var rsa = RSA.Create(2048);
 
         rsa.ImportParameters(_privateKey);
-        var plain = rsa.Decrypt(dataToEncrypt, true);
+        var plain = rsa.Decrypt(dataToEncrypt, RSAEncryptionPadding.OaepSHA256);
 
         return plain;
     }

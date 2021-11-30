@@ -21,36 +21,24 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-using System.Security.Cryptography;
 
-namespace SecureCodingWorkshop.HybridWithIntegrityAndSignature;
+namespace SecureCodingWorkshop.HybridWithIntegrityAndSignatureGCM_;
 
-public class AesGCMEncryption
+public static class AesGCMEncryption
 {
-    public byte[] GenerateRandomNumber(int length)
-    {
-        using var randomNumberGenerator = new RNGCryptoServiceProvider();
-        var randomNumber = new byte[length];
-        randomNumberGenerator.GetBytes(randomNumber);
-
-        return randomNumber;
-    }
-
-    public (byte[], byte[]) Encrypt(byte[] dataToEncrypt, byte[] key, byte[] nonce, byte[] associatedData)
+    public static (byte[], byte[]) Encrypt(byte[] dataToEncrypt, byte[] key, byte[] nonce, byte[] associatedData)
     {
         // these will be filled during the encryption
         var tag = new byte[16];
         var ciphertext = new byte[dataToEncrypt.Length];
 
-        using (AesGcm aesGcm = new AesGcm(key))
-        {
-            aesGcm.Encrypt(nonce, dataToEncrypt, ciphertext, tag, associatedData);
-        }
+        using AesGcm aesGcm = new AesGcm(key);
+        aesGcm.Encrypt(nonce, dataToEncrypt, ciphertext, tag, associatedData);
 
         return (ciphertext, tag);
     }
 
-    public byte[] Decrypt(byte[] cipherText, byte[] key, byte[] nonce, byte[] tag, byte[] associatedData)
+    public static byte[] Decrypt(byte[] cipherText, byte[] key, byte[] nonce, byte[] tag, byte[] associatedData)
     {
         var decryptedData = new byte[cipherText.Length];
 

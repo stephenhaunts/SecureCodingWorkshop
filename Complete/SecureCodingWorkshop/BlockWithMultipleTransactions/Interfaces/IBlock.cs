@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace BlockChainCourse.BlockWithMultipleTransactions.Interfaces;
+﻿namespace SecureCodingWorkshop.BlockWithMultipleTransactions_.Interfaces;
 
 public interface IBlock
 {
