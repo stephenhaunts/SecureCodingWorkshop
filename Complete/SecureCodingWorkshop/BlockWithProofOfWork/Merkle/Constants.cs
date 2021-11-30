@@ -4,10 +4,9 @@
 * http://www.codeproject.com/info/cpol10.aspx
 */
 
-namespace Clifton.Blockchain
+namespace SecureCodingWorkshop.BlockWithProofOfWork_.Merkle;
+
+public static class Constants
 {
-    public static class Constants
-    {
-        public const int HASH_LENGTH = 32;
-    }
+    public const int HASH_LENGTH = 32;
 }

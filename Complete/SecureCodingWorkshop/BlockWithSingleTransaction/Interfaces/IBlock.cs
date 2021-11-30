@@ -1,24 +1,21 @@
-﻿using System;
+﻿namespace SecureCodingWorkshop.BlockWithSingleTransaction_.Interfaces;
 
-namespace BlockChainCourse.BlockWithSingleTransaction.Interfaces
+public interface IBlock
 {
-    public interface IBlock
-    {
-        string ClaimNumber { get; set; }
-        decimal SettlementAmount { get; set; }
-        DateTime SettlementDate { get; set; }
-        string CarRegistration { get; set; }
-        int Mileage { get; set; }
-        ClaimType ClaimType { get; set; }
+    string ClaimNumber { get; set; }
+    decimal SettlementAmount { get; set; }
+    DateTime SettlementDate { get; set; }
+    string CarRegistration { get; set; }
+    int Mileage { get; set; }
+    ClaimType ClaimType { get; set; }
 
-        int BlockNumber { get; }
-        DateTime CreatedDate { get; set; }
-        string BlockHash { get; }
-        string PreviousBlockHash { get; set; }
+    int BlockNumber { get; }
+    DateTime CreatedDate { get; set; }
+    string BlockHash { get; }
+    string PreviousBlockHash { get; set; }
 
-        string CalculateBlockHash(string previousBlockHash);
-        void SetBlockHash(IBlock parent);
-        IBlock NextBlock { get; set; }
-        bool IsValidChain(string prevBlockHash, bool verbose);
-    }
+    string CalculateBlockHash(string previousBlockHash);
+    void SetBlockHash(IBlock parent);
+    IBlock NextBlock { get; set; }
+    bool IsValidChain(string prevBlockHash, bool verbose);
 }

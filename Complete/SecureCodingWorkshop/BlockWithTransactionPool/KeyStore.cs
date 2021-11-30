@@ -21,32 +21,31 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-using System;
-using System.Text;
-using BlockChainCourse.Cryptography;
 
-namespace BlockChainCourse.BlockWithTransactionPool
+using SecureCodingWorkshop.BlockWithTransactionPool_.Interfaces;
+using SecureCodingWorkshop.Cryptography_;
+
+namespace SecureCodingWorkshop.BlockWithTransactionPool_;
+
+public class KeyStore : IKeyStore
 {
-    public class KeyStore : IKeyStore
+    private DigitalSignature DigitalSignature { get; set; }
+    public byte[] AuthenticatedHashKey { get; private set; }
+
+    public KeyStore(byte[] authenticatedHashKey)
     {
-        private DigitalSignature DigitalSignature { get; set; }
-        public byte[] AuthenticatedHashKey { get; private set; }
+        AuthenticatedHashKey = authenticatedHashKey;
+        DigitalSignature = new DigitalSignature();
+        DigitalSignature.AssignNewKey();
+    }
 
-        public KeyStore(byte[] authenticatedHashKey)
-        {
-            AuthenticatedHashKey = authenticatedHashKey;
-            DigitalSignature = new DigitalSignature();
-            DigitalSignature.AssignNewKey();
-        }
+    public string SignBlock(string blockHash)
+    {
+        return Convert.ToBase64String(DigitalSignature.SignData(Convert.FromBase64String(blockHash)));
+    }
 
-        public string SignBlock(string blockHash)
-        {
-            return Convert.ToBase64String(DigitalSignature.SignData(Convert.FromBase64String(blockHash)));
-        }
-
-        public bool VerifyBlock(string blockHash, string signature)
-        {
-            return DigitalSignature.VerifySignature(Convert.FromBase64String(blockHash), Convert.FromBase64String(signature));  
-        }
+    public bool VerifyBlock(string blockHash, string signature)
+    {
+        return DigitalSignature.VerifySignature(Convert.FromBase64String(blockHash), Convert.FromBase64String(signature));  
     }
 }

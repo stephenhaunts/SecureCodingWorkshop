@@ -22,50 +22,45 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using System;
-using System.Security.Cryptography;
-using System.Text;
+namespace SecureCodingWorkshop.ProtectedDataExample_;
 
-namespace SecureCodingWorkshop.Protected
-{
-    public static class Protected
-    { 
-        public static string Protect(string stringToEncrypt, string optionalEntropy, DataProtectionScope scope)
-        {      
-            var encryptedData = ProtectedData.Protect(
-                    Encoding.UTF8.GetBytes(stringToEncrypt)
-                    , optionalEntropy != null ? Encoding.UTF8.GetBytes(optionalEntropy) : null
-                    , scope);
+public static class Protected
+{ 
+    public static string Protect(string stringToEncrypt, string optionalEntropy, DataProtectionScope scope)
+    {      
+        var encryptedData = ProtectedData.Protect(
+            Encoding.UTF8.GetBytes(stringToEncrypt)
+            , optionalEntropy != null ? Encoding.UTF8.GetBytes(optionalEntropy) : null
+            , scope);
 
-            return Convert.ToBase64String(encryptedData);
-        }
+        return Convert.ToBase64String(encryptedData);
+    }
 
-        public static string Unprotect(string encryptedString, string optionalEntropy, DataProtectionScope scope)
-        {          
-            var decrypted = ProtectedData.Unprotect(
-                    Convert.FromBase64String(encryptedString)
-                    , optionalEntropy != null ? Encoding.UTF8.GetBytes(optionalEntropy) : null
-                    , scope);
+    public static string Unprotect(string encryptedString, string optionalEntropy, DataProtectionScope scope)
+    {          
+        var decrypted = ProtectedData.Unprotect(
+            Convert.FromBase64String(encryptedString)
+            , optionalEntropy != null ? Encoding.UTF8.GetBytes(optionalEntropy) : null
+            , scope);
 
-            return Encoding.UTF8.GetString(decrypted);
-        }
+        return Encoding.UTF8.GetString(decrypted);
+    }
 
-        public static byte[] Protect(byte[] stringToEncrypt, byte[] optionalEntropy, DataProtectionScope scope)
-        {
-            var encryptedData = ProtectedData.Protect(stringToEncrypt
-                    , optionalEntropy != null ? optionalEntropy : null
-                    , scope);
+    public static byte[] Protect(byte[] stringToEncrypt, byte[] optionalEntropy, DataProtectionScope scope)
+    {
+        var encryptedData = ProtectedData.Protect(stringToEncrypt
+            , optionalEntropy
+            , scope);
 
-            return encryptedData;
-        }
+        return encryptedData;
+    }
 
-        public static byte[] Unprotect(byte[] encryptedString, byte[] optionalEntropy, DataProtectionScope scope)
-        {
-            var decrypted = ProtectedData.Unprotect(encryptedString,
-                    optionalEntropy != null ? optionalEntropy : null,
-                    scope);
+    public static byte[] Unprotect(byte[] encryptedString, byte[] optionalEntropy, DataProtectionScope scope)
+    {
+        var decrypted = ProtectedData.Unprotect(encryptedString,
+            optionalEntropy,
+            scope);
 
-            return decrypted;
-        }
+        return decrypted;
     }
 }

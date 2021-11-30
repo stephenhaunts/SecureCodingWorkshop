@@ -21,40 +21,39 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-using System;
-using System.Text;
-using BlockChainCourse.Cryptography;
 
-namespace BlockChainCourse.BlockWithTransactionPool
+using SecureCodingWorkshop.BlockWithTransactionPool_.Interfaces;
+using SecureCodingWorkshop.Cryptography_;
+
+namespace SecureCodingWorkshop.BlockWithTransactionPool_;
+
+public class Transaction : ITransaction
 {
-    public class Transaction : ITransaction
+    public string ClaimNumber { get; set; }
+    public decimal SettlementAmount { get; set; }
+    public DateTime SettlementDate { get; set; }
+    public string CarRegistration { get; set; }
+    public int Mileage { get; set; }
+    public ClaimType ClaimType { get; set; }
+
+    public Transaction(string claimNumber,
+        decimal settlementAmount,
+        DateTime settlementDate,
+        string carRegistration,
+        int mileage,
+        ClaimType claimType)
     {
-        public string ClaimNumber { get; set; }
-        public decimal SettlementAmount { get; set; }
-        public DateTime SettlementDate { get; set; }
-        public string CarRegistration { get; set; }
-        public int Mileage { get; set; }
-        public ClaimType ClaimType { get; set; }
+        ClaimNumber = claimNumber;
+        SettlementAmount = settlementAmount;
+        SettlementDate = settlementDate;
+        CarRegistration = carRegistration;
+        Mileage = mileage;
+        ClaimType = claimType;
+    }
 
-        public Transaction(string claimNumber,
-                            decimal settlementAmount,
-                            DateTime settlementDate,
-                            string carRegistration,
-                            int mileage,
-                            ClaimType claimType)
-        {
-            ClaimNumber = claimNumber;
-            SettlementAmount = settlementAmount;
-            SettlementDate = settlementDate;
-            CarRegistration = carRegistration;
-            Mileage = mileage;
-            ClaimType = claimType;
-        }
-
-        public string CalculateTransactionHash()
-        {
-            string txnHash = ClaimNumber + SettlementAmount + SettlementDate + CarRegistration + Mileage + ClaimType;
-            return Convert.ToBase64String(HashData.ComputeHashSha256(Encoding.UTF8.GetBytes(txnHash)));
-        }
+    public string CalculateTransactionHash()
+    {
+        string txnHash = ClaimNumber + SettlementAmount + SettlementDate + CarRegistration + Mileage + ClaimType;
+        return Convert.ToBase64String(HashData.ComputeHashSha256(Encoding.UTF8.GetBytes(txnHash)));
     }
 }

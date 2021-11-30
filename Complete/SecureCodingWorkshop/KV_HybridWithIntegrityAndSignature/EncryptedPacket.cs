@@ -21,14 +21,13 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-namespace AzureKeyVault.HybridWithIntegrityAndSignature
+namespace SecureCodingWorkshop.HybridWithIntegrityAndSignature_;
+
+public class EncryptedPacket
 {
-    public class EncryptedPacket
-    {
-        public byte[] EncryptedSessionKey;
-        public byte[] EncryptedData;
-        public byte[] Iv;
-        public byte[] Hmac;
-        public byte[] Signature;
-    }
+    public byte[] EncryptedSessionKey;
+    public byte[] EncryptedData;
+    public byte[] Iv;
+    public byte[] Hmac;
+    public byte[] Signature;
 }

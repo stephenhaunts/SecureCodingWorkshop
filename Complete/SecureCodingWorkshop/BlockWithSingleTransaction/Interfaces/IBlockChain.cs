@@ -1,8 +1,7 @@
-﻿namespace BlockChainCourse.BlockWithSingleTransaction.Interfaces
+﻿namespace SecureCodingWorkshop.BlockWithSingleTransaction_.Interfaces;
+
+public interface IBlockChain
 {
-    public interface IBlockChain
-    {
-        void AcceptBlock(IBlock block);
-        void VerifyChain();
-    }
+    void AcceptBlock(IBlock block);
+    void VerifyChain();
 }

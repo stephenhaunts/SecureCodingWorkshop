@@ -21,36 +21,27 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-using System;
-using System.Text;
 
-namespace SecureCodingWorkshop.TripleDES
-{
-    static class Program
-    {
-        static void Main()
-        {
-            var tripleDes = new TripleDesEncryption();
+using SecureCodingWorkshop.TripleDES_;
 
-            //var key = trippleDes.GenerateRandomNumber(24);
-            var key = tripleDes.GenerateRandomNumber(16);
+var key = RandomNumberGenerator.GetBytes(16);
 
-            var iv = tripleDes.GenerateRandomNumber(8);
-            const string original = "Text to encrypt";
+var iv = RandomNumberGenerator.GetBytes(8);
+const string original = "Text to encrypt";
+const string original2 = "Text to encrypt2";
 
-            var encrypted = tripleDes.Encrypt(Encoding.UTF8.GetBytes(original), key, iv);
-            var decrypted = tripleDes.Decrypt(encrypted, key, iv);
+var encrypted =  TripleDesEncryption.Encrypt(Encoding.UTF8.GetBytes(original), key, iv);
+var encrypted2 = TripleDesEncryption.Encrypt(Encoding.UTF8.GetBytes(original2), key, iv);
+var decrypted =  TripleDesEncryption.Decrypt(encrypted, key, iv);
 
-            var decryptedMessage = Encoding.UTF8.GetString(decrypted);
+var decryptedMessage = Encoding.UTF8.GetString(decrypted);
 
-            Console.WriteLine("Triple DES Encryption Demonstration in .NET");
-            Console.WriteLine("--------------------------------------------");
-            Console.WriteLine();
-            Console.WriteLine("Original Text = " + original);
-            Console.WriteLine("Encrypted Text = " + Convert.ToBase64String(encrypted));
-            Console.WriteLine("Decrypted Text = " + decryptedMessage);
+Console.WriteLine("Triple DES Encryption Demonstration in .NET");
+Console.WriteLine("--------------------------------------------");
+Console.WriteLine();
+Console.WriteLine("Original Text = " + original);
+Console.WriteLine("Encrypted Text = " + Convert.ToBase64String(encrypted));
+Console.WriteLine("Encrypted Text = " + Convert.ToBase64String(encrypted2));
+Console.WriteLine("Decrypted Text = " + decryptedMessage);
 
-            Console.ReadLine();
-        }
-    }
-}
+Console.ReadLine();

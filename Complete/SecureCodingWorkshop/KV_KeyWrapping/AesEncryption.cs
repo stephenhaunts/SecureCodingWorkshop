@@ -21,59 +21,22 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-using System.IO;
-using System.Security.Cryptography;
 
-namespace AzureKeyVault.KeyWrapping
+namespace SecureCodingWorkshop.KeyWrapping_;
+
+public class AesEncryption
 {
-    public class AesEncryption
+    public static byte[] Encrypt(byte[] dataToEncrypt, byte[] key, byte[] iv)
     {
-        public static byte[] Encrypt(byte[] dataToEncrypt, byte[] key, byte[] iv)
-        {
-            using (var aes = new AesCryptoServiceProvider())
-            {
-                aes.Mode = CipherMode.CBC;
-                aes.Padding = PaddingMode.PKCS7;
+        using var aes = Aes.Create();
+        aes.Key = key;
+        return aes.EncryptCbc(dataToEncrypt, iv);
+    }
 
-                aes.Key = key;
-                aes.IV = iv;
-
-                using (var memoryStream = new MemoryStream())
-                {
-                    var cryptoStream = new CryptoStream(memoryStream, aes.CreateEncryptor(),
-                        CryptoStreamMode.Write);
-
-                    cryptoStream.Write(dataToEncrypt, 0, dataToEncrypt.Length);
-                    cryptoStream.FlushFinalBlock();
-
-                    return memoryStream.ToArray();
-                }
-            }
-        }
-
-        public static byte[] Decrypt(byte[] dataToDecrypt, byte[] key, byte[] iv)
-        {
-            using (var aes = new AesCryptoServiceProvider())
-            {
-                aes.Mode = CipherMode.CBC;
-                aes.Padding = PaddingMode.PKCS7;
-
-                aes.Key = key;
-                aes.IV = iv;
-
-                using (var memoryStream = new MemoryStream())
-                {
-                    var cryptoStream = new CryptoStream(memoryStream, aes.CreateDecryptor(),
-                        CryptoStreamMode.Write);
-
-                    cryptoStream.Write(dataToDecrypt, 0, dataToDecrypt.Length);
-                    cryptoStream.FlushFinalBlock();
-
-                    var decryptBytes = memoryStream.ToArray();
-
-                    return decryptBytes;
-                }
-            }
-        }
-    } 
+    public static byte[] Decrypt(byte[] dataToDecrypt, byte[] key, byte[] iv)
+    {
+        using var aes = Aes.Create();
+        aes.Key = key;
+        return aes.DecryptCbc(dataToDecrypt, iv);
+    }
 }

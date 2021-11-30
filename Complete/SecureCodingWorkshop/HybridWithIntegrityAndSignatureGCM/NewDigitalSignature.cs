@@ -22,52 +22,24 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using System.Security.Cryptography;
-using System.Text;
+namespace SecureCodingWorkshop.HybridWithIntegrityAndSignatureGCM_;
 
-namespace HybridEncryption
+public class NewDigitalSignature
 {
-	public class NewDigitalSignature
-    {
-        private RSA rsa; 
+    private RSA rsa; 
  
-        public NewDigitalSignature()
-        {
-            rsa = RSA.Create(2048);
-        }
+    public NewDigitalSignature()
+    {
+        rsa = RSA.Create(2048);
+    }
 
+    public byte[] SignData(byte[] dataToSign)
+    {
+        return rsa.SignHash(dataToSign, HashAlgorithmName.SHA256, RSASignaturePadding.Pkcs1);
+    }
 
-        public byte[] SignData(byte[] dataToSign)
-        {
-            return (rsa.SignHash(dataToSign, HashAlgorithmName.SHA256, RSASignaturePadding.Pkcs1));
-        }
-
-        public bool VerifySignature(byte[] signature, byte[] hashOfDataToSign)
-        {
-            return rsa.VerifyHash(hashOfDataToSign, signature, HashAlgorithmName.SHA256, RSASignaturePadding.Pkcs1);            
-        }
-
-        public byte[] ExportPrivateKey(int numberOfIterations, string password)
-        {
-            var keyParams = new PbeParameters(PbeEncryptionAlgorithm.Aes256Cbc, HashAlgorithmName.SHA256, numberOfIterations);  
-            var encryptedPrivateKey = rsa.ExportEncryptedPkcs8PrivateKey(Encoding.UTF8.GetBytes(password), keyParams);
-
-            return encryptedPrivateKey;
-        }
-
-        public void ImportEncryptedPrivateKey(byte[] encryptedKey, string password)
-        {
-            rsa.ImportEncryptedPkcs8PrivateKey(Encoding.UTF8.GetBytes(password), encryptedKey, out _);
-        }
-
-        public byte[] ExportPublicKey()
-        {
-            return rsa.ExportRSAPublicKey();
-        }
-
-        public void ImportPublicKey(byte[] publicKey)
-        {
-            rsa.ImportRSAPublicKey(publicKey, out _);
-        }
+    public bool VerifySignature(byte[] signature, byte[] hashOfDataToSign)
+    {
+        return rsa.VerifyHash(hashOfDataToSign, signature, HashAlgorithmName.SHA256, RSASignaturePadding.Pkcs1);            
     }
 }

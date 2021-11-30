@@ -22,18 +22,13 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using System.Security.Cryptography;
+namespace SecureCodingWorkshop.Cryptography_;
 
-namespace BlockChainCourse.Cryptography
+public class HashData
 {
-	public class HashData
+	public static byte[] ComputeHashSha256(byte[] toBeHashed)
 	{
-		public static byte[] ComputeHashSha256(byte[] toBeHashed)
-		{
-			using (var sha256 = SHA256.Create())
-			{
-				return sha256.ComputeHash(toBeHashed);
-			}
-		}
+		using var sha256 = SHA256.Create();
+		return sha256.ComputeHash(toBeHashed);
 	}
 }

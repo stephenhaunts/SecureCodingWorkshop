@@ -21,32 +21,23 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-using System;
-using System.Text;
 
-namespace SecureCodingWorkshop.HashPassword
-{
-    internal static class Program
-    {
-        static void Main()
-        {
-            const string password = "V3ryC0mpl3xP455w0rd";
-            var salt = Hash.GenerateSalt();
+using SecureCodingWorkshop.HashPassword_;
 
-            Console.WriteLine("Hash Password with Salt Demonstration in .NET");
-            Console.WriteLine("---------------------------------------------");
-            Console.WriteLine();
-            Console.WriteLine("Password : " + password);
-            Console.WriteLine("Salt = " + Convert.ToBase64String(salt));
-            Console.WriteLine();
+const string password = "V3ryC0mpl3xP455w0rd";
+var salt = RandomNumberGenerator.GetBytes(32);
 
-            var hashedPassword1 = Hash.HashPasswordWithSalt(Encoding.UTF8.GetBytes(password), salt);
+Console.WriteLine("Hash Password with Salt Demonstration in .NET");
+Console.WriteLine("---------------------------------------------");
+Console.WriteLine();
+Console.WriteLine("Password : " + password);
+Console.WriteLine("Salt = " + Convert.ToBase64String(salt));
+Console.WriteLine();
 
-            Console.WriteLine();
-            Console.WriteLine("Hashed Password = " + Convert.ToBase64String(hashedPassword1));
-            Console.WriteLine();
+var hashedPassword1 = Hash.HashPasswordWithSalt(Encoding.UTF8.GetBytes(password), salt);
 
-            Console.ReadLine();
-        }
-    }
-}
+Console.WriteLine();
+Console.WriteLine("Hashed Password = " + Convert.ToBase64String(hashedPassword1));
+Console.WriteLine();
+
+Console.ReadLine();

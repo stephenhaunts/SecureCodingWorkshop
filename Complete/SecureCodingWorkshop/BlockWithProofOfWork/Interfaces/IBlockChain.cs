@@ -1,9 +1,8 @@
-﻿namespace BlockChainCourse.BlockWithProofOfWork
+﻿namespace SecureCodingWorkshop.BlockWithProofOfWork_.Interfaces;
+
+public interface IBlockChain
 {
-    public interface IBlockChain
-    {
-        void AcceptBlock(IBlock block);
-        int NextBlockNumber { get; }
-        void VerifyChain();
-    }
+    void AcceptBlock(IBlock block);
+    int NextBlockNumber { get; }
+    void VerifyChain();
 }

@@ -21,62 +21,59 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+
 using Microsoft.Azure.KeyVault;
 using Microsoft.Azure.KeyVault.Models;
 using Microsoft.Azure.KeyVault.WebKey;
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
 
-namespace AzureKeyVault.SimpleEncryptDecrypt
+namespace SecureCodingWorkshop.SimpleEncryptDecrypt_;
+
+public class KeyVaultBase
 {
-    public class KeyVaultBase
+    protected KeyVaultClient KeyVaultClient;
+    protected ClientCredential ClientCredential;
+    protected string VaultAddress;
+
+    protected string GetKeyUri(string keyName)
     {
-        protected KeyVaultClient KeyVaultClient;
-        protected ClientCredential ClientCredential;
-        protected string VaultAddress;
+        var retrievedKey = KeyVaultClient.GetKeyAsync(VaultAddress, keyName).GetAwaiter().GetResult();
+        return retrievedKey.Key.Kid;
+    }
 
-        protected string GetKeyUri(string keyName)
+    protected KeyBundle GetKeyBundle()
+    {
+        var defaultKeyBundle = new KeyBundle
         {
-            var retrievedKey = KeyVaultClient.GetKeyAsync(VaultAddress, keyName).GetAwaiter().GetResult();
-            return retrievedKey.Key.Kid;
-        }
-
-        protected KeyBundle GetKeyBundle()
-        {
-            var defaultKeyBundle = new KeyBundle
+            Key = new JsonWebKey
             {
-                Key = new JsonWebKey
-                {
-                    Kty = JsonWebKeyType.Rsa
-                },
-                Attributes = new KeyAttributes
-                {
-                    Enabled = true,
-                    Expires = DateTime.Now.AddYears(1)
-                }
-            };
+                Kty = JsonWebKeyType.Rsa
+            },
+            Attributes = new KeyAttributes
+            {
+                Enabled = true,
+                Expires = DateTime.Now.AddYears(1)
+            }
+        };
 
-            return defaultKeyBundle;
-        }
+        return defaultKeyBundle;
+    }
 
-        protected Dictionary<string, string> GetKeyTags()
-        {
-            return new Dictionary<string, string> { { "purpose", "Master Key" }, { "MyApp Core", "MyApp" } };
-        }
+    protected Dictionary<string, string> GetKeyTags()
+    {
+        return new Dictionary<string, string> { { "purpose", "Master Key" }, { "MyApp Core", "MyApp" } };
+    }
 
-        protected Dictionary<string, string> GetSecretTags()
-        {
-            return new Dictionary<string, string> { { "purpose", "Encrypted Secret" }, { "MyApp Core", "MyApp" } };
-        }
+    protected Dictionary<string, string> GetSecretTags()
+    {
+        return new Dictionary<string, string> { { "purpose", "Encrypted Secret" }, { "MyApp Core", "MyApp" } };
+    }
 
-        protected async Task<string> GetAccessTokenAsync(string authority, string resource, string scope)
-        {
-            var context = new AuthenticationContext(authority, TokenCache.DefaultShared);
-            var result = await context.AcquireTokenAsync(resource, ClientCredential);
-            Console.WriteLine(scope);
-            return result.AccessToken;
-        }
+    protected async Task<string> GetAccessTokenAsync(string authority, string resource, string scope)
+    {
+        var context = new AuthenticationContext(authority, TokenCache.DefaultShared);
+        var result = await context.AcquireTokenAsync(resource, ClientCredential);
+        Console.WriteLine(scope);
+        return result.AccessToken;
     }
 }

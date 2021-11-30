@@ -1,0 +1,12 @@
+<Project>
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net6.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <RootNamespace>SecureCodingWorkshop.$(MSBuildProjectName)_</RootNamespace>
+    </PropertyGroup>
+    <ItemGroup>
+        <Using Include="System.Security.Cryptography"/>
+        <Using Include="System.Text"/>
+    </ItemGroup>
+</Project>

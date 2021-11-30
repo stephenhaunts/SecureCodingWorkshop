@@ -22,39 +22,36 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace SecureCodingWorkshop.Hybrid
+namespace SecureCodingWorkshop.Hybrid_;
+
+public class HybridEncryption
 {
-    public class HybridEncryption
+    public static EncryptedPacket EncryptData(byte[] original, RSAWithRSAParameterKey rsaParams)
     {
-        private readonly AesEncryption _aes = new AesEncryption();
+        // Generate our session key.
+        var sessionKey = RandomNumberGenerator.GetBytes(32);
 
-        public EncryptedPacket EncryptData(byte[] original, RSAWithRSAParameterKey rsaParams)
-        {
-            // Generate our session key.
-            var sessionKey = _aes.GenerateRandomNumber(32);
+        // Create the encrypted packet and generate the IV.
+        var encryptedPacket = new EncryptedPacket { Iv = RandomNumberGenerator.GetBytes(16) };
 
-            // Create the encrypted packet and generate the IV.
-            var encryptedPacket = new EncryptedPacket { Iv = _aes.GenerateRandomNumber(16) };
+        // Encrypt our data with AES.
+        encryptedPacket.EncryptedData = AesEncryption.Encrypt(original, sessionKey, encryptedPacket.Iv);
 
-            // Encrypt our data with AES.
-            encryptedPacket.EncryptedData = _aes.Encrypt(original, sessionKey, encryptedPacket.Iv);
+        // Encrypt the session key with RSA
+        encryptedPacket.EncryptedSessionKey = rsaParams.EncryptData(sessionKey);
 
-            // Encrypt the session key with RSA
-            encryptedPacket.EncryptedSessionKey = rsaParams.EncryptData(sessionKey);
+        return encryptedPacket;
+    }
 
-            return encryptedPacket;
-        }
+    public static byte[] DecryptData(EncryptedPacket encryptedPacket, RSAWithRSAParameterKey rsaParams)
+    {
+        // Decrypt AES Key with RSA.
+        var decryptedSessionKey = rsaParams.DecryptData(encryptedPacket.EncryptedSessionKey);
 
-        public byte[] DecryptData(EncryptedPacket encryptedPacket, RSAWithRSAParameterKey rsaParams)
-        {
-            // Decrypt AES Key with RSA.
-            var decryptedSessionKey = rsaParams.DecryptData(encryptedPacket.EncryptedSessionKey);
+        // Decrypt our data with  AES using the decrypted session key.
+        var decryptedData = AesEncryption.Decrypt(encryptedPacket.EncryptedData,
+            decryptedSessionKey, encryptedPacket.Iv);
 
-            // Decrypt our data with  AES using the decrypted session key.
-            var decryptedData = _aes.Decrypt(encryptedPacket.EncryptedData,
-                                             decryptedSessionKey, encryptedPacket.Iv);
-
-            return decryptedData;
-        }
+        return decryptedData;
     }
 }

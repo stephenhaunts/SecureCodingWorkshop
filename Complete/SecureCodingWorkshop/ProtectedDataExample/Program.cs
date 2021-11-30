@@ -22,62 +22,55 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-using System.Security.Cryptography;
-using System.Text;
-using static System.Console;
+namespace SecureCodingWorkshop.ProtectedDataExample_;
 
-namespace SecureCodingWorkshop.Protected
+static class Program
 {
-    static class Program
+    static void Main()
     {
-        static readonly AesGcmEncryption aesGCM = new AesGcmEncryption();
+        ProtectedDataTest();
 
-        static void Main()
-        {
-            ProtectedDataTest();
+        EncryptAndDecryptWithProtectedKey();
+    }
 
-            EncryptAndDecryptWithProtectedKey();
-        }
+    private static void EncryptAndDecryptWithProtectedKey()
+    {
+        var original = "Text to encrypt";
+        Console.WriteLine($"Original Text = {original}");
 
-        private static void EncryptAndDecryptWithProtectedKey()
-        {
-            var original = "Text to encrypt";
-            WriteLine("Original Text = ", original);
+        // Create a key and nonce. Encrypt our text with AES/
+        var gcmKey = AesGcmEncryption.GenerateRandomNumber(32);
+        var nonce = AesGcmEncryption.GenerateRandomNumber(12);
+        var result = EncryptText(original, gcmKey, nonce);
 
-            // Create a key and nonce. Encrypt our text with AES/
-            var gcmKey = aesGCM.GenerateRandomNumber(32);
-            var nonce = aesGCM.GenerateRandomNumber(12);
-            var result = EncryptText(original, gcmKey, nonce);
+        // Create some entropy and protect the AES key.
+        var entropy = AesGcmEncryption.GenerateRandomNumber(16);
+        var protectedKey = Protected.Protect(gcmKey, entropy, DataProtectionScope.CurrentUser);
 
-            // Create some entropy and protect the AES key.
-            var entropy = aesGCM.GenerateRandomNumber(16);
-            var protectedKey = Protected.Protect(gcmKey, entropy, DataProtectionScope.CurrentUser);
+        // Decrypt the text with AES. First the AES key has to be retrieved with DPAPI.
+        var decryptedText = DecryptText(result.encrypted, nonce, result.tag, protectedKey, entropy);
+        Console.WriteLine($"Decrypted Text = {decryptedText}");
+    }
 
-            // Decrypt the text with AES. First the AES key has to be retrieved with DPAPI.
-            var decryptedText = DecryptText(result.encrypted, nonce, result.tag, protectedKey, entropy);
-            WriteLine("Decrypted Text = ", decryptedText);
-        }
+    private static (byte [] encrypted, byte [] tag) EncryptText(string original, byte[] gcmKey, byte[] nonce)
+    {     
+        return AesGcmEncryption.Encrypt(Encoding.UTF8.GetBytes(original), gcmKey, nonce, Encoding.UTF8.GetBytes("some metadata"));     
+    }
 
-        private static (byte [] encrypted, byte [] tag) EncryptText(string original, byte[] gcmKey, byte[] nonce)
-        {     
-            return aesGCM.Encrypt(Encoding.UTF8.GetBytes(original), gcmKey, nonce, Encoding.UTF8.GetBytes("some metadata"));     
-        }
+    private static string DecryptText(byte[] encrypted, byte[] nonce, byte[] tag, byte[] protectedKey, byte[] entropy)
+    { 
+        var key = Protected.Unprotect(protectedKey, entropy, DataProtectionScope.CurrentUser);
+        var decryptedText = AesGcmEncryption.Decrypt(encrypted, key, nonce, tag, Encoding.UTF8.GetBytes("some metadata"));
 
-        private static string DecryptText(byte[] encrypted, byte[] nonce, byte[] tag, byte[] protectedKey, byte[] entropy)
-        { 
-            var key = Protected.Unprotect(protectedKey, entropy, DataProtectionScope.CurrentUser);
-            var decryptedText = aesGCM.Decrypt(encrypted, key, nonce, tag, Encoding.UTF8.GetBytes("some metadata"));
-
-            return Encoding.UTF8.GetString(decryptedText);
-        }
+        return Encoding.UTF8.GetString(decryptedText);
+    }
         
-        private static void ProtectedDataTest()
-        {
-            var encrypted = Protected.Protect("Mary had a little lamb", "8wef5juy2389f4", DataProtectionScope.CurrentUser);
-            WriteLine(encrypted);
+    private static void ProtectedDataTest()
+    {
+        var encrypted = Protected.Protect("Mary had a little lamb", "8wef5juy2389f4", DataProtectionScope.CurrentUser);
+        Console.WriteLine(encrypted);
 
-            var decrypted = Protected.Unprotect(encrypted, "8wef5juy2389f4", DataProtectionScope.CurrentUser);
-            WriteLine(decrypted);
-        }
+        var decrypted = Protected.Unprotect(encrypted, "8wef5juy2389f4", DataProtectionScope.CurrentUser);
+        Console.WriteLine(decrypted);
     }
 }

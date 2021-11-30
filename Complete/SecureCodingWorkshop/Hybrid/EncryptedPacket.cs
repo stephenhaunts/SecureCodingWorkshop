@@ -22,12 +22,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-namespace SecureCodingWorkshop.Hybrid
+namespace SecureCodingWorkshop.Hybrid_;
+
+public class EncryptedPacket
 {
-    public class EncryptedPacket
-    {
-        public byte[] EncryptedSessionKey;
-        public byte[] EncryptedData;
-        public byte[] Iv;
-    }
+    public byte[] EncryptedSessionKey;
+    public byte[] EncryptedData;
+    public byte[] Iv;
 }

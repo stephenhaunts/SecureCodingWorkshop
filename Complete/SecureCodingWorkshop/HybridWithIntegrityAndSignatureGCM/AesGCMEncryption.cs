@@ -21,43 +21,30 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-using System.Security.Cryptography;
 
-namespace SecureCodingWorkshop.HybridWithIntegrityAndSignature
+namespace SecureCodingWorkshop.HybridWithIntegrityAndSignatureGCM_;
+
+public static class AesGCMEncryption
 {
-    public class AesGCMEncryption
+    public static (byte[], byte[]) Encrypt(byte[] dataToEncrypt, byte[] key, byte[] nonce, byte[] associatedData)
     {
-        public byte[] GenerateRandomNumber(int length)
-        {
-            using var randomNumberGenerator = new RNGCryptoServiceProvider();
-            var randomNumber = new byte[length];
-            randomNumberGenerator.GetBytes(randomNumber);
+        // these will be filled during the encryption
+        var tag = new byte[16];
+        var ciphertext = new byte[dataToEncrypt.Length];
 
-            return randomNumber;
-        }
+        using AesGcm aesGcm = new AesGcm(key);
+        aesGcm.Encrypt(nonce, dataToEncrypt, ciphertext, tag, associatedData);
 
-        public (byte[], byte[]) Encrypt(byte[] dataToEncrypt, byte[] key, byte[] nonce, byte[] associatedData)
-        {
-            // these will be filled during the encryption
-            var tag = new byte[16];
-            var ciphertext = new byte[dataToEncrypt.Length];
+        return (ciphertext, tag);
+    }
 
-            using (AesGcm aesGcm = new AesGcm(key))
-            {
-                aesGcm.Encrypt(nonce, dataToEncrypt, ciphertext, tag, associatedData);
-            }
+    public static byte[] Decrypt(byte[] cipherText, byte[] key, byte[] nonce, byte[] tag, byte[] associatedData)
+    {
+        var decryptedData = new byte[cipherText.Length];
 
-            return (ciphertext, tag);
-        }
+        using AesGcm aesGcm = new AesGcm(key);
+        aesGcm.Decrypt(nonce, cipherText, tag, decryptedData, associatedData);
 
-        public byte[] Decrypt(byte[] cipherText, byte[] key, byte[] nonce, byte[] tag, byte[] associatedData)
-        {
-            var decryptedData = new byte[cipherText.Length];
-
-            using AesGcm aesGcm = new AesGcm(key);
-            aesGcm.Decrypt(nonce, cipherText, tag, decryptedData, associatedData);
-
-            return decryptedData;
-        }
+        return decryptedData;
     }
 }

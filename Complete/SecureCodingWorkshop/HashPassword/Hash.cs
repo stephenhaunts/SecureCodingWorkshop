@@ -21,38 +21,24 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-using System;
-using System.Security.Cryptography;
 
-namespace SecureCodingWorkshop.HashPassword
+namespace SecureCodingWorkshop.HashPassword_;
+
+public static class Hash
 {
-    public static class Hash
+    private static byte[] Combine(byte[] first, byte[] second)
     {
-        public static byte[] GenerateSalt()
-        {
-            const int saltLength = 32;
+        var ret = new byte[first.Length + second.Length];
 
-            using var randomNumberGenerator = new RNGCryptoServiceProvider();
-            var randomNumber = new byte[saltLength];
-            randomNumberGenerator.GetBytes(randomNumber);
+        Buffer.BlockCopy(first, 0, ret, 0, first.Length);
+        Buffer.BlockCopy(second, 0, ret, first.Length, second.Length);
 
-            return randomNumber;
-        }
+        return ret;
+    }
 
-        private static byte[] Combine(byte[] first, byte[] second)
-        {
-            var ret = new byte[first.Length + second.Length];
-
-            Buffer.BlockCopy(first, 0, ret, 0, first.Length);
-            Buffer.BlockCopy(second, 0, ret, first.Length, second.Length);
-
-            return ret;
-        }
-
-        public static byte[] HashPasswordWithSalt(byte[] toBeHashed, byte[] salt)
-        {
-            using var sha256 = SHA256.Create();
-            return sha256.ComputeHash(Combine(toBeHashed, salt));
-        }
+    public static byte[] HashPasswordWithSalt(byte[] toBeHashed, byte[] salt)
+    {
+        using var sha256 = SHA256.Create();
+        return sha256.ComputeHash(Combine(toBeHashed, salt));
     }
 }

@@ -21,29 +21,15 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-using System;
-using System.Threading.Tasks;
 
-namespace AzureKeyVault.Secrets
-{
-    static class Program
-    {
-        public static async Task Main()
-        {
-            await KeyVault();
-        }
+using SecureCodingWorkshop.Secrets_;
 
-        private static async Task KeyVault()
-        {
-            IKeyVault vault = new KeyVault();
+IKeyVault vault = new KeyVault();
 
-            const string MY_SECRET = "StephenHauntsSecret";
+const string MY_SECRET = "StephenHauntsSecret";
 
-            var secretId = await vault.SetSecretAsync(MY_SECRET, "Mary had a little lamb.");
-            Console.WriteLine("Secret Written");
+var secretId = await vault.SetSecretAsync(MY_SECRET, "Mary had a little lamb.");
+Console.WriteLine("Secret Written");
 
-            var secret = await vault.GetSecretAsync(MY_SECRET);
-            Console.WriteLine("Secret Retrieved : " + secret);
-        }
-    }
-}
+var secret = await vault.GetSecretAsync(MY_SECRET);
+Console.WriteLine("Secret Retrieved : " + secret);

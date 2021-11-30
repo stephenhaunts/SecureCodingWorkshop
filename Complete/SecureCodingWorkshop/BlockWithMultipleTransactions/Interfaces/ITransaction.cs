@@ -1,16 +1,13 @@
-﻿using System;
+﻿namespace SecureCodingWorkshop.BlockWithMultipleTransactions_.Interfaces;
 
-namespace BlockChainCourse.BlockWithMultipleTransactions.Interfaces
+public interface ITransaction
 {
-    public interface ITransaction
-    {
-        string ClaimNumber { get; set; }
-        decimal SettlementAmount { get; set; }
-        DateTime SettlementDate { get; set; }
-        string CarRegistration { get; set; }
-        int Mileage { get; set; }
-        ClaimType ClaimType { get; set; }
+    string ClaimNumber { get; set; }
+    decimal SettlementAmount { get; set; }
+    DateTime SettlementDate { get; set; }
+    string CarRegistration { get; set; }
+    int Mileage { get; set; }
+    ClaimType ClaimType { get; set; }
 
-        string CalculateTransactionHash();
-    }
+    string CalculateTransactionHash();
 }

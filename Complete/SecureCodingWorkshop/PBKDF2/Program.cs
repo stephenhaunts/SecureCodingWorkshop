@@ -21,50 +21,40 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-using System;
+
 using System.Diagnostics;
-using System.Text;
+using SecureCodingWorkshop.PBKDF2_;
 
-namespace SecureCodingWorkshop.PBKDF2
+const string passwordToHash = "VeryComplexPassword";
+
+Console.WriteLine("Password Based Key Derivation Function Demonstration in .NET");
+Console.WriteLine("------------------------------------------------------------");
+Console.WriteLine();
+Console.WriteLine("PBKDF2 Hashes");
+Console.WriteLine();
+
+HashPassword(passwordToHash, 100);
+HashPassword(passwordToHash, 1000);
+HashPassword(passwordToHash, 10000);
+HashPassword(passwordToHash, 50000);
+HashPassword(passwordToHash, 100000);
+HashPassword(passwordToHash, 200000);
+HashPassword(passwordToHash, 500000);
+
+Console.ReadLine();
+
+
+static void HashPassword(string passwordToHash, int numberOfRounds)
 {
-    internal static class Program
-    {
-        static void Main()
-        {
-            const string passwordToHash = "VeryComplexPassword";
+    var sw = Stopwatch.StartNew();
 
-            Console.WriteLine("Password Based Key Derivation Function Demonstration in .NET");
-            Console.WriteLine("------------------------------------------------------------");
-            Console.WriteLine();
-            Console.WriteLine("PBKDF2 Hashes");
-            Console.WriteLine();
+    var hashedPassword = Rfc2898DeriveBytes.Pbkdf2(passwordToHash, RandomNumberGenerator.GetBytes(32),
+        numberOfRounds, HashAlgorithmName.SHA256, 20);
 
-            HashPassword(passwordToHash, 100);
-            HashPassword(passwordToHash, 1000);
-            HashPassword(passwordToHash, 10000);
-            HashPassword(passwordToHash, 50000);
-            HashPassword(passwordToHash, 100000);
-            HashPassword(passwordToHash, 200000);
-            HashPassword(passwordToHash, 500000);
+    sw.Stop();
 
-            Console.ReadLine();
-        }
-
-        private static void HashPassword(string passwordToHash, int numberOfRounds)
-        {
-            var sw = new Stopwatch();
-
-            sw.Start();
-
-            var hashedPassword = Pbkdf2.HashPassword(Encoding.UTF8.GetBytes(passwordToHash),
-                                                     Pbkdf2.GenerateSalt(),
-                                                     numberOfRounds);
-            sw.Stop();
-
-            Console.WriteLine();
-            Console.WriteLine("Password to hash : " + passwordToHash);
-            Console.WriteLine("Hashed Password : " + Convert.ToBase64String(hashedPassword));
-            Console.WriteLine("Iterations <" + numberOfRounds + "> Elapsed Time : " + sw.ElapsedMilliseconds + "ms");
-        }
-    }
+    Console.WriteLine();
+    Console.WriteLine("Password to hash : " + passwordToHash);
+    Console.WriteLine("Hashed Password : " + Convert.ToBase64String(hashedPassword));
+    Console.WriteLine("Iterations <" + numberOfRounds + "> Elapsed Time : " + sw.ElapsedMilliseconds + "ms");
 }

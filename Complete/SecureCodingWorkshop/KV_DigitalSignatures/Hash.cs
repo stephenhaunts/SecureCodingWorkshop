@@ -21,18 +21,14 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-using System.Security.Cryptography;
 
-namespace AzureKeyVault.DigitalSignatures
+namespace SecureCodingWorkshop.DigitalSignatures_;
+
+public static class Hash
 {
-    public static class Hash
+    public static byte[] Sha256(byte[] toBeHashed)
     {
-        public static byte[] Sha256(byte[] toBeHashed)
-        {
-            using (var sha256 = SHA256.Create())
-            {
-                return sha256.ComputeHash(toBeHashed);
-            }
-        }
+        using var sha256 = SHA256.Create();
+        return sha256.ComputeHash(toBeHashed);
     }
 }

@@ -21,43 +21,38 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-using System.Security.Cryptography;
 
-namespace SecureCodingWorkshop.Hybrid
+namespace SecureCodingWorkshop.Hybrid_;
+
+public class RSAWithRSAParameterKey
 {
-    public class RSAWithRSAParameterKey
+    private RSAParameters _publicKey;
+    private RSAParameters _privateKey;
+
+    public void AssignNewKey()
     {
-        private RSAParameters _publicKey;
-        private RSAParameters _privateKey;
+        using var rsa = RSA.Create(2048);
+        _publicKey = rsa.ExportParameters(false);
+        _privateKey = rsa.ExportParameters(true);
+    }
 
-        public void AssignNewKey()
-        {
-            using var rsa = new RSACryptoServiceProvider(2048);
-            rsa.PersistKeyInCsp = false;
-            _publicKey = rsa.ExportParameters(false);
-            _privateKey = rsa.ExportParameters(true);
-        }
+    public byte[] EncryptData(byte[] dataToEncrypt)
+    {
+        using var rsa = RSA.Create(2048);
+        rsa.ImportParameters(_publicKey);
 
-        public byte[] EncryptData(byte[] dataToEncrypt)
-        {
-            using var rsa = new RSACryptoServiceProvider();
-            rsa.PersistKeyInCsp = false;
-            rsa.ImportParameters(_publicKey);
+        var cipherbytes = rsa.Encrypt(dataToEncrypt, RSAEncryptionPadding.OaepSHA256);
 
-            var cipherbytes = rsa.Encrypt(dataToEncrypt, true);
+        return cipherbytes;
+    }
 
-            return cipherbytes;
-        }
+    public byte[] DecryptData(byte[] dataToEncrypt)
+    {
+        using var rsa = RSA.Create(2048);
 
-        public byte[] DecryptData(byte[] dataToEncrypt)
-        {
-            using var rsa = new RSACryptoServiceProvider();
-            rsa.PersistKeyInCsp = false;
+        rsa.ImportParameters(_privateKey);
+        var plain = rsa.Decrypt(dataToEncrypt, RSAEncryptionPadding.OaepSHA256);
 
-            rsa.ImportParameters(_privateKey);
-            var plain = rsa.Decrypt(dataToEncrypt, true);
-
-            return plain;
-        }
+        return plain;
     }
 }

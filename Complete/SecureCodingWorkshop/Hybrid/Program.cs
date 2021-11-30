@@ -21,32 +21,22 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
-using System;
-using System.Text;
 
-namespace SecureCodingWorkshop.Hybrid
-{
-    static class Program
-    {
-        private static void Main()
-        {
-            const string original = "Very secret and important information that can not fall into the wrong hands.";
+using SecureCodingWorkshop.Hybrid_;
 
-            var rsaParams = new RSAWithRSAParameterKey();
-            rsaParams.AssignNewKey();
+const string original = "Very secret and important information that can not fall into the wrong hands.";
 
-            var hybrid = new HybridEncryption();
+var rsaParams = new RSAWithRSAParameterKey();
+rsaParams.AssignNewKey();
 
-            var encryptedBlock = hybrid.EncryptData(Encoding.UTF8.GetBytes(original), rsaParams);
-            var decrpyted = hybrid.DecryptData(encryptedBlock, rsaParams);
 
-            Console.WriteLine("Hybrid Encryption Demonstration in .NET");
-            Console.WriteLine("---------------------------------------");
-            Console.WriteLine();
-            Console.WriteLine("Original Message = " + original);
-            Console.WriteLine();
-            Console.WriteLine("Message After Decryption = " + Encoding.UTF8.GetString(decrpyted));
-            Console.ReadLine();
-        }
-    }
-}
+var encryptedBlock = HybridEncryption.EncryptData(Encoding.UTF8.GetBytes(original), rsaParams);
+var decrypted = HybridEncryption.DecryptData(encryptedBlock, rsaParams);
+
+Console.WriteLine("Hybrid Encryption Demonstration in .NET");
+Console.WriteLine("---------------------------------------");
+Console.WriteLine();
+Console.WriteLine("Original Message = " + original);
+Console.WriteLine();
+Console.WriteLine("Message After Decryption = " + Encoding.UTF8.GetString(decrypted));
+Console.ReadLine();
